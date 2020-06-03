@@ -1,0 +1,81 @@
+<body>
+  <nav class="navbar navbar-expand-md fixed-top navbar-dark fixed-top bg-dark">
+    <a class="navbar-brand ml-3" href="#">Time Log Application</a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarCollapse" aria-controls="navbarCollapse" aria-expanded="false" aria-label="Toggle navigation">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarCollapse">
+      <ul class="navbar-nav mr-auto">
+        <li class="nav-item active">
+          <a class="nav-link" href="#">Home</a>
+        </li>
+      </ul>
+
+      <div class="dropdown">
+        <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          User
+        </button>
+        <div class="dropdown-menu" aria-labelledby="dropdownMenuButton">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+        </div>
+      </div>
+
+    </div>
+  </nav>
+
+  <div class="container-fluid">
+  <div class="row mt-lg-5">
+    <nav id="sidebarMenu" class=" col-lg-2 col-md-3 d-md-block bg-light sidebar collapse">
+      <div class="sidebar-sticky pt-3">
+        <ul class="nav flex-column">
+          <li>
+            <a class="nav-link list-group-item-action bg-light" href="#">
+              Home
+            </a>
+          </li>
+          <li>
+            <a class="nav-link list-group-item-action bg-light" href="#" routerLink="/companies">
+              <span data-feather="file"></span>
+              Companies
+            </a>
+          </li>
+          <li>
+            <a class="nav-link list-group-item-action bg-light" href="#" routerLink="/projects">
+              Projects
+            </a>
+          </li>
+          <li >
+            <a class="nav-link list-group-item-action bg-light" href="#">
+              Tasks
+            </a>
+          </li>
+          <li>
+            <a class="nav-link list-group-item-action bg-light" href="#">
+              Logs
+            </a>
+          </li>
+          <li>
+            <a class="nav-link list-group-item-action bg-light" href="#" routerLink="/users">
+              Users
+            </a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+
+    <main role="main" class="col-md-9 ml-sm-auto col-lg-10 px-md-4">
+      <div class="d-flex flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-3 ml-0 mr-5 border-bottom">
+
+        <router-outlet></router-outlet>
+      </div>
+    </main>
+  </div>
+
+</div>
+
+</body>
+
+
+
+
