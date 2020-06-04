@@ -29,7 +29,7 @@ export class UserComponent implements OnInit {
     });
   }
 
-  getCompanyList() {
+   getCompanyList() {
     this.timelogService.getCompanies().subscribe(
       data => {
         this.companyList = data;

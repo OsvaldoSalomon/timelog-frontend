@@ -25,7 +25,7 @@ import { UserEditComponent } from './components/users/user-edit/user-edit.compon
     HomeComponent,
     CompanyEditComponent,
     ProjectEditComponent,
-    UserEditComponent
+    UserEditComponent,
   ],
   imports: [
     BrowserModule,

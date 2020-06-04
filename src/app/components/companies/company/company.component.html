@@ -95,12 +95,12 @@
         </div>
         <div class="form-group">
           <label>Members</label>
-          <select class="form-control" formControlName="members" multiple>
-            <option *ngFor="let m of userList"
-                    [value]="m">
-              {{m.firstName}} {{m.lastName}}
-            </option>
-          </select>
+            <select class="form-control" formControlName="members" multiple>
+                <option *ngFor="let m of userList"
+                        [value]="m">
+                  {{m.firstName}} {{m.lastName}}
+                </option>
+            </select>
         </div>
         <button type="submit" class="btn btn-primary">Add Company</button>
       </form>

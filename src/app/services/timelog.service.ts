@@ -10,12 +10,30 @@ export class TimelogService {
 
   constructor(private http:HttpClient) {}
 
+  // Get all Companies, Projects and Users
+
   getCompanies() {
     let token = localStorage.getItem('access_token');
     return this.http.get('/server/timelog/v1/companies',
       {headers: new HttpHeaders().set('Authorization','Bearer' + token)}
       );
   }
+
+  getProjects() {
+    let token = localStorage.getItem('access_token');
+    return this.http.get('/server/timelog/v1/projects',
+      {headers: new HttpHeaders().set('Authorization', 'Bearer' + token)}
+    );
+  }
+
+  getUsers() {
+    let token = localStorage.getItem('access_token');
+    return this.http.get('/server/timelog/v1/users',
+      {headers: new HttpHeaders().set('Authorization', 'Bearer' + token)}
+    );
+  }
+
+  // Get specific company, project and user
 
   getCompany(id: string) {
     let token = localStorage.getItem('access_token');
@@ -24,14 +42,9 @@ export class TimelogService {
       );
   }
 
-  createCompany(company) {
-    let body = JSON.stringify(company);
-    return this.http.post('/server/timelog/v1/companies', body, httpOptions);
-  }
-
-  getUsers() {
+  getProject(id: string) {
     let token = localStorage.getItem('access_token');
-    return this.http.get('/server/timelog/v1/users',
+    return this.http.get('/server/timelog/v1/projects/' + id,
       {headers: new HttpHeaders().set('Authorization', 'Bearer' + token)}
     );
   }
@@ -43,18 +56,11 @@ export class TimelogService {
     );
   }
 
-  getProjects() {
-    let token = localStorage.getItem('access_token');
-    return this.http.get('/server/timelog/v1/projects',
-      {headers: new HttpHeaders().set('Authorization', 'Bearer' + token)}
-    );
-  }
+  // Create Companies, Projects and Users
 
-  getProject(id: string) {
-    let token = localStorage.getItem('access_token');
-    return this.http.get('/server/timelog/v1/projects/' + id,
-      {headers: new HttpHeaders().set('Authorization', 'Bearer' + token)}
-    );
+  createCompany(company) {
+    let body = JSON.stringify(company);
+    return this.http.post('/server/timelog/v1/companies', body, httpOptions);
   }
 
   createProject(project) {
