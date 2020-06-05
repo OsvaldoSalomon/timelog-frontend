@@ -1,0 +1,22 @@
+<h1 class="mat-display-3" >Add a new company</h1>
+<button class="btn btn-primary" routerLink="/companies">Return to the list</button>
+<div class="col-sm-9 pl-5 border-info" >
+
+  <div class="example-form pt-5" [formGroup]="newCompany" (ngSubmit)="submitCompany()">
+    <mat-form-field class="example-full-width">
+      <mat-label>Company name</mat-label>
+      <input matInput id="name" placeholder="Company name">
+    </mat-form-field>
+    <mat-form-field appearance="fill">
+      <mat-label>Members</mat-label>
+      <mat-select [formControl]="userList" multiple>
+        <mat-option *ngFor="let m of userList"
+                [value]="m">
+          {{m.firstName}} {{m.lastName}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <button type="submit" class="btn btn-primary">Add Company</button>
+</div>
+

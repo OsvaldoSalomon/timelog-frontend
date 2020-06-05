@@ -15,8 +15,7 @@ export class CompanyComponent implements OnInit {
   public userList;
   public projectList;
   public companyEdit;
-  newCompany: FormGroup;
-  validMessage: string = "";
+
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute) { }
 
@@ -25,10 +24,7 @@ export class CompanyComponent implements OnInit {
     this.getUserList();
     this.getProjectList();
     this.getCompany(this.route.snapshot.params.id);
-    this.newCompany = new FormGroup({
-      name: new FormControl('', Validators.required),
-      members: new FormControl('', Validators.required)
-    });
+
 
   }
 
@@ -71,20 +67,5 @@ export class CompanyComponent implements OnInit {
     );
   }
 
-  submitCompany() {
-    if (this.newCompany.valid) {
-      this.validMessage = "Your company has been created. Thank you!";
-      this.timelogService.createCompany(this.newCompany.value).subscribe(
-        data => {
-          this.newCompany.reset();
-          return true;
-        },
-        error => {
-          return throwError(error);
-        }
-      )
-    } else {
-      this.validMessage = "Please fill out the form before submitting!";
-    }
-  }
+
 }

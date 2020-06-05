@@ -1,18 +1,17 @@
 import { Component, OnInit } from '@angular/core';
-import { TimelogService } from '../../../services/timelog.service';
-import {FormControl, FormGroup, FormsModule, Validators} from '@angular/forms';
 import {throwError} from 'rxjs';
+import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {TimelogService} from '../../../services/timelog.service';
 
 @Component({
-  selector: 'app-projects',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css']
+  selector: 'app-add-project',
+  templateUrl: './add-project.component.html',
+  styleUrls: ['./add-project.component.css']
 })
-export class ProjectComponent implements OnInit {
+export class AddProjectComponent implements OnInit {
 
   public companyList;
   public userList;
-  public projectList;
   newProject: FormGroup;
   validMessage: string = "";
 
@@ -21,7 +20,6 @@ export class ProjectComponent implements OnInit {
   ngOnInit() {
     this.getUserList();
     this.getCompanyList();
-    this.getProjectList();
     this.newProject = new FormGroup({
       name: new FormControl('', Validators.required),
       company: new FormControl('', Validators.required),
@@ -36,16 +34,6 @@ export class ProjectComponent implements OnInit {
       },
       err => console.error(err),
       () => console.log('companies loaded')
-    );
-  }
-
-  getProjectList() {
-    this.timelogService.getProjects().subscribe(
-      data => {
-        this.projectList = data;
-      },
-      err => console.error(err),
-      () => console.log('projects loaded')
     );
   }
 
@@ -75,6 +63,7 @@ export class ProjectComponent implements OnInit {
       this.validMessage = "Please fill out the form before submitting!";
     }
   }
+
 
 
 }
