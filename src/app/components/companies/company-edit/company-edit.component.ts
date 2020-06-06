@@ -1,8 +1,10 @@
-import { Component, OnInit } from '@angular/core';
+import {Component, Input, OnInit} from '@angular/core';
 import {TimelogService} from '../../../services/timelog.service';
 import {ActivatedRoute} from '@angular/router';
 import {throwError} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import {CompanyComponent} from '../company/company.component';
+import {CompanyModel} from '../../../CompanyModel';
 
 @Component({
   selector: 'app-company-edit',
@@ -11,17 +13,17 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 })
 export class CompanyEditComponent implements OnInit {
 
-  public companyList;
+  @Input() companyId: CompanyModel;
   public userList;
   public projectList;
   newCompany: FormGroup;
   validMessage: string = "";
+  public id: string;
   public companyEdit;
 
-  constructor(private timelogService: TimelogService, private route: ActivatedRoute) { }
+  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private companyInfo: CompanyComponent) { }
 
   ngOnInit() {
-    this.getCompanyList();
     this.getUserList();
     this.getProjectList();
     this.getCompany(this.route.snapshot.params.id);
@@ -29,16 +31,6 @@ export class CompanyEditComponent implements OnInit {
       name: new FormControl('', Validators.required),
       members: new FormControl('', Validators.required)
     });
-  }
-
-  getCompanyList() {
-    this.timelogService.getCompanies().subscribe(
-      data => {
-        this.companyList = data;
-      },
-      err => console.error(err),
-      () => console.log('companies loaded')
-    );
   }
 
   getUserList() {
@@ -71,21 +63,6 @@ export class CompanyEditComponent implements OnInit {
     );
   }
 
-  submitCompany() {
-    if (this.newCompany.valid) {
-      this.validMessage = "Your company has been created. Thank you!";
-      this.timelogService.createCompany(this.newCompany.value).subscribe(
-        data => {
-          this.newCompany.reset();
-          return true;
-        },
-        error => {
-          return throwError(error);
-        }
-      )
-    } else {
-      this.validMessage = "Please fill out the form before submitting!";
-    }
-  }
+
 }
 

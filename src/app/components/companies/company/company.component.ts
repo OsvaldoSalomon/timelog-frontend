@@ -3,6 +3,8 @@ import { TimelogService } from '../../../services/timelog.service';
 import { ActivatedRoute } from '@angular/router';
 import { FormControl, FormGroup, Validators} from '@angular/forms';
 import { throwError } from 'rxjs';
+import {CompanyEditComponent} from '../company-edit/company-edit.component';
+import {CompanyModel} from '../../../CompanyModel';
 
 @Component({
   selector: 'app-company',
@@ -15,7 +17,8 @@ export class CompanyComponent implements OnInit {
   public userList;
   public projectList;
   public companyEdit;
-
+  public companyAutomatically;
+  selectedCompany: CompanyModel;
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute) { }
 
@@ -23,9 +26,8 @@ export class CompanyComponent implements OnInit {
     this.getCompanyList();
     this.getUserList();
     this.getProjectList();
+    this.getCompanyAutomatically();
     this.getCompany(this.route.snapshot.params.id);
-
-
   }
 
   getCompanyList() {
@@ -57,6 +59,7 @@ export class CompanyComponent implements OnInit {
       () => console.log('projects loaded')
     );
   }
+
   getCompany(id:string) {
     this.timelogService.getCompany(id).subscribe(
       data => {
@@ -65,6 +68,20 @@ export class CompanyComponent implements OnInit {
       err => console.error(err),
       () => console.log('company loaded')
     );
+  }
+
+  getCompanyAutomatically() {
+    this.timelogService.getCompanyAutomatically().subscribe(
+      data => {
+        this.companyAutomatically = data;
+      },
+      err => console.error(err),
+      () => console.log('Auto company loaded')
+    );
+  }
+
+  onSelect(companyInfo: CompanyModel): void {
+    this.selectedCompany = companyInfo;
   }
 
 

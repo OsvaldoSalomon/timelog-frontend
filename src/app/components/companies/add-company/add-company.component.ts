@@ -14,9 +14,6 @@ export class AddCompanyComponent implements OnInit {
   newCompany: FormGroup;
   validMessage: string = "";
 
-  toppings = new FormControl();
-  toppingList: string[] = ['Extra cheese', 'Mushroom', 'Onion', 'Pepperoni', 'Sausage', 'Tomato'];
-
   constructor(private timelogService: TimelogService) { }
 
   ngOnInit() {

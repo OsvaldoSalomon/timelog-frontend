@@ -41,10 +41,7 @@ import { AddProjectComponent } from './components/projects/add-project/add-proje
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    BrowserAnimationsModule,
-    MatFormFieldModule,
-    MatSelectModule,
-    MatInputModule
+    BrowserAnimationsModule
   ],
   providers: [TimelogService],
   bootstrap: [AppComponent]

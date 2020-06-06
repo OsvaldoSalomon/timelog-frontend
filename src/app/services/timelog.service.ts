@@ -42,6 +42,13 @@ export class TimelogService {
       );
   }
 
+  getCompanyAutomatically() {
+    let token = localStorage.getItem('access_token');
+    return this.http.get('/server/timelog/v1/companies/C001',
+      {headers: new HttpHeaders().set('Authorization', 'Bearer' + token)}
+    );
+  }
+
   getProject(id: string) {
     let token = localStorage.getItem('access_token');
     return this.http.get('/server/timelog/v1/projects/' + id,
