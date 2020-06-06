@@ -13,11 +13,15 @@ export class TimelogService {
   // Get all Companies, Projects and Users
 
   getCompanies() {
-    let token = localStorage.getItem('access_token');
-    return this.http.get('/server/timelog/v1/companies',
-      {headers: new HttpHeaders().set('Authorization','Bearer' + token)}
-      );
+    return this.http.get('/server/timelog/v1/companies');
   }
+
+  // getCompanies() {
+  //   let token = localStorage.getItem('access_token');
+  //   return this.http.get('/server/timelog/v1/companies',
+  //     {headers: new HttpHeaders().set('Authorization','Bearer' + token)}
+  //     );
+  // }
 
   getProjects() {
     let token = localStorage.getItem('access_token');
@@ -36,11 +40,15 @@ export class TimelogService {
   // Get specific company, project and user
 
   getCompany(id: string) {
-    let token = localStorage.getItem('access_token');
-    return this.http.get('/server/timelog/v1/companies/' + id,
-      {headers: new HttpHeaders().set('Authorization', 'Bearer' + token)}
-      );
+    return this.http.get('/server/timelog/v1/companies/' + id);
   }
+
+  // getCompany(id: string) {
+  //   let token = localStorage.getItem('access_token');
+  //   return this.http.get('/server/timelog/v1/companies/' + id,
+  //     {headers: new HttpHeaders().set('Authorization', 'Bearer' + token)}
+  //     );
+  // }
 
   getCompanyAutomatically() {
     let token = localStorage.getItem('access_token');

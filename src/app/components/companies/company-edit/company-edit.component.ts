@@ -1,36 +1,35 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TimelogService} from '../../../services/timelog.service';
 import {ActivatedRoute} from '@angular/router';
-import {throwError} from 'rxjs';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {CompanyComponent} from '../company/company.component';
-import {CompanyModel} from '../../../CompanyModel';
 
 @Component({
   selector: 'app-company-edit',
   templateUrl: './company-edit.component.html',
   styleUrls: ['./company-edit.component.css']
 })
-export class CompanyEditComponent implements OnInit {
-
-  @Input() companyId: CompanyModel;
+export class CompanyEditComponent implements OnInit, OnDestroy {
   public userList;
   public projectList;
-  newCompany: FormGroup;
-  validMessage: string = "";
-  public id: string;
   public companyEdit;
+  public companyList;
 
-  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private companyInfo: CompanyComponent) { }
+  constructor(private timelogService: TimelogService, private route: ActivatedRoute) { }
 
   ngOnInit() {
     this.getUserList();
     this.getProjectList();
+    this.getCompanyList();
     this.getCompany(this.route.snapshot.params.id);
-    this.newCompany = new FormGroup({
-      name: new FormControl('', Validators.required),
-      members: new FormControl('', Validators.required)
-    });
+  }
+
+  getCompanyList() {
+    this.timelogService.getCompanies().subscribe(
+      data => {
+        this.companyList = data;
+      },
+      err => console.error(err),
+      () => console.log('companies loaded')
+    );
   }
 
   getUserList() {
@@ -61,6 +60,10 @@ export class CompanyEditComponent implements OnInit {
       err => console.error(err),
       () => console.log('company loaded')
     );
+  }
+
+  ngOnDestroy() {
+    this.getCompany(this.route.snapshot.params.id);
   }
 
 

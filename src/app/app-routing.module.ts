@@ -11,8 +11,9 @@ import {AddCompanyComponent} from './components/companies/add-company/add-compan
 import {AddProjectComponent} from './components/projects/add-project/add-project.component';
 
 const routes: Routes = [
+  { path: '', component: HomeComponent },
   { path: 'companies', component: CompanyComponent },
-  // { path: 'companies-edit/:id', component: CompanyEditComponent },
+  { path: 'companies-edit/:id', component: CompanyEditComponent },
   { path: 'companies-add', component: AddCompanyComponent },
   { path: 'projects', component: ProjectComponent },
   { path: 'projects-add', component: AddProjectComponent },

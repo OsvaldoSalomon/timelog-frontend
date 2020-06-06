@@ -14,7 +14,7 @@
           <tbody>
           <tr *ngFor="let company of companyList">
             <td>
-              <a [class.selected]="company === selectedCompany" (click)="onSelect(company.id)" >{{company.id}}</a>
+              <a [routerLink]="['/companies-edit', company.id]">{{company.id}}</a>
             </td>
             <td>
               {{company.name}}
@@ -25,7 +25,7 @@
       </div>
     </div>
 
-<!--  Company Details  -->
+    <!--  Company Details  -->
     <div class="container">
       <h3 class="display-4 text-muted">Details of the company</h3>
       <div class="container mt-lg-5">
@@ -63,7 +63,6 @@
         </table>
       </div>
     </div><!--  End of Company Details  -->
-    <app-company-edit [companyId]="selectedCompany" ></app-company-edit>
   </div> <!-- End row -->
 </div>
 
