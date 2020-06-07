@@ -1,6 +1,8 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TimelogService} from '../../../services/timelog.service';
 import {ActivatedRoute} from '@angular/router';
+import {Observable, Subject, Subscription} from 'rxjs';
+import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-company-edit',
@@ -8,10 +10,14 @@ import {ActivatedRoute} from '@angular/router';
   styleUrls: ['./company-edit.component.css']
 })
 export class CompanyEditComponent implements OnInit, OnDestroy {
+
   public userList;
   public projectList;
   public companyEdit;
   public companyList;
+  private ngUnsubscribe = new Subject();
+  id:string;
+
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute) { }
 
@@ -20,6 +26,14 @@ export class CompanyEditComponent implements OnInit, OnDestroy {
     this.getProjectList();
     this.getCompanyList();
     this.getCompany(this.route.snapshot.params.id);
+  }
+
+  exit() {
+    setTimeout(() =>
+      {
+        window.location.reload()
+      },
+      700);
   }
 
   getCompanyList() {
@@ -58,14 +72,15 @@ export class CompanyEditComponent implements OnInit, OnDestroy {
         this.companyEdit = data;
       },
       err => console.error(err),
-      () => console.log('company loaded')
+      () => console.log('company loaded'),
+
     );
   }
 
   ngOnDestroy() {
-    this.getCompany(this.route.snapshot.params.id);
+    this.ngUnsubscribe = null;
   }
-
 
 }
 
+// .pipe(takeUntil(this.ngUnsubscribe))

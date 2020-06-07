@@ -14,7 +14,7 @@
           <tbody>
           <tr *ngFor="let company of companyList">
             <td>
-              <a [routerLink]="['/companies-edit', company.id]">{{company.id}}</a>
+              <a [routerLink]="['/companies-edit', company.id]" (click)="exit()">{{company.id}}</a>
             </td>
             <td>
               {{company.name}}
