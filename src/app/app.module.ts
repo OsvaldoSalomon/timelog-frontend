@@ -16,10 +16,8 @@ import { ProjectEditComponent } from './components/projects/project-edit/project
 import { UserEditComponent } from './components/users/user-edit/user-edit.component';
 import { AddCompanyComponent } from './components/companies/add-company/add-company.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatInputModule } from '@angular/material/input';
 import { AddProjectComponent } from './components/projects/add-project/add-project.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -34,6 +32,7 @@ import { AddProjectComponent } from './components/projects/add-project/add-proje
     UserEditComponent,
     AddCompanyComponent,
     AddProjectComponent,
+    LoginComponent,
   ],
   imports: [
     BrowserModule,

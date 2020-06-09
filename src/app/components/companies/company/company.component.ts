@@ -1,10 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TimelogService } from '../../../services/timelog.service';
 import { ActivatedRoute } from '@angular/router';
-import { FormControl, FormGroup, Validators} from '@angular/forms';
-import { throwError } from 'rxjs';
-import {CompanyEditComponent} from '../company-edit/company-edit.component';
-import {CompanyModel} from '../../../CompanyModel';
 
 @Component({
   selector: 'app-company',
@@ -18,7 +14,6 @@ export class CompanyComponent implements OnInit {
   public projectList;
   public companyEdit;
   public companyAutomatically;
-  selectedCompany: CompanyModel;
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute) { }
 
@@ -80,9 +75,6 @@ export class CompanyComponent implements OnInit {
     );
   }
 
-  onSelect(companyInfo: CompanyModel): void {
-    this.selectedCompany = companyInfo;
-  }
 
 
 }
