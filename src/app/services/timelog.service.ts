@@ -16,25 +16,12 @@ export class TimelogService {
     return this.http.get('/server/timelog/v1/companies');
   }
 
-  // getCompanies() {
-  //   let token = localStorage.getItem('access_token');
-  //   return this.http.get('/server/timelog/v1/companies',
-  //     {headers: new HttpHeaders().set('Authorization','Bearer' + token)}
-  //     );
-  // }
-
   getProjects() {
-    let token = localStorage.getItem('access_token');
-    return this.http.get('/server/timelog/v1/projects',
-      {headers: new HttpHeaders().set('Authorization', 'Bearer' + token)}
-    );
+    return this.http.get('/server/timelog/v1/projects');
   }
 
   getUsers() {
-    let token = localStorage.getItem('access_token');
-    return this.http.get('/server/timelog/v1/users',
-      {headers: new HttpHeaders().set('Authorization', 'Bearer' + token)}
-    );
+    return this.http.get('/server/timelog/v1/users');
   }
 
   // Get specific company, project and user
@@ -43,33 +30,28 @@ export class TimelogService {
     return this.http.get('/server/timelog/v1/companies/' + id);
   }
 
-  // getCompany(id: string) {
-  //   let token = localStorage.getItem('access_token');
-  //   return this.http.get('/server/timelog/v1/companies/' + id,
-  //     {headers: new HttpHeaders().set('Authorization', 'Bearer' + token)}
-  //     );
-  // }
-
-  getCompanyAutomatically() {
-    let token = localStorage.getItem('access_token');
-    return this.http.get('/server/timelog/v1/companies/C001',
-      {headers: new HttpHeaders().set('Authorization', 'Bearer' + token)}
-    );
-  }
-
   getProject(id: string) {
-    let token = localStorage.getItem('access_token');
-    return this.http.get('/server/timelog/v1/projects/' + id,
-      {headers: new HttpHeaders().set('Authorization', 'Bearer' + token)}
-    );
+    return this.http.get('/server/timelog/v1/projects/' + id);
   }
 
   getUser(id: string) {
-    let token = localStorage.getItem('access_token');
-    return this.http.get('/server/timelog/v1/users/' + id,
-      {headers: new HttpHeaders().set('Authorization', 'Bearer' + token)}
-    );
+    return this.http.get('/server/timelog/v1/users/' + id);
   }
+
+  //Get Company, Project and User automatically
+
+  getCompanyAutomatically() {
+    return this.http.get('/server/timelog/v1/companies/C001');
+  }
+
+  getProjectAutomatically() {
+    return this.http.get('/server/timelog/v1/projects/P001');
+  }
+
+  getUserAutomatically() {
+    return this.http.get('/server/timelog/v1/users/U001');
+  }
+
 
   // Create Companies, Projects and Users
 

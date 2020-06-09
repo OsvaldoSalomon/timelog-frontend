@@ -33,6 +33,14 @@ export class UserEditComponent implements OnInit {
     });
   }
 
+  reload() {
+    setTimeout(() =>
+      {
+        window.location.reload()
+      },
+      700);
+  }
+
   getUser(id:string) {
     this.timelogService.getUser(id).subscribe(
       data => {

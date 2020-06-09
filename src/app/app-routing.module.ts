@@ -9,11 +9,9 @@ import { ProjectEditComponent } from './components/projects/project-edit/project
 import { UserEditComponent } from './components/users/user-edit/user-edit.component';
 import {AddCompanyComponent} from './components/companies/add-company/add-company.component';
 import {AddProjectComponent} from './components/projects/add-project/add-project.component';
-import {LoginComponent} from './components/login/login.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
-  { path: 'login', component: LoginComponent },
   { path: 'companies', component: CompanyComponent },
   { path: 'companies-edit/:id', component: CompanyEditComponent },
   { path: 'companies-add', component: AddCompanyComponent },

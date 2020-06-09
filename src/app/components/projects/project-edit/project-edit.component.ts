@@ -32,6 +32,14 @@ export class ProjectEditComponent implements OnInit {
     });
   }
 
+  reload() {
+    setTimeout(() =>
+      {
+        window.location.reload()
+      },
+      700);
+  }
+
   getProject(id:string) {
     this.timelogService.getProject(id).subscribe(
       data => {

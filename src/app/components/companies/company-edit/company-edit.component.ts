@@ -28,7 +28,7 @@ export class CompanyEditComponent implements OnInit, OnDestroy {
     this.getCompany(this.route.snapshot.params.id);
   }
 
-  exit() {
+  reload() {
     setTimeout(() =>
       {
         window.location.reload()

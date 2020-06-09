@@ -13,6 +13,7 @@ export class UserComponent implements OnInit {
   public companyList;
   public userList;
   public projectList;
+  public userAutomatically;
   newUser: FormGroup;
   validMessage: string = "";
 
@@ -22,12 +23,7 @@ export class UserComponent implements OnInit {
     this.getUserList();
     this.getCompanyList();
     this.getProjectList();
-    this.newUser = new FormGroup({
-      firstName: new FormControl('', Validators.required),
-      lastName: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required)
-    });
+    this.getUserAutomatically();
   }
 
    getCompanyList() {
@@ -37,6 +33,16 @@ export class UserComponent implements OnInit {
       },
       err => console.error(err),
       () => console.log('companies loaded')
+    );
+  }
+
+  getUserAutomatically() {
+    this.timelogService.getUserAutomatically().subscribe(
+      data => {
+        this.userAutomatically = data;
+      },
+      err => console.error(err),
+      () => console.log('Auto user loaded')
     );
   }
 
@@ -59,29 +65,5 @@ export class UserComponent implements OnInit {
       () => console.log('projects loaded')
     );
   }
-
-  roleList = [
-    "Frontend developer",
-    "Backend developer"
-  ];
-  submitUser() {
-    if (this.newUser.valid) {
-      this.validMessage = "User has been created!";
-      this.timelogService.createUser(this.newUser.value).subscribe(
-        data => {
-          this.newUser.reset();
-          return true;
-        },
-        error => {
-          return throwError(error);
-        }
-      )
-    } else {
-      this.validMessage = "Please fill out the form before submitting!";
-    }
-  }
-
-
-
 
 }

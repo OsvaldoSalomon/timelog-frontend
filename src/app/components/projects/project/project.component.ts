@@ -15,6 +15,7 @@ export class ProjectComponent implements OnInit {
   public projectList;
   newProject: FormGroup;
   validMessage: string = "";
+  public projectAutomatically;
 
   constructor(private timelogService: TimelogService) { }
 
@@ -22,6 +23,7 @@ export class ProjectComponent implements OnInit {
     this.getUserList();
     this.getCompanyList();
     this.getProjectList();
+    this.getProjectAutomatically();
     this.newProject = new FormGroup({
       name: new FormControl('', Validators.required),
       company: new FormControl('', Validators.required),
@@ -46,6 +48,16 @@ export class ProjectComponent implements OnInit {
       },
       err => console.error(err),
       () => console.log('projects loaded')
+    );
+  }
+
+  getProjectAutomatically() {
+    this.timelogService.getProjectAutomatically().subscribe(
+      data => {
+        this.projectAutomatically = data;
+      },
+      err => console.error(err),
+      () => console.log('Auto project loaded')
     );
   }
 
@@ -75,6 +87,8 @@ export class ProjectComponent implements OnInit {
       this.validMessage = "Please fill out the form before submitting!";
     }
   }
+
+
 
 
 }
