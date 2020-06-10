@@ -18,6 +18,7 @@ import { AddCompanyComponent } from './components/companies/add-company/add-comp
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddProjectComponent } from './components/projects/add-project/add-project.component';
 import { AddUserComponent } from './components/users/add-user/add-user.component';
+import { CompanyEditComponent } from './components/companies/company-edit/company-edit.component';
 
 @NgModule({
   declarations: [
@@ -32,7 +33,8 @@ import { AddUserComponent } from './components/users/add-user/add-user.component
     UserDetailsComponent,
     AddCompanyComponent,
     AddProjectComponent,
-    AddUserComponent
+    AddUserComponent,
+    CompanyEditComponent
   ],
   imports: [
     BrowserModule,

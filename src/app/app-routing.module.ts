@@ -10,11 +10,13 @@ import { UserDetailsComponent } from './components/users/user-details/user-detai
 import { AddCompanyComponent } from './components/companies/add-company/add-company.component';
 import { AddProjectComponent } from './components/projects/add-project/add-project.component';
 import { AddUserComponent } from './components/users/add-user/add-user.component';
+import {CompanyEditComponent} from './components/companies/company-edit/company-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
   { path: 'companies', component: CompanyComponent },
   { path: 'companies-details/:id', component: CompanyDetailsComponent },
+  { path: 'company-edit/:id', component: CompanyEditComponent },
   { path: 'companies-add', component: AddCompanyComponent },
   { path: 'projects', component: ProjectComponent },
   { path: 'projects-add', component: AddProjectComponent },

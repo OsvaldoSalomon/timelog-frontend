@@ -1,0 +1,26 @@
+<h3 class="display-4 text-muted mb-4">Edit Company</h3>
+<button class="btn btn-primary mb-5" routerLink="/companies">Return to list</button>
+<div class="col-12 pl-5">
+  <form [formGroup]="newCompany" (ngSubmit)="editCompany()">
+    <div class="form-group">
+      <label for="name" class="text-muted blockquote">Company Name</label>
+      <input
+        class="form-control"
+        type="text"
+        id="name"
+        formControlName="name"
+        placeholder="Company name">
+    </div>
+    <div class="form-group">
+      <label class="text-muted blockquote">Members</label>
+      <select class="form-control" formControlName="members" multiple>
+        <option *ngFor="let m of userList"
+                [value]="m">
+          {{m.firstName}} {{m.lastName}}
+        </option>
+      </select>
+    </div>
+    <button class="btn btn-primary" routerLink="/companies">Add Company</button>
+  </form>
+</div>
+
