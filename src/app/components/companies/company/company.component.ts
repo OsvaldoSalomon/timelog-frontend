@@ -12,7 +12,7 @@ export class CompanyComponent implements OnInit {
   public companyList;
   public userList;
   public projectList;
-  public companyEdit;
+  public companyDetails;
   public companyAutomatically;
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute) { }
@@ -58,7 +58,7 @@ export class CompanyComponent implements OnInit {
   getCompany(id:string) {
     this.timelogService.getCompany(id).subscribe(
       data => {
-        this.companyEdit = data;
+        this.companyDetails = data;
       },
       err => console.error(err),
       () => console.log('company loaded')

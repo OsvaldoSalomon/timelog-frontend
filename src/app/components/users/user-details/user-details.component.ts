@@ -6,12 +6,12 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-user-edit',
-  templateUrl: './user-edit.component.html',
-  styleUrls: ['./user-edit.component.css']
+  templateUrl: './user-details.component.html',
+  styleUrls: ['./user-details.component.css']
 })
-export class UserEditComponent implements OnInit {
+export class UserDetailsComponent implements OnInit {
 
-  public user;
+  public userDetails;
   public companyList;
   public userList;
   public projectList;
@@ -44,7 +44,7 @@ export class UserEditComponent implements OnInit {
   getUser(id:string) {
     this.timelogService.getUser(id).subscribe(
       data => {
-        this.user = data;
+        this.userDetails = data;
       },
       err => console.error(err),
       () => console.log('user loaded')

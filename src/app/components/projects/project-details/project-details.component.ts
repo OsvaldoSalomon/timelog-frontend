@@ -6,12 +6,12 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 
 @Component({
   selector: 'app-project-edit',
-  templateUrl: './project-edit.component.html',
-  styleUrls: ['./project-edit.component.css']
+  templateUrl: './project-details.component.html',
+  styleUrls: ['./project-details.component.css']
 })
-export class ProjectEditComponent implements OnInit {
+export class ProjectDetailsComponent implements OnInit {
 
-  public project;
+  public projectDetails;
   public companyList;
   public userList;
   public projectList;
@@ -43,7 +43,7 @@ export class ProjectEditComponent implements OnInit {
   getProject(id:string) {
     this.timelogService.getProject(id).subscribe(
       data => {
-        this.project = data;
+        this.projectDetails = data;
       },
       err => console.error(err),
       () => console.log('project loaded')

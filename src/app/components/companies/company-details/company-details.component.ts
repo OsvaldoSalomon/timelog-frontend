@@ -6,14 +6,14 @@ import {takeUntil} from 'rxjs/operators';
 
 @Component({
   selector: 'app-company-edit',
-  templateUrl: './company-edit.component.html',
-  styleUrls: ['./company-edit.component.css']
+  templateUrl: './company-details.component.html',
+  styleUrls: ['./company-details.component.css']
 })
-export class CompanyEditComponent implements OnInit, OnDestroy {
+export class CompanyDetailsComponent implements OnInit, OnDestroy {
 
   public userList;
   public projectList;
-  public companyEdit;
+  public companyDetails;
   public companyList;
   private ngUnsubscribe = new Subject();
   id:string;
@@ -69,7 +69,7 @@ export class CompanyEditComponent implements OnInit, OnDestroy {
   getCompany(id:string) {
     this.timelogService.getCompany(id).subscribe(
       data => {
-        this.companyEdit = data;
+        this.companyDetails = data;
       },
       err => console.error(err),
       () => console.log('company loaded'),
