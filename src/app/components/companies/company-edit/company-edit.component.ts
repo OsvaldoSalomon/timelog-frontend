@@ -1,8 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {TimelogService} from '../../../services/timelog.service';
-import {throwError} from 'rxjs';
-import {ActivatedRoute} from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TimelogService } from '../../../services/timelog.service';
+import { throwError } from 'rxjs';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'app-companies-edit',
@@ -16,11 +16,12 @@ export class CompanyEditComponent implements OnInit {
   validMessage: string = "";
   public companyDetails;
 
-  constructor(private timelogService: TimelogService, private route: ActivatedRoute) { }
+  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.getUserList();
     this.getCompany(this.route.snapshot.params.id);
+    // this.deleteCompany(this.route.snapshot.params.id);
     this.newCompany = new FormGroup({
       name: new FormControl('', Validators.required),
       members: new FormControl('', Validators.required)
@@ -29,7 +30,7 @@ export class CompanyEditComponent implements OnInit {
 
   editCompany() {
     if (this.newCompany.valid) {
-      this.validMessage = "Your company has been created. Thank you!";
+      this.validMessage = "Your company has been edited. Thank you!";
       this.timelogService.createCompany(this.newCompany.value).subscribe(
         data => {
           this.newCompany.reset();
@@ -51,7 +52,6 @@ export class CompanyEditComponent implements OnInit {
       },
       err => console.error(err),
       () => console.log('company loaded'),
-
     );
   }
 
@@ -62,6 +62,17 @@ export class CompanyEditComponent implements OnInit {
       },
       err => console.error(err),
       () => console.log('users loaded')
+    );
+  }
+
+  deleteCompany(id:string) {
+    this.timelogService.deleteCompany(id).subscribe(
+      data => {
+        this.companyDetails = data;
+      },
+      err => console.error(err),
+      () => console.log('company loaded'),
+
     );
   }
 

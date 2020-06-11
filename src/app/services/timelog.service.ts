@@ -70,6 +70,19 @@ export class TimelogService {
     return this.http.post('/server/timelog/v1/users', body, httpOptions);
   }
 
+  // Delete company, project and user
+
+  deleteCompany(id: string) {
+    return this.http.delete('/server/timelog/v1/companies/' + id);
+  }
+
+  deleteProject(id: string) {
+    return this.http.delete('/server/timelog/v1/projects/' + id);
+  }
+
+  deleteUser(id: string) {
+    return this.http.delete('/server/timelog/v1/users/' + id);
+  }
 
 
 }

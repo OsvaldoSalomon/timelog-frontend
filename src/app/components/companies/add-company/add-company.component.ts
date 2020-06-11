@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {throwError} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TimelogService} from '../../../services/timelog.service';
+import {ActivatedRoute, Router} from '@angular/router';
 
 @Component({
   selector: 'app-add-company',
@@ -14,7 +15,7 @@ export class AddCompanyComponent implements OnInit {
   newCompany: FormGroup;
   validMessage: string = "";
 
-  constructor(private timelogService: TimelogService) { }
+  constructor(private timelogService: TimelogService, private router: Router) { }
 
   ngOnInit() {
     this.getUserList();
@@ -26,7 +27,7 @@ export class AddCompanyComponent implements OnInit {
 
   submitCompany() {
     if (this.newCompany.valid) {
-      this.validMessage = "Your company has been created. Thank you!";
+      console.log("Your company has been created. Thank you!");
       this.timelogService.createCompany(this.newCompany.value).subscribe(
         data => {
           this.newCompany.reset();
@@ -35,9 +36,10 @@ export class AddCompanyComponent implements OnInit {
         error => {
           return throwError(error);
         }
-      )
+      );
+      this.router.navigate(['/companies']);
     } else {
-      this.validMessage = "Please fill out the form before submitting!";
+      console.log("Please fill out the form before submitting!");
     }
   }
 

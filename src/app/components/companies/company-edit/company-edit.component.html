@@ -9,6 +9,7 @@
         type="text"
         id="name"
         formControlName="name"
+        [(ngModel)]="companyDetails.name"
         placeholder="Company name">
     </div>
     <div class="form-group">
@@ -20,7 +21,8 @@
         </option>
       </select>
     </div>
-    <button class="btn btn-primary" routerLink="/companies">Add Company</button>
+    <button class="btn btn-secondary" routerLink="/companies">Edit Company</button>
+    <button class="btn btn-danger" routerLink="/companies">Delete Company</button>
   </form>
 </div>
 
