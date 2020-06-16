@@ -12,8 +12,7 @@ import { ActivatedRoute, Router } from '@angular/router';
 export class CompanyEditComponent implements OnInit {
 
   public userList;
-  newCompany: FormGroup;
-  validMessage: string = "";
+  editedCompany: FormGroup;
   public companyDetails;
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
@@ -21,27 +20,28 @@ export class CompanyEditComponent implements OnInit {
   ngOnInit() {
     this.getUserList();
     this.getCompany(this.route.snapshot.params.id);
-    // this.deleteCompany(this.route.snapshot.params.id);
-    this.newCompany = new FormGroup({
+    this.editedCompany = new FormGroup({
       name: new FormControl('', Validators.required),
       members: new FormControl('', Validators.required)
     });
   }
 
-  editCompany() {
-    if (this.newCompany.valid) {
-      this.validMessage = "Your company has been edited. Thank you!";
-      this.timelogService.createCompany(this.newCompany.value).subscribe(
+
+  editCompany(id:string) {
+    if (this.editedCompany.valid) {
+      console.log("Your company has been edited. Thank you!");
+      this.timelogService.updateCompany(id, this.editedCompany.value).subscribe(
         data => {
-          this.newCompany.reset();
+          this.editedCompany.reset();
           return true;
         },
         error => {
           return throwError(error);
         }
-      )
+      );
+      this.router.navigate(['companies']);
     } else {
-      this.validMessage = "Please fill out the form before submitting!";
+      console.log("Please fill out the form before submitting!");
     }
   }
 
@@ -72,8 +72,8 @@ export class CompanyEditComponent implements OnInit {
       },
       err => console.error(err),
       () => console.log('company loaded'),
-
     );
+    this.router.navigate(['companies']);
   }
 
 

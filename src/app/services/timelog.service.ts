@@ -60,6 +60,14 @@ export class TimelogService {
     return this.http.post('/server/timelog/v1/companies', body, httpOptions);
   }
 
+  createCompanyTry(company, user) {
+    let body = JSON.stringify(company, user.id);
+    console.log('company: ' + company);
+    console.log('user: ' + user);
+    return this.http.post('/server/timelog/v1/companies', body, httpOptions);
+  }
+
+
   createProject(project) {
     let body = JSON.stringify(project);
     return this.http.post('/server/timelog/v1/projects', body, httpOptions);
@@ -83,6 +91,35 @@ export class TimelogService {
   deleteUser(id: string) {
     return this.http.delete('/server/timelog/v1/users/' + id);
   }
+
+  // Edit
+
+  updateCompany(id: string, company) {
+    let body = JSON.stringify(company);
+    console.log("id: " + id);
+    console.log("body: " + body);
+    console.log("httpOptions: " + httpOptions);
+    return this.http.put('/server/timelog/v1/companies/' + id, body, httpOptions);
+  }
+
+  updateProject(id: string, project) {
+    let body = JSON.stringify(project);
+    console.log("id: " + id);
+    console.log("body: " + body);
+    console.log("httpOptions: " + httpOptions);
+    return this.http.put('/server/timelog/v1/projects/' + id, body, httpOptions);
+  }
+
+  updateUser(id: string, user) {
+    let body = JSON.stringify(user);
+    console.log("id: " + id);
+    console.log("body: " + body);
+    console.log("httpOptions: " + httpOptions);
+    return this.http.put('/server/timelog/v1/users/' + id, body, httpOptions);
+  }
+
+
+
 
 
 }
