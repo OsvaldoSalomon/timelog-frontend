@@ -11,6 +11,7 @@ import { AddCompanyComponent } from './components/companies/add-company/add-comp
 import { AddProjectComponent } from './components/projects/add-project/add-project.component';
 import { AddUserComponent } from './components/users/add-user/add-user.component';
 import {CompanyEditComponent} from './components/companies/company-edit/company-edit.component';
+import {ProjectEditComponent} from './components/projects/project-edit/project-edit.component';
 
 const routes: Routes = [
   { path: '', component: HomeComponent },
@@ -21,6 +22,7 @@ const routes: Routes = [
   { path: 'projects', component: ProjectComponent },
   { path: 'projects-add', component: AddProjectComponent },
   { path: 'projects-details/:id', component: ProjectDetailsComponent },
+  { path: 'project-edit/:id', component: ProjectEditComponent },
   { path: 'users', component: UserComponent },
   { path: 'users-add', component: AddUserComponent  },
   { path: 'users-details/:id', component: UserDetailsComponent }
