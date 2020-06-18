@@ -1,5 +1,7 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
+import { ModuleWithProviders } from '@angular/core';
+
 import { CompanyComponent } from './components/companies/company/company.component';
 import { ProjectComponent } from './components/projects/project/project.component';
 import { UserComponent } from './components/users/user/user.component';
@@ -10,11 +12,13 @@ import { UserDetailsComponent } from './components/users/user-details/user-detai
 import { AddCompanyComponent } from './components/companies/add-company/add-company.component';
 import { AddProjectComponent } from './components/projects/add-project/add-project.component';
 import { AddUserComponent } from './components/users/add-user/add-user.component';
-import {CompanyEditComponent} from './components/companies/company-edit/company-edit.component';
-import {ProjectEditComponent} from './components/projects/project-edit/project-edit.component';
+import { CompanyEditComponent } from './components/companies/company-edit/company-edit.component';
+import { ProjectEditComponent } from './components/projects/project-edit/project-edit.component';
+import { UserEditComponent } from './components/users/user-edit/user-edit.component';
+import { LoginComponent } from './components/login/login.component';
 
-const routes: Routes = [
-  { path: '', component: HomeComponent },
+export const routes: Routes = [
+  { path: '', component: LoginComponent },
   { path: 'companies', component: CompanyComponent },
   { path: 'companies-details/:id', component: CompanyDetailsComponent },
   { path: 'company-edit/:id', component: CompanyEditComponent },
@@ -25,8 +29,11 @@ const routes: Routes = [
   { path: 'project-edit/:id', component: ProjectEditComponent },
   { path: 'users', component: UserComponent },
   { path: 'users-add', component: AddUserComponent  },
-  { path: 'users-details/:id', component: UserDetailsComponent }
+  { path: 'users-details/:id', component: UserDetailsComponent },
+  { path: 'user-edit/:id', component: UserEditComponent }
 ];
+
+export const ROUTING: ModuleWithProviders = RouterModule.forRoot(routes);
 
 @NgModule({
   imports: [RouterModule.forRoot(routes)],

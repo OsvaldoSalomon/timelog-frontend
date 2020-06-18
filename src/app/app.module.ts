@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule } from './app-routing.module';
+import { AppRoutingModule, ROUTING } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CompanyComponent } from './components/companies/company/company.component';
 import { TimelogService } from './services/timelog.service';
@@ -20,6 +20,8 @@ import { AddProjectComponent } from './components/projects/add-project/add-proje
 import { AddUserComponent } from './components/users/add-user/add-user.component';
 import { CompanyEditComponent } from './components/companies/company-edit/company-edit.component';
 import { ProjectEditComponent } from './components/projects/project-edit/project-edit.component';
+import { UserEditComponent } from './components/users/user-edit/user-edit.component';
+import { LoginComponent } from './components/login/login.component';
 
 @NgModule({
   declarations: [
@@ -36,7 +38,9 @@ import { ProjectEditComponent } from './components/projects/project-edit/project
     AddProjectComponent,
     AddUserComponent,
     CompanyEditComponent,
-    ProjectEditComponent
+    ProjectEditComponent,
+    UserEditComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
@@ -44,7 +48,8 @@ import { ProjectEditComponent } from './components/projects/project-edit/project
     AppRoutingModule,
     ReactiveFormsModule,
     FormsModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    ROUTING
   ],
   providers: [TimelogService],
   bootstrap: [AppComponent]
