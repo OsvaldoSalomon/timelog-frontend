@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
-import { throwError } from 'rxjs';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TimelogService } from '../../../services/timelog.service';
-import { ActivatedRoute, Router } from '@angular/router';
+import {Component, Input, OnInit} from '@angular/core';
+import {throwError} from 'rxjs';
+import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
+import {TimelogService} from '../../../services/timelog.service';
+import {ActivatedRoute, Router} from '@angular/router';
+import {Company} from "../../../models/company.model";
 
 @Component({
   selector: 'app-add-company',
@@ -11,46 +12,33 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class AddCompanyComponent implements OnInit {
 
-  public userList;
-  newCompany: FormGroup;
-  validMessage: string = "";
+  Projects: any = [];
+  Users: any = [];
 
-    constructor(private timelogService: TimelogService, private router: Router) { }
+  @Input() companySubmit = { name: '', members: [] }
 
-  ngOnInit() {
-    this.getUserList();
-    this.newCompany = new FormGroup({
-      name: new FormControl('', Validators.required),
-      members: new FormControl('', Validators.required)
-    });
+  constructor(private timelogService: TimelogService, private router: Router) {
   }
 
-  submitCompany() {
-    if (this.newCompany.valid) {
-      console.log("Your company has been created. Thank you!");
-      this.timelogService.createCompany(this.newCompany.value).subscribe(
-        data => {
-          this.newCompany.reset();
-          return true;
-        },
-        error => {
-          return throwError(error);
-        }
-      );
-      this.router.navigate(['/companies']);
-    } else {
-      console.log("Please fill out the form before submitting!");
-    }
+  ngOnInit() { }
+
+  addCompany(dataCompany) {
+    this.timelogService.createCompany(this.companySubmit).subscribe((data: {}) => {
+      this.router.navigate(['/companies'])
+    })
   }
 
   getUserList() {
-    this.timelogService.getUsers().subscribe(
-      data => {
-        this.userList = data;
-      },
-      err => console.error(err),
-      () => console.log('users loaded')
-    );
+    return this.timelogService.getUsers().subscribe((data: {}) => {
+      this.Users = data;
+    })
   }
+
+  getProjectList() {
+    return this.timelogService.getProjects().subscribe((data: {}) => {
+      this.Projects = data;
+    })
+  }
+
 
 }

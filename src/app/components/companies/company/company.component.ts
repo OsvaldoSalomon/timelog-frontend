@@ -9,11 +9,12 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CompanyComponent implements OnInit {
 
-  public companyList;
-  public userList;
-  public projectList;
-  public companyDetails;
-  public companyAutomatically;
+
+  Companies: any = [];
+  companyData: any = {};
+  CompanyAuto: any = [];
+  Projects: any = [];
+  Users: any = [];
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute) { }
 
@@ -26,53 +27,33 @@ export class CompanyComponent implements OnInit {
   }
 
   getCompanyList() {
-    this.timelogService.getCompanies().subscribe(
-      data => {
-        this.companyList = data;
-      },
-      err => console.error(err),
-      () => console.log('companies loaded')
-    );
+    return this.timelogService.getCompanies().subscribe((data: {}) => {
+      this.Companies = data;
+    })
   }
 
   getUserList() {
-    this.timelogService.getUsers().subscribe(
-      data => {
-        this.userList = data;
-      },
-      err => console.error(err),
-      () => console.log('users loaded')
-    );
+    return this.timelogService.getUsers().subscribe((data: {}) => {
+      this.Users = data;
+    })
   }
 
   getProjectList() {
-    this.timelogService.getProjects().subscribe(
-      data => {
-        this.projectList = data;
-      },
-      err => console.error(err),
-      () => console.log('projects loaded')
-    );
+    return this.timelogService.getProjects().subscribe((data: {}) => {
+      this.Projects = data;
+    })
   }
 
-  getCompany(id:string) {
-    this.timelogService.getCompany(id).subscribe(
-      data => {
-        this.companyDetails = data;
-      },
-      err => console.error(err),
-      () => console.log('company loaded')
-    );
+  getCompany(id) {
+    this.timelogService.getCompany(id).subscribe((data: {}) => {
+      this.companyData = data;
+    })
   }
 
   getCompanyAutomatically() {
-    this.timelogService.getCompanyAutomatically().subscribe(
-      data => {
-        this.companyAutomatically = data;
-      },
-      err => console.error(err),
-      () => console.log('Auto company loaded')
-    );
+    return this.timelogService.getCompanyAutomatically().subscribe((data: {}) => {
+      this.CompanyAuto = data;
+    })
   }
 
 

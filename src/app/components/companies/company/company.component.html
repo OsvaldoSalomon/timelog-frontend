@@ -12,7 +12,7 @@
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let company of companyList">
+          <tr *ngFor="let company of Companies">
             <td>
               <a [routerLink]="['/companies-details', company.id]">{{company.id}}</a>
             </td>
@@ -41,22 +41,22 @@
           <tbody>
           <tr>
             <td>
-              {{companyAutomatically.id}}
+              {{CompanyAuto.id}}
             </td>
             <td>
-              {{companyAutomatically.name}}
+              {{CompanyAuto.name}}
             </td>
             <td>
-                {{companyAutomatically.projectList}}
+                {{CompanyAuto.projectList}}
             </td>
             <td>
-                {{companyAutomatically.userList}}
+                {{CompanyAuto.userList}}
             </td>
           </tr>
           </tbody>
         </table>
       </div>
-      <button class="btn btn-secondary" routerLink="/company-edit/{{companyAutomatically.id}}">Edit company</button>
+      <button class="btn btn-secondary" routerLink="/company-edit/{{CompanyAuto.id}}">Edit company</button>
     </div><!--  End of Company Details  -->
   </div> <!-- End row -->
 </div>

@@ -1,126 +1,272 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
-const httpOptions = {
-  headers: new HttpHeaders({'Content-Type': 'application/json'})
-};
+import {Observable, throwError} from "rxjs";
+import {catchError, retry} from "rxjs/operators";
+import {Company} from "../models/company.model";
+import {Project} from "../models/project.model";
+import {User} from "../models/user.model";
 
 @Injectable()
 export class TimelogService {
 
+  apiURL = '/server/timelog/v1';
+
   constructor(private http:HttpClient) {}
+
+  httpOptions = {
+    headers: new HttpHeaders({'Content-Type': 'application/json'})
+  };
+
 
   // Get all Companies, Projects and Users
 
-  getCompanies() {
-    return this.http.get('/server/timelog/v1/companies');
+  getCompanies(): Observable<Company> {
+    return this.http.get<Company>(this.apiURL + '/companies')
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
+  }
+  //
+  // getCompanies() {
+  //   return this.http.get('/server/timelog/v1/companies');
+  // }
+
+  getProjects(): Observable<Project> {
+    return this.http.get<Project>(this.apiURL + '/projects')
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
-  getProjects() {
-    return this.http.get('/server/timelog/v1/projects');
+  // getProjects() {
+  //   return this.http.get('/server/timelog/v1/projects');
+  // }
+
+  getUsers(): Observable<User> {
+    return this.http.get<User>(this.apiURL + '/users')
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
-  getUsers() {
-    return this.http.get('/server/timelog/v1/users');
-  }
+  // getUsers() {
+  //   return this.http.get('/server/timelog/v1/users');
+  // }
 
   // Get specific company, project and user
 
-  getCompany(id: string) {
-    return this.http.get('/server/timelog/v1/companies/' + id);
+  // getCompany(id: string) {
+  //   return this.http.get('/server/timelog/v1/companies/' + id);
+  // }
+
+  getCompany(id): Observable<Company> {
+    return this.http.get<Company>(this.apiURL + '/companies/' + id)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
-  getProject(id: string) {
-    return this.http.get('/server/timelog/v1/projects/' + id);
+  // getProject(id: string) {
+  //   return this.http.get('/server/timelog/v1/projects/' + id);
+  // }
+
+  getProject(id): Observable<Project> {
+    return this.http.get<Project>(this.apiURL + '/projects/' + id)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
-  getUser(id: string) {
-    return this.http.get('/server/timelog/v1/users/' + id);
+  // getUser(id: string) {
+  //   return this.http.get('/server/timelog/v1/users/' + id);
+  // }
+
+  getUser(id): Observable<User> {
+    return this.http.get<User>(this.apiURL + '/users/' + id)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
   //Get Company, Project and User automatically
 
-  getCompanyAutomatically() {
-    return this.http.get('/server/timelog/v1/companies/C001');
+  // getCompanyAutomatically() {
+  //   return this.http.get('/server/timelog/v1/companies/C001');
+  // }
+
+  getCompanyAutomatically(): Observable<Company> {
+    return this.http.get<Company>(this.apiURL + '/companies/C001')
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
-  getProjectAutomatically() {
-    return this.http.get('/server/timelog/v1/projects/P001');
+  // getProjectAutomatically() {
+  //   return this.http.get('/server/timelog/v1/projects/P001');
+  // }
+
+  getProjectAutomatically(): Observable<Project> {
+    return this.http.get<Project>(this.apiURL + '/projects/P001')
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
-  getUserAutomatically() {
-    return this.http.get('/server/timelog/v1/users/U001');
+  // getUserAutomatically() {
+  //   return this.http.get('/server/timelog/v1/users/U001');
+  // }
+
+  getUserAutomatically(): Observable<User> {
+    return this.http.get<User>(this.apiURL + '/users/U001')
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
 
   // Create Companies, Projects and Users
 
-  createCompany(company) {
-    let body = JSON.stringify(company);
-    return this.http.post('/server/timelog/v1/companies', body, httpOptions);
+  // createCompany(company) {
+  //   let body = JSON.stringify(company);
+  //   return this.http.post('/server/timelog/v1/companies', body, httpOptions);
+  // }
+  createCompany(company): Observable<Company> {
+    // @ts-ignore
+    return this.http.post<Company>(this.apiURL + '/companies', JSON.stringify(company), this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
-  createCompanyTry(company, user) {
-    let body = JSON.stringify(company, user.id);
-    console.log('company: ' + company);
-    console.log('user: ' + user);
-    return this.http.post('/server/timelog/v1/companies', body, httpOptions);
+  // createProject(project) {
+  //   let body = JSON.stringify(project);
+  //   return this.http.post('/server/timelog/v1/projects', body, httpOptions);
+  // }
+
+  createProject(project): Observable<Project> {
+    // @ts-ignore
+    return this.http.post<Project>(this.apiURL + '/projects', JSON.stringify(project), this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
+  // createUser(user) {
+  //   let body = JSON.stringify(user);
+  //   return this.http.post('/server/timelog/v1/users', body, httpOptions);
+  // }
 
-  createProject(project) {
-    let body = JSON.stringify(project);
-    return this.http.post('/server/timelog/v1/projects', body, httpOptions);
-  }
-
-  createUser(user) {
-    let body = JSON.stringify(user);
-    return this.http.post('/server/timelog/v1/users', body, httpOptions);
+  createUser(user): Observable<User> {
+    // @ts-ignore
+    return this.http.post<User>(this.apiURL + '/users', JSON.stringify(user), this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
   // Delete company, project and user
 
-  deleteCompany(id: string) {
-    return this.http.delete('/server/timelog/v1/companies/' + id);
+  // deleteCompany(id: string) {
+  //   return this.http.delete('/server/timelog/v1/companies/' + id);
+  // }
+
+  deleteCompany(id){
+    return this.http.delete<Company>(this.apiURL + '/companies/' + id, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
-  deleteProject(id: string) {
-    return this.http.delete('/server/timelog/v1/projects/' + id);
+  // deleteProject(id: string) {
+  //   return this.http.delete('/server/timelog/v1/projects/' + id);
+  // }
+
+  deleteProject(id){
+    return this.http.delete<Project>(this.apiURL + '/projects/' + id, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
-  deleteUser(id: string) {
-    return this.http.delete('/server/timelog/v1/users/' + id);
+  // deleteUser(id: string) {
+  //   return this.http.delete('/server/timelog/v1/users/' + id);
+  // }
+
+  deleteUser(id){
+    return this.http.delete<User>(this.apiURL + '/users/' + id, this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
   // Edit
 
-  updateCompany(id: string, company) {
-    let body = JSON.stringify(company);
-    console.log("id: " + id);
-    console.log("body: " + body);
-    console.log("httpOptions: " + httpOptions);
-    return this.http.put('/server/timelog/v1/companies/' + id, body, httpOptions);
+  // updateCompany(id: string, company) {
+  //   let body = JSON.stringify(company);
+  //   return this.http.put('/server/timelog/v1/companies/' + id, body, httpOptions);
+  // }
+
+  updateCompany(id, company): Observable<Company> {
+    return this.http.put<Company>(this.apiURL + '/companies/' + id, JSON.stringify(company), this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
-  updateProject(id: string, project) {
-    let body = JSON.stringify(project);
-    console.log("id: " + id);
-    console.log("body: " + body);
-    console.log("httpOptions: " + httpOptions);
-    return this.http.put('/server/timelog/v1/projects/' + id, body, httpOptions);
+  // updateProject(id: string, project) {
+  //   let body = JSON.stringify(project);
+  //   return this.http.put('/server/timelog/v1/projects/' + id, body, httpOptions);
+  // }
+
+  updateProject(id, project): Observable<Project> {
+    return this.http.put<Project>(this.apiURL + '/projects/' + id, JSON.stringify(project), this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
-  updateUser(id: string, user) {
-    let body = JSON.stringify(user);
-    console.log("id: " + id);
-    console.log("body: " + body);
-    console.log("httpOptions: " + httpOptions);
-    return this.http.put('/server/timelog/v1/users/' + id, body, httpOptions);
+  // updateUser(id: string, user) {
+  //   let body = JSON.stringify(user);
+  //   return this.http.put('/server/timelog/v1/users/' + id, body, httpOptions);
+  // }
+
+  updateUser(id, user): Observable<User> {
+    return this.http.put<User>(this.apiURL + '/users/' + id, JSON.stringify(user), this.httpOptions)
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
   }
 
-
-
-
+  handleError(error) {
+    let errorMessage = '';
+    if(error.error instanceof ErrorEvent) {
+      // Get client-side error
+      errorMessage = error.error.message;
+    } else {
+      // Get server-side error
+      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+    }
+    window.alert(errorMessage);
+    return throwError(errorMessage);
+  }
 
 }
 
