@@ -3,7 +3,7 @@ import {throwError} from 'rxjs';
 import {FormBuilder, FormControl, FormGroup, Validators} from '@angular/forms';
 import {TimelogService} from '../../../services/timelog.service';
 import {ActivatedRoute, Router} from '@angular/router';
-import {Company} from "../../../models/company.model";
+import {CompanyModel} from "../../../models/company.model";
 
 @Component({
   selector: 'app-add-company',

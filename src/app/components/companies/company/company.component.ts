@@ -1,6 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { TimelogService } from '../../../services/timelog.service';
 import { ActivatedRoute } from '@angular/router';
+import { CompanyModel } from "../../../models/company.model";
+import { Project } from "../../../models/project.model";
+import { User } from "../../../models/user.model";
 
 @Component({
   selector: 'app-company',
@@ -9,25 +12,33 @@ import { ActivatedRoute } from '@angular/router';
 })
 export class CompanyComponent implements OnInit {
 
-
   Companies: any = [];
   companyData: any = {};
   CompanyAuto: any = [];
   Projects: any = [];
   Users: any = [];
+  company: CompanyModel;
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute) { }
 
+  reload() {
+    setTimeout(() =>
+      {
+        window.location.reload()
+      },
+      700);
+  }
+
   ngOnInit() {
+    this.company = new CompanyModel("", "", [],[]);
     this.getCompanyList();
     this.getUserList();
     this.getProjectList();
     this.getCompanyAutomatically();
-    this.getCompany(this.route.snapshot.params.id);
   }
 
   getCompanyList() {
-    return this.timelogService.getCompanies().subscribe((data: {}) => {
+    return this.timelogService.retrieveAllCompanies().subscribe((data: {}) => {
       this.Companies = data;
     })
   }

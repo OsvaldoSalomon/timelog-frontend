@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {TimelogService} from '../../../services/timelog.service';
 import {throwError} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { User } from "../../../models/user.model";
 
 @Component({
   selector: 'app-users',
@@ -16,10 +17,12 @@ export class UserComponent implements OnInit {
   public userAutomatically;
   newUser: FormGroup;
   validMessage: string = "";
+  user: User;
 
   constructor(private timelogService: TimelogService) { }
 
   ngOnInit() {
+    this.user = new User("", "", "", "", "");
     this.getUserList();
     this.getCompanyList();
     this.getProjectList();

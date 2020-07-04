@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { TimelogService } from '../../../services/timelog.service';
 import {FormControl, FormGroup, FormsModule, Validators} from '@angular/forms';
 import {throwError} from 'rxjs';
+import { Project } from "../../../models/project.model";
+import { CompanyModel } from "../../../models/company.model";
 
 @Component({
   selector: 'app-projects',
@@ -16,10 +18,12 @@ export class ProjectComponent implements OnInit {
   newProject: FormGroup;
   validMessage: string = "";
   public projectAutomatically;
+  project: Project;
 
   constructor(private timelogService: TimelogService) { }
 
   ngOnInit() {
+    this.project = new Project("", "", "", []);
     this.getUserList();
     this.getCompanyList();
     this.getProjectList();

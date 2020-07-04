@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { LoginService } from "../../services/login.service";
+import { ActivatedRoute } from "@angular/router";
 
 @Component({
   selector: 'app-header',
@@ -7,15 +9,13 @@ import { Component, OnInit } from '@angular/core';
 })
 export class HeaderComponent implements OnInit {
   isLoggedIn: boolean;
+  name: '';
 
-  constructor() { }
+  constructor(public loginService: LoginService, private route: ActivatedRoute) { }
 
   ngOnInit() {
-    // if (this.login.isLogged == true) {
-    //   this.isLoggedIn = true;
-    // } else {
-    //   this.isLoggedIn = false;
-    // }
+    this.name = this.route.snapshot.params['name'];
+    console.log(name);
   }
 
 

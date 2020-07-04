@@ -1,19 +1,34 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {User} from '../models/user.model';
+import { Router } from "@angular/router";
 
-@Injectable()
+@Injectable({
+  providedIn: 'root'
+})
 export class LoginService {
 
-  constructor(private http: HttpClient){
+  constructor(private http: HttpClient, private router: Router){
 
   }
 
-  validateLogin(user: User){
-    return this.http.post('/server/timelog/v1/users',{
-      username : user.email,
-      password : user.password
-    })
+  authenticate(username, password) {
+    // console.log('before ' + this.isUserLoggedIn());
+    if (username === "Osvaldo" && password === '123') {
+      sessionStorage.setItem('authenticateUser', username);
+      // console.log('after ' + this.isUserLoggedIn());
+      return true;
+    }
+    return false;
+  }
+
+  isUserLoggedIn() {
+    let user = sessionStorage.getItem('authenticateUser')
+    return !(user === null)
+  }
+
+  logout() {
+    sessionStorage.removeItem('authenticateUser');
+    this.router.navigate(['login']);
   }
 
 }

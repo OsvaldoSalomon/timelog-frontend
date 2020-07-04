@@ -3,6 +3,7 @@ import {TimelogService} from '../../../services/timelog.service';
 import {ActivatedRoute} from '@angular/router';
 import {Observable, Subject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
+import { CompanyModel } from "../../../models/company.model";
 
 @Component({
   selector: 'app-company-edit',
@@ -17,11 +18,13 @@ export class CompanyDetailsComponent implements OnInit, OnDestroy {
   public companyList;
   private ngUnsubscribe = new Subject();
   id:string;
+  company: CompanyModel;
 
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.company = new CompanyModel("", "", [],[]);
     this.getUserList();
     this.getProjectList();
     this.getCompanyList();

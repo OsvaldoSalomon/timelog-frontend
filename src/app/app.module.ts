@@ -1,7 +1,7 @@
 import { BrowserModule } from '@angular/platform-browser';
 import { NgModule } from '@angular/core';
 
-import { AppRoutingModule, ROUTING } from './app-routing.module';
+import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { CompanyComponent } from './components/companies/company/company.component';
 import { TimelogService } from './services/timelog.service';
@@ -22,6 +22,8 @@ import { CompanyEditComponent } from './components/companies/company-edit/compan
 import { ProjectEditComponent } from './components/projects/project-edit/project-edit.component';
 import { UserEditComponent } from './components/users/user-edit/user-edit.component';
 import { LoginComponent } from './components/login/login.component';
+import { ErrorComponent } from './components/error/error.component';
+import { LogoutComponent } from './components/logout/logout.component';
 
 @NgModule({
   declarations: [
@@ -40,7 +42,9 @@ import { LoginComponent } from './components/login/login.component';
     CompanyEditComponent,
     ProjectEditComponent,
     UserEditComponent,
-    LoginComponent
+    LoginComponent,
+    ErrorComponent,
+    LogoutComponent
   ],
   imports: [
     BrowserModule,
@@ -49,9 +53,9 @@ import { LoginComponent } from './components/login/login.component';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    ROUTING
+    // ROUTING
   ],
-  providers: [TimelogService],
+  providers: [],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
