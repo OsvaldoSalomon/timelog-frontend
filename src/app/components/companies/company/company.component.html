@@ -17,7 +17,7 @@
           <tbody>
           <tr *ngFor="let company of Companies">
             <td>
-              <a [routerLink]="['/companies-details', company.id]" (click)="reload()">{{company.id}}</a>
+              <a [routerLink]="['/companies', company.id]" (click)="reload()" >{{company.id}}</a>
             </td>
             <td>
               {{company.name}}
@@ -29,38 +29,39 @@
     </div>
 
     <!--  Company Details  -->
-    <div class="container">
-      <h3 class="display-4 text-muted">Details of the company</h3>
-      <div class="container mt-lg-5">
-        <table class="table table-bordered table-hover">
-          <thead class="thead-light">
-          <tr>
-            <th>ID</th>
-            <th>Name</th>
-            <th>Project List</th>
-            <th>User List</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr>
-            <td>
-              {{CompanyAuto.id}}
-            </td>
-            <td>
-              {{CompanyAuto.name}}
-            </td>
-            <td>
-                {{CompanyAuto.projectList}}
-            </td>
-            <td>
-                {{CompanyAuto.userList}}
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-      <button class="btn btn-secondary" routerLink="/company-edit/{{CompanyAuto.id}}">Edit company</button>
-    </div><!--  End of Company Details  -->
+    <router-outlet></router-outlet>
+<!--    <div class="container">-->
+<!--      <h3 class="display-4 text-muted">Details of the company</h3>-->
+<!--      <div class="container mt-lg-5">-->
+<!--        <table class="table table-bordered table-hover">-->
+<!--          <thead class="thead-light">-->
+<!--          <tr>-->
+<!--            <th>ID</th>-->
+<!--            <th>Name</th>-->
+<!--            <th>Project List</th>-->
+<!--            <th>User List</th>-->
+<!--          </tr>-->
+<!--          </thead>-->
+<!--          <tbody>-->
+<!--          <tr>-->
+<!--            <td>-->
+<!--              {{CompanyAuto.id}}-->
+<!--            </td>-->
+<!--            <td>-->
+<!--              {{CompanyAuto.name}}-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                {{CompanyAuto.projectList}}-->
+<!--            </td>-->
+<!--            <td>-->
+<!--                {{CompanyAuto.userList}}-->
+<!--            </td>-->
+<!--          </tr>-->
+<!--          </tbody>-->
+<!--        </table>-->
+<!--      </div>-->
+<!--      <button class="btn btn-secondary" routerLink="/company-edit/{{CompanyAuto.id}}">Edit company</button>-->
+<!--    </div>&lt;!&ndash;  End of Company Details  &ndash;&gt;-->
   </div> <!-- End row -->
 </div>
 

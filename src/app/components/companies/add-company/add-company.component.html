@@ -1,6 +1,9 @@
 <h3 class="display-4 text-muted mb-4">Add a new Company</h3>
 <button class="btn btn-primary mb-5" routerLink="/companies">Return to list</button>
 <div class="col-9 pl-5">
+  <form [formGroup]="companySubmit" (ngSubmit)="addCompany(companySubmit)">
+
+  </form>
     <div class="form-group">
       <label for="name">Company Name</label>
       <input class="form-control" type="text" id="name" [(ngModel)]="companySubmit.name" placeholder="Company name">
@@ -15,5 +18,5 @@
       </select>
       </label>
     </div>
-    <button class="btn btn-primary" type="submit" >Add Company</button>
+    <button class="btn btn-primary" type="submit" (click)="addCompany(companySubmit)" >Add Company</button>
 </div>

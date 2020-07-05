@@ -17,12 +17,11 @@ export class UserComponent implements OnInit {
   public userAutomatically;
   newUser: FormGroup;
   validMessage: string = "";
-  user: User;
 
   constructor(private timelogService: TimelogService) { }
 
   ngOnInit() {
-    this.user = new User("", "", "", "", "");
+    this.userAutomatically = new User("", "", "", "", "");
     this.getUserList();
     this.getCompanyList();
     this.getProjectList();

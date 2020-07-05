@@ -20,7 +20,6 @@ export class LoginComponent {
   }
 
   handleLogin() {
-    // if (this.username==="user" && this.password === '123') {
     if (this.loginService.authenticate(this.username, this.password)) {
       this.router.navigate(['home', this.username])
       this.invalidLogin = false

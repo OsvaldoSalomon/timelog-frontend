@@ -1,6 +1,6 @@
 import {Component, OnDestroy, OnInit} from '@angular/core';
 import {TimelogService} from '../../../services/timelog.service';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {Observable, Subject, Subscription} from 'rxjs';
 import {takeUntil} from 'rxjs/operators';
 import { CompanyModel } from "../../../models/company.model";
@@ -10,25 +10,22 @@ import { CompanyModel } from "../../../models/company.model";
   templateUrl: './company-details.component.html',
   styleUrls: ['./company-details.component.css']
 })
-export class CompanyDetailsComponent implements OnInit, OnDestroy {
+export class CompanyDetailsComponent implements OnInit {
 
   public userList;
   public projectList;
   public companyDetails;
   public companyList;
-  private ngUnsubscribe = new Subject();
   id:string;
-  company: CompanyModel;
 
-
-  constructor(private timelogService: TimelogService, private route: ActivatedRoute) { }
+  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
-    this.company = new CompanyModel("", "", [],[]);
+    this.companyDetails = new CompanyModel("", "", [],[]);
+    this.getCompany(this.route.snapshot.params.id);
     this.getUserList();
     this.getProjectList();
     this.getCompanyList();
-    this.getCompany(this.route.snapshot.params.id);
   }
 
   reload() {
@@ -37,6 +34,10 @@ export class CompanyDetailsComponent implements OnInit, OnDestroy {
         window.location.reload()
       },
       700);
+  }
+
+  onEdit() {
+    this.router.navigate(['edit'], {relativeTo: this.route, queryParamsHandling: 'preserve'});
   }
 
   getCompanyList() {
@@ -80,10 +81,6 @@ export class CompanyDetailsComponent implements OnInit, OnDestroy {
     );
   }
 
-  ngOnDestroy() {
-    this.ngUnsubscribe = null;
-  }
 
 }
 
-// .pipe(takeUntil(this.ngUnsubscribe))

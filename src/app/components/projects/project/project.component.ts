@@ -18,12 +18,11 @@ export class ProjectComponent implements OnInit {
   newProject: FormGroup;
   validMessage: string = "";
   public projectAutomatically;
-  project: Project;
 
   constructor(private timelogService: TimelogService) { }
 
   ngOnInit() {
-    this.project = new Project("", "", "", []);
+    this.projectAutomatically = new Project("", "", "", []);
     this.getUserList();
     this.getCompanyList();
     this.getProjectList();

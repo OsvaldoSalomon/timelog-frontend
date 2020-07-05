@@ -3,6 +3,7 @@ import {TimelogService} from '../../../services/timelog.service';
 import {ActivatedRoute} from '@angular/router';
 import {throwError} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
+import { Project } from "../../../models/project.model";
 
 @Component({
   selector: 'app-project-edit',
@@ -17,10 +18,12 @@ export class ProjectDetailsComponent implements OnInit {
   public projectList;
   newProject: FormGroup;
   validMessage: string = "";
+  project: Project;
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute) { }
 
   ngOnInit() {
+    this.projectDetails = new Project("", "", "", []);
     this.getProject(this.route.snapshot.params.id);
     this.getUserList();
     this.getCompanyList();
@@ -43,7 +46,12 @@ export class ProjectDetailsComponent implements OnInit {
   getProject(id:string) {
     this.timelogService.getProject(id).subscribe(
       data => {
+        // console.log('projectDetails id: ' + this.projectDetails.id);
+        // console.log('projectDetails id: ' + this.projectDetails.company);
+        // console.log('projectDetails id: ' + this.projectDetails.userList);
         this.projectDetails = data;
+        // console.log('projectDetails: ' + this.projectDetails);
+        console.log('projectDetails: ' + this.projectDetails.name);
       },
       err => console.error(err),
       () => console.log('project loaded')

@@ -15,7 +15,6 @@ import { CompanyEditComponent } from './components/companies/company-edit/compan
 import { ProjectEditComponent } from './components/projects/project-edit/project-edit.component';
 import { UserEditComponent } from './components/users/user-edit/user-edit.component';
 import { LoginComponent } from './components/login/login.component';
-import { ErrorComponent } from "./components/error/error.component";
 import { RouteGuardService } from "./services/route-guard.service";
 import { LogoutComponent } from "./components/logout/logout.component";
 
@@ -23,18 +22,27 @@ export const routes: Routes = [
   {path: '', component: LoginComponent},
   {path: 'login', component: LoginComponent},
   {path: 'home/:name', component: HomeComponent, canActivate: [RouteGuardService]},
-  {path: 'companies', component: CompanyComponent, canActivate: [RouteGuardService]},
-  {path: 'companies-details/:id', component: CompanyDetailsComponent, canActivate: [RouteGuardService]},
-  {path: 'company-edit/:id', component: CompanyEditComponent, canActivate: [RouteGuardService]},
+  {
+    path: 'companies', component: CompanyComponent, canActivate: [RouteGuardService], children: [
+      {path: ':id', component: CompanyDetailsComponent, canActivate: [RouteGuardService]},
+      {path: ':id/edit', component: CompanyEditComponent, canActivate: [RouteGuardService]}
+    ]
+  },
   {path: 'companies-add', component: AddCompanyComponent, canActivate: [RouteGuardService]},
-  {path: 'projects', component: ProjectComponent, canActivate: [RouteGuardService]},
+  {
+    path: 'projects', component: ProjectComponent, canActivate: [RouteGuardService], children: [
+      {path: ':id', component: ProjectDetailsComponent, canActivate: [RouteGuardService]},
+      {path: ':id/edit', component: ProjectEditComponent, canActivate: [RouteGuardService]}
+    ]
+  },
   {path: 'projects-add', component: AddProjectComponent, canActivate: [RouteGuardService]},
-  {path: 'projects-details/:id', component: ProjectDetailsComponent, canActivate: [RouteGuardService]},
-  {path: 'project-edit/:id', component: ProjectEditComponent, canActivate: [RouteGuardService]},
-  {path: 'users', component: UserComponent, canActivate: [RouteGuardService]},
+  {
+    path: 'users', component: UserComponent, canActivate: [RouteGuardService], children: [
+      {path: ':id', component: UserDetailsComponent, canActivate: [RouteGuardService]},
+      {path: ':id/edit', component: UserEditComponent, canActivate: [RouteGuardService]}
+    ]
+  },
   {path: 'users-add', component: AddUserComponent, canActivate: [RouteGuardService]},
-  {path: 'users-details/:id', component: UserDetailsComponent, canActivate: [RouteGuardService]},
-  {path: 'user-edit/:id', component: UserEditComponent, canActivate: [RouteGuardService]},
   {path: 'logout', component: LogoutComponent, canActivate: [RouteGuardService]},
   // { path: '**', component: ErrorComponent }
 ];

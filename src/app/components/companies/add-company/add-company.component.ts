@@ -20,7 +20,9 @@ export class AddCompanyComponent implements OnInit {
   constructor(private timelogService: TimelogService, private router: Router) {
   }
 
-  ngOnInit() { }
+  ngOnInit() {
+    this.getUserList();
+  }
 
   addCompany(dataCompany) {
     this.timelogService.createCompany(this.companySubmit).subscribe((data: {}) => {

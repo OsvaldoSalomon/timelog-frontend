@@ -14,6 +14,7 @@ export class HomeComponent implements OnInit {
 
   ngOnInit() {
     this.name = this.route.snapshot.params['name'];
+    console.log(this.name);
   }
 
 }
