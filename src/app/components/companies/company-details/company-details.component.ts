@@ -28,17 +28,17 @@ export class CompanyDetailsComponent implements OnInit {
     this.getCompanyList();
   }
 
-  reload() {
-    setTimeout(() =>
-      {
-        window.location.reload()
-      },
-      700);
-  }
-
-  onEdit() {
-    this.router.navigate(['edit'], {relativeTo: this.route, queryParamsHandling: 'preserve'});
-  }
+  // reload() {
+  //   setTimeout(() =>
+  //     {
+  //       window.location.reload()
+  //     },
+  //     700);
+  // }
+  //
+  // onEdit() {
+  //   this.router.navigate(['edit'], {relativeTo: this.route, queryParamsHandling: 'preserve'});
+  // }
 
   getCompanyList() {
     this.timelogService.getCompanies().subscribe(

@@ -1,66 +1,24 @@
 <div class="container">
-  <h3 class="display-4 text-muted">Users</h3>
   <div class="row">
+    <!--  Company Details  -->
     <div class="container">
+      <h3 class="display-4 text-muted">Details of the user</h3>
       <div class="container mt-lg-5">
-        <table class="table table-bordered table-hover ">
-          <thead class="thead-light">
-          <tr>
-            <th>ID</th>
-            <th>First name</th>
-            <th>Last name</th>
-          </tr>
-          </thead>
-          <tbody>
-          <tr *ngFor="let user of userList">
-            <td>
-              <a [routerLink]="['/users-edit', user.id]" (click)="reload()">{{user.id}}</a>
-            </td>
-            <td>
-              {{user.firstName}}
-            </td>
-            <td>
-              {{user.lastName}}
-            </td>
-          </tr>
-          </tbody>
-        </table>
-      </div>
-
-
-      <!--  Details of user  -->
-      <div class="container">
-        <h3 class="display-4 text-muted">Details of the user</h3>
-        <div class="container mt-lg-5">
-          <table class="table table-bordered table-hover">
-            <thead class="thead-light">
-            <tr>
-              <th>ID</th>
-              <th>First name</th>
-              <th>Last name</th>
-              <th>Email</th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-              <td>
-                {{userDetails.id}}
-              </td>
-              <td>
-                {{userDetails.firstName}}
-              </td>
-              <td>
-                {{userDetails.lastName}}
-              </td>
-              <td>
-                {{userDetails.email}}
-              </td>
-            </tr>
-            </tbody>
-          </table>
+        <!--   Begin table square     -->
+        <div class="row border border-dark ">
+          <dt class="col-sm-3">ID:</dt>
+          <dd class="col-sm-9">{{userDetails.id}}</dd>
+          <dt class="col-sm-3">First name:</dt>
+          <dd class="col-sm-9">{{userDetails.firstName}}</dd>
+          <dt class="col-sm-3">Last name:</dt>
+          <dd class="col-sm-9">{{userDetails.lastName}}</dd>
+          <dt class="col-sm-3">E-mail:</dt>
+          <dd class="col-sm-9">{{userDetails.email}}</dd>
         </div>
-      </div><!--  End of details of user  -->
-    </div> <!-- End row -->
-  </div>
+        <!--   End table square     -->
+      </div>
+      <br>
+      <button class="btn btn-secondary" routerLink="/company-edit/{{userDetails.id}}">Edit company</button>
+    </div><!--  End of Company Details  -->
+  </div> <!-- End row -->
 </div>
-

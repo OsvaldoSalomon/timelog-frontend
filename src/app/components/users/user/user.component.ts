@@ -28,6 +28,14 @@ export class UserComponent implements OnInit {
     this.getUserAutomatically();
   }
 
+  reload() {
+    setTimeout(() =>
+      {
+        window.location.reload()
+      },
+      700);
+  }
+
    getCompanyList() {
     this.timelogService.getCompanies().subscribe(
       data => {

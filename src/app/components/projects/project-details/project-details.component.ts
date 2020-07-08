@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import {TimelogService} from '../../../services/timelog.service';
-import {ActivatedRoute} from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import {throwError} from 'rxjs';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
 import { Project } from "../../../models/project.model";
@@ -20,7 +20,7 @@ export class ProjectDetailsComponent implements OnInit {
   validMessage: string = "";
   project: Project;
 
-  constructor(private timelogService: TimelogService, private route: ActivatedRoute) { }
+  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.projectDetails = new Project("", "", "", []);
@@ -35,12 +35,8 @@ export class ProjectDetailsComponent implements OnInit {
     });
   }
 
-  reload() {
-    setTimeout(() =>
-      {
-        window.location.reload()
-      },
-      700);
+  onEdit() {
+    this.router.navigate(['edit'], {relativeTo: this.route, queryParamsHandling: 'preserve'});
   }
 
   getProject(id:string) {

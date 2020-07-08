@@ -19,38 +19,39 @@ import { RouteGuardService } from "./services/route-guard.service";
 import { LogoutComponent } from "./components/logout/logout.component";
 
 export const routes: Routes = [
-  {path: '', component: LoginComponent},
-  {path: 'login', component: LoginComponent},
-  {path: 'home/:name', component: HomeComponent, canActivate: [RouteGuardService]},
+  { path : '', component : LoginComponent },
+  { path : 'login', component : LoginComponent },
+  { path : 'home/:name', component : HomeComponent, canActivate : [RouteGuardService] },
   {
-    path: 'companies', component: CompanyComponent, canActivate: [RouteGuardService], children: [
-      {path: ':id', component: CompanyDetailsComponent, canActivate: [RouteGuardService]},
-      {path: ':id/edit', component: CompanyEditComponent, canActivate: [RouteGuardService]}
+    path : 'companies', component : CompanyComponent, canActivate : [RouteGuardService], children : [
+      { path : ':id', component : CompanyDetailsComponent, canActivate : [RouteGuardService] },
+      // { path : ':id/edit', component : CompanyEditComponent, canActivate : [RouteGuardService] },
     ]
   },
-  {path: 'companies-add', component: AddCompanyComponent, canActivate: [RouteGuardService]},
+  { path : 'company-edit/:id', component : CompanyEditComponent, canActivate : [RouteGuardService] },
+  { path : 'companies-add', component : AddCompanyComponent, canActivate : [RouteGuardService] },
   {
-    path: 'projects', component: ProjectComponent, canActivate: [RouteGuardService], children: [
-      {path: ':id', component: ProjectDetailsComponent, canActivate: [RouteGuardService]},
-      {path: ':id/edit', component: ProjectEditComponent, canActivate: [RouteGuardService]}
+    path : 'projects', component : ProjectComponent, canActivate : [RouteGuardService], children : [
+      { path : ':id', component : ProjectDetailsComponent, canActivate : [RouteGuardService] },
+      { path : ':id/edit', component : ProjectEditComponent, canActivate : [RouteGuardService] }
     ]
   },
-  {path: 'projects-add', component: AddProjectComponent, canActivate: [RouteGuardService]},
+  { path : 'projects-add', component : AddProjectComponent, canActivate : [RouteGuardService] },
   {
-    path: 'users', component: UserComponent, canActivate: [RouteGuardService], children: [
-      {path: ':id', component: UserDetailsComponent, canActivate: [RouteGuardService]},
-      {path: ':id/edit', component: UserEditComponent, canActivate: [RouteGuardService]}
+    path : 'users', component : UserComponent, canActivate : [RouteGuardService], children : [
+      { path : ':id', component : UserDetailsComponent, canActivate : [RouteGuardService] },
+      { path : ':id/edit', component : UserEditComponent, canActivate : [RouteGuardService] }
     ]
   },
-  {path: 'users-add', component: AddUserComponent, canActivate: [RouteGuardService]},
-  {path: 'logout', component: LogoutComponent, canActivate: [RouteGuardService]},
+  { path : 'users-add', component : AddUserComponent, canActivate : [RouteGuardService] },
+  { path : 'logout', component : LogoutComponent, canActivate : [RouteGuardService] },
   // { path: '**', component: ErrorComponent }
 ];
 
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
-  exports: [RouterModule]
+  imports : [RouterModule.forRoot(routes)],
+  exports : [RouterModule]
 })
 export class AppRoutingModule {
 }

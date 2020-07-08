@@ -141,11 +141,10 @@ export class TimelogService {
 
   // createCompany(company) {
   //   let body = JSON.stringify(company);
-  //   return this.http.post('/server/timelog/v1/companies', body, httpOptions);
+  //   return this.http.post('/timelog/v1/companies', body, this.httpOptions);
   // }
   createCompany(company): Observable<CompanyModel> {
-    // @ts-ignore
-    return this.http.post<Company>(this.apiURL + '/companies', JSON.stringify(company), this.httpOptions)
+    return this.http.post<CompanyModel>(this.apiURL + '/companies', JSON.stringify(company), this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)

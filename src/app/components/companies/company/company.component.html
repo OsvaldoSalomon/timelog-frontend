@@ -1,13 +1,13 @@
 <div class="container">
-  <h3 class="display-4 text-muted"><svg width="1em" height="1em" viewBox="0 0 16 16" class="bi bi-building" fill="currentColor" xmlns="http://www.w3.org/2000/svg">
-    <path fill-rule="evenodd" d="M14.763.075A.5.5 0 0 1 15 .5v15a.5.5 0 0 1-.5.5h-3a.5.5 0 0 1-.5-.5V14h-1v1.5a.5.5 0 0 1-.5.5h-9a.5.5 0 0 1-.5-.5V10a.5.5 0 0 1 .342-.474L6 7.64V4.5a.5.5 0 0 1 .276-.447l8-4a.5.5 0 0 1 .487.022zM6 8.694L1 10.36V15h5V8.694zM7 15h2v-1.5a.5.5 0 0 1 .5-.5h2a.5.5 0 0 1 .5.5V15h2V1.309l-7 3.5V15z"/>
-    <path d="M2 11h1v1H2v-1zm2 0h1v1H4v-1zm-2 2h1v1H2v-1zm2 0h1v1H4v-1zm4-4h1v1H8V9zm2 0h1v1h-1V9zm-2 2h1v1H8v-1zm2 0h1v1h-1v-1zm2-2h1v1h-1V9zm0 2h1v1h-1v-1zM8 7h1v1H8V7zm2 0h1v1h-1V7zm2 0h1v1h-1V7zM8 5h1v1H8V5zm2 0h1v1h-1V5zm2 0h1v1h-1V5zm0-2h1v1h-1V3z"/>
-  </svg>  Companies</h3>
+  <h3 class="display-4 text-muted">
+    <span data-feather="home"></span>
+    Companies
+  </h3>
   <div class="row">
     <div class="container">
       <button class="btn btn-primary" routerLink="/companies-add">Add a company</button>
       <div class="container mt-lg-5">
-        <table class="table table-bordered table-hover">
+        <table class="table table-sm table-bordered table-hover">
           <thead class="thead-light">
           <tr>
             <th>ID</th>
@@ -17,7 +17,7 @@
           <tbody>
           <tr *ngFor="let company of Companies">
             <td>
-              <a [routerLink]="['/companies', company.id]" (click)="reload()" >{{company.id}}</a>
+              <a [routerLink]="['/companies', company.id]" (click)="reload()">{{company.id}}</a>
             </td>
             <td>
               {{company.name}}
@@ -30,39 +30,31 @@
 
     <!--  Company Details  -->
     <router-outlet></router-outlet>
-<!--    <div class="container">-->
-<!--      <h3 class="display-4 text-muted">Details of the company</h3>-->
-<!--      <div class="container mt-lg-5">-->
-<!--        <table class="table table-bordered table-hover">-->
-<!--          <thead class="thead-light">-->
-<!--          <tr>-->
-<!--            <th>ID</th>-->
-<!--            <th>Name</th>-->
-<!--            <th>Project List</th>-->
-<!--            <th>User List</th>-->
-<!--          </tr>-->
-<!--          </thead>-->
-<!--          <tbody>-->
-<!--          <tr>-->
-<!--            <td>-->
-<!--              {{CompanyAuto.id}}-->
-<!--            </td>-->
-<!--            <td>-->
-<!--              {{CompanyAuto.name}}-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                {{CompanyAuto.projectList}}-->
-<!--            </td>-->
-<!--            <td>-->
-<!--                {{CompanyAuto.userList}}-->
-<!--            </td>-->
-<!--          </tr>-->
-<!--          </tbody>-->
-<!--        </table>-->
-<!--      </div>-->
-<!--      <button class="btn btn-secondary" routerLink="/company-edit/{{CompanyAuto.id}}">Edit company</button>-->
-<!--    </div>&lt;!&ndash;  End of Company Details  &ndash;&gt;-->
-  </div> <!-- End row -->
+
+    <!--  Company Details  -->
+    <div *ngIf="href === '/companies'" class="container">
+      <div class="row">
+        <!--  Company Details  -->
+        <div class="container">
+          <h3 class="display-4 text-muted">Details of the company</h3>
+          <div class="container mt-lg-5">
+            <!--   Begin table square     -->
+            <div class="row border border-dark ">
+              <dt class="col-sm-3">Name:</dt>
+              <dd class="col-sm-9">{{companyAuto.name}}</dd>
+              <dt class="col-sm-3">Projects:</dt>
+              <dd class="col-sm-9">{{companyAuto.projectList}}</dd>
+              <dt class="col-sm-3">Users:</dt>
+              <dd class="col-sm-9">{{companyAuto.userList}}</dd>
+            </div>
+            <!--   End table square     -->
+          </div>
+          <br>
+          <button class="btn btn-secondary" routerLink="/company-edit/{{companyAuto.id}}">Edit company</button>
+        </div><!--  End of Company Details  -->
+      </div> <!-- End row -->
+    </div>
+  </div>
 </div>
 
 

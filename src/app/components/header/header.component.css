@@ -51,7 +51,7 @@ body {
   padding-bottom: 15px;
 }
 
-.sidebar .nav-link .feather {
+.sidebar .nav-link {
   margin-right: 4px;
   color: #999;
 }
@@ -108,7 +108,6 @@ body {
   box-shadow: 0 0 0 3px rgba(255, 255, 255, .25);
 }
 
-
 #sidebar-wrapper {
   min-height: 100vh;
   margin-left: -15rem;
@@ -148,4 +147,12 @@ body {
   #wrapper.toggled #sidebar-wrapper {
     margin-left: -15rem;
   }
+}
+
+.personal-link {
+  color:darkgray;
+}
+
+.personal-link:hover {
+  color: #333333;
 }

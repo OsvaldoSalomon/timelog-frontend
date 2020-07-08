@@ -3,7 +3,7 @@
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
-    "start": "ng serve --proxy-config proxy.conf.json",
+    "start": "ng serve",
     "build": "ng build",
     "test": "ng test",
     "lint": "ng lint",
@@ -23,6 +23,7 @@
     "bootstrap": "^4.5.0",
     "bootstrap-icons": "^1.0.0-alpha5",
     "bootstrap-select": "^1.13.17",
+    "feather-icons": "^4.28.0",
     "jquery": "^3.5.1",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.4",

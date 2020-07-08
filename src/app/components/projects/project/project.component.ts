@@ -4,6 +4,7 @@ import {FormControl, FormGroup, FormsModule, Validators} from '@angular/forms';
 import {throwError} from 'rxjs';
 import { Project } from "../../../models/project.model";
 import { CompanyModel } from "../../../models/company.model";
+import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector: 'app-projects',
@@ -19,7 +20,7 @@ export class ProjectComponent implements OnInit {
   validMessage: string = "";
   public projectAutomatically;
 
-  constructor(private timelogService: TimelogService) { }
+  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.projectAutomatically = new Project("", "", "", []);
@@ -32,6 +33,18 @@ export class ProjectComponent implements OnInit {
       company: new FormControl('', Validators.required),
       members: new FormControl('', Validators.required)
     });
+  }
+
+  onEdit() {
+    this.router.navigate(['edit'], {relativeTo: this.route, queryParamsHandling: 'preserve'});
+  }
+
+  reload() {
+    setTimeout(() =>
+      {
+        window.location.reload()
+      },
+      700);
   }
 
   getCompanyList() {
@@ -73,25 +86,6 @@ export class ProjectComponent implements OnInit {
       () => console.log('members loaded')
     );
   }
-
-  submitProject() {
-    if (this.newProject.valid) {
-      this.validMessage = "Your project has been created!";
-      this.timelogService.createProject(this.newProject.value).subscribe(
-        data => {
-          this.newProject.reset();
-          return true;
-        },
-        error => {
-          return throwError(error);
-        }
-      )
-    } else {
-      this.validMessage = "Please fill out the form before submitting!";
-    }
-  }
-
-
 
 
 }
