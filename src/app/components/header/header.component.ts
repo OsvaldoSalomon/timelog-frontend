@@ -8,17 +8,9 @@ import { ActivatedRoute } from "@angular/router";
   styleUrls: ['./header.component.css']
 })
 export class HeaderComponent implements OnInit {
-  isLoggedIn: boolean;
-  name: '';
 
   constructor(public loginService: LoginService, private route: ActivatedRoute) { }
 
-  ngOnInit() {
-    this.name = this.route.snapshot.params['name'];
-    console.log(this.name);
-  }
-
-
-
+  ngOnInit() { }
 
 }
