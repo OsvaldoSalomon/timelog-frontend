@@ -1,14 +1,12 @@
-import {Component, OnDestroy, OnInit} from '@angular/core';
-import {TimelogService} from '../../../services/timelog.service';
+import { Component, OnInit } from '@angular/core';
+import { TimelogService } from '../../../services/timelog.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import {Observable, Subject, Subscription} from 'rxjs';
-import {takeUntil} from 'rxjs/operators';
 import { CompanyModel } from "../../../models/company.model";
 
 @Component({
-  selector: 'app-company-edit',
-  templateUrl: './company-details.component.html',
-  styleUrls: ['./company-details.component.css']
+  selector : 'app-company-edit',
+  templateUrl : './company-details.component.html',
+  styleUrls : ['./company-details.component.css']
 })
 export class CompanyDetailsComponent implements OnInit {
 
@@ -16,26 +14,19 @@ export class CompanyDetailsComponent implements OnInit {
   public projectList;
   public companyDetails;
   public companyList;
-  id:string;
+  id: string;
 
-  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit() {
-    this.companyDetails = new CompanyModel("", "", [],[]);
+    this.companyDetails = new CompanyModel("", "", [], []);
     this.getCompany(this.route.snapshot.params.id);
     this.getUserList();
     this.getProjectList();
     this.getCompanyList();
   }
 
-  // reload() {
-  //   setTimeout(() =>
-  //     {
-  //       window.location.reload()
-  //     },
-  //     700);
-  // }
-  //
   // onEdit() {
   //   this.router.navigate(['edit'], {relativeTo: this.route, queryParamsHandling: 'preserve'});
   // }
@@ -70,14 +61,13 @@ export class CompanyDetailsComponent implements OnInit {
     );
   }
 
-  getCompany(id:string) {
+  getCompany(id: string) {
     this.timelogService.getCompany(id).subscribe(
       data => {
         this.companyDetails = data;
       },
       err => console.error(err),
       () => console.log('company loaded'),
-
     );
   }
 

@@ -24,7 +24,7 @@ export class ProjectEditComponent implements OnInit {
     this.getProject(this.route.snapshot.params.id);
     this.editedProject = new FormGroup({
       name: new FormControl('', Validators.required),
-      members: new FormControl('', Validators.required)
+      userList: new FormControl('', Validators.required)
     });
   }
 

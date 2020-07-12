@@ -23,7 +23,7 @@ export class AddProjectComponent implements OnInit {
     this.newProject = new FormGroup({
       name: new FormControl('', Validators.required),
       company: new FormControl('', Validators.required),
-      members: new FormControl('', Validators.required)
+      userList: new FormControl('', Validators.required)
     });
   }
 

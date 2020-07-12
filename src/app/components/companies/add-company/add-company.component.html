@@ -1,45 +1,30 @@
 <h3 class="display-4 text-muted mb-4">Add a new Company</h3>
 <button class="btn btn-primary mb-5" routerLink="/companies">Return to list</button>
-<div class="col-sm-9 pl-5">
-  <form [formGroup]="newCompany">
+<div class="col-9 pl-5">
+  <form [formGroup]="companySubmit" (ngSubmit)="addCompany(companySubmit)">
+
+  </form>
     <div class="form-group">
       <label for="name">Company Name</label>
-      <input class="form-control" type="text" id="name" formControlName="name" placeholder="Company name">
+      <input
+        class="form-control"
+        type="text"
+        id="name"
+        [(ngModel)]="companySubmit.name"
+        placeholder="Company name">
+<!--      <div *ngIf="(name.invalid && name.touched) || name.dirty">-->
+<!--        <small *ngIf="name.errors?.required" class="text-danger">Name is required.</small>-->
+<!--        <small *ngIf="name.errors?.minlength" class="text-danger">Name must be at least 4 characters long.</small>-->
+<!--      </div>-->
     </div>
     <div class="form-group">
-      <label>Members</label>
-      <select class="form-control" formControlName="members" multiple>
-        <option *ngFor="let m of userList">
+      <label>Members
+      <select class="form-control" [(ngModel)]="companySubmit.userList" multiple>
+        <option *ngFor="let m of Users">
           {{m.firstName}} {{m.lastName}}
         </option>
       </select>
+      </label>
     </div>
-    <button class="btn btn-primary" (click)="submitCompany()">Add Company</button>
-  </form>
+    <button class="btn btn-primary" type="submit" (click)="addCompany(companySubmit)">Add Company</button>
 </div>
-<div class="col-sm-3">
-
-</div>
-
-<!--<h3 class="display-4 text-muted mb-4">Add a new Company</h3>-->
-<!--<button class="btn btn-primary mb-5" routerLink="/companies">Return to list</button>-->
-<!--<div class="col-9 pl-5">-->
-<!--  <form [formGroup]="companySubmit" (ngSubmit)="addCompany(companySubmit)">-->
-
-<!--  </form>-->
-<!--    <div class="form-group">-->
-<!--      <label for="name">Company Name</label>-->
-<!--      <input class="form-control" type="text" id="name" [(ngModel)]="companySubmit.name" placeholder="Company name">-->
-<!--    </div>-->
-<!--    <div class="form-group">-->
-<!--      <label>Members-->
-<!--      <select class="form-control"  [(ngModel)]="companySubmit.members">-->
-<!--        <option *ngFor="let m of Users"-->
-<!--                [value]="m">-->
-<!--          {{m.firstName}} {{m.lastName}}-->
-<!--        </option>-->
-<!--      </select>-->
-<!--      </label>-->
-<!--    </div>-->
-<!--    <button class="btn btn-primary" type="submit" (click)="addCompany(companySubmit)" >Add Company</button>-->
-<!--</div>-->

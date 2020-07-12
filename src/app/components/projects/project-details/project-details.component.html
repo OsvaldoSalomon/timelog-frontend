@@ -10,7 +10,7 @@
           <dd class="col-sm-9">{{projectDetails.id}}</dd>
           <dt class="col-sm-3">Name:</dt>
           <dd class="col-sm-9">{{projectDetails.name}}</dd>
-          <dt class="col-sm-3">Projects:</dt>
+          <dt class="col-sm-3">Company:</dt>
           <dd class="col-sm-9">{{projectDetails.company}}</dd>
           <dt class="col-sm-3">Users:</dt>
           <dd class="col-sm-9">{{projectDetails.userList}}</dd>
@@ -18,7 +18,7 @@
         <!--   End table square     -->
       </div>
       <br>
-      <button class="btn btn-secondary" (click)="onEdit()">Edit Project</button>
+      <button class="btn btn-secondary" routerLink="/project-edit/{{projectDetails.id}}">Edit Project</button>
     </div><!--  End of Project Details  -->
   </div> <!-- End row -->
 </div>

@@ -8,17 +8,15 @@
     <div class="form-group">
       <label>Company</label>
       <select class="form-control" formControlName="company">
-        <option *ngFor="let companies of companyList"
-                [value]="companies">
+        <option *ngFor="let companies of companyList">
           {{companies.name}}
         </option>
       </select>
     </div>
     <div class="form-group">
       <label>Members</label>
-      <select class="form-control" formControlName="members" multiple>
-        <option *ngFor="let m of userList"
-                [value]="m">
+      <select class="form-control" formControlName="userList" multiple>
+        <option *ngFor="let m of userList">
           {{m.firstName}} {{m.lastName}}
         </option>
       </select>

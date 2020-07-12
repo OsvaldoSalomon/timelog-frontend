@@ -17,9 +17,10 @@ import { UserEditComponent } from './components/users/user-edit/user-edit.compon
 import { LoginComponent } from './components/login/login.component';
 import { RouteGuardService } from "./services/route-guard.service";
 import { LogoutComponent } from "./components/logout/logout.component";
+import { ErrorComponent } from "./components/error/error.component";
 
 export const routes: Routes = [
-  { path : '', component : LoginComponent },
+  { path : '', component : ErrorComponent },
   { path : 'login', component : LoginComponent },
   { path : 'home/:name', component : HomeComponent, canActivate : [RouteGuardService] },
   {
@@ -33,16 +34,16 @@ export const routes: Routes = [
   {
     path : 'projects', component : ProjectComponent, canActivate : [RouteGuardService], children : [
       { path : ':id', component : ProjectDetailsComponent, canActivate : [RouteGuardService] },
-      { path : ':id/edit', component : ProjectEditComponent, canActivate : [RouteGuardService] }
     ]
   },
+  { path : 'project-edit/:id', component : ProjectEditComponent, canActivate : [RouteGuardService] },
   { path : 'projects-add', component : AddProjectComponent, canActivate : [RouteGuardService] },
   {
     path : 'users', component : UserComponent, canActivate : [RouteGuardService], children : [
       { path : ':id', component : UserDetailsComponent, canActivate : [RouteGuardService] },
-      { path : ':id/edit', component : UserEditComponent, canActivate : [RouteGuardService] }
     ]
   },
+  { path : 'user-edit/:id', component : UserEditComponent, canActivate : [RouteGuardService] },
   { path : 'users-add', component : AddUserComponent, canActivate : [RouteGuardService] },
   { path : 'logout', component : LogoutComponent, canActivate : [RouteGuardService] },
   // { path: '**', component: ErrorComponent }

@@ -22,7 +22,7 @@ export class CompanyEditComponent implements OnInit {
     this.getCompany(this.route.snapshot.params.id);
     this.editedCompany = new FormGroup({
       name: new FormControl('', Validators.required),
-      members: new FormControl('', Validators.required)
+      userList: new FormControl('', Validators.required)
     });
   }
 
@@ -69,11 +69,13 @@ export class CompanyEditComponent implements OnInit {
     this.timelogService.deleteCompany(id).subscribe(
       data => {
         this.companyDetails = data;
+        this.router.navigate(['companies']);
       },
       err => console.error(err),
       () => console.log('company loaded'),
+
     );
-    this.router.navigate(['companies']);
+
   }
 
 

@@ -17,7 +17,6 @@ export class ProjectComponent implements OnInit {
   public userList;
   public projectList;
   newProject: FormGroup;
-  validMessage: string = "";
   public projectAutomatically;
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
@@ -31,7 +30,7 @@ export class ProjectComponent implements OnInit {
     this.newProject = new FormGroup({
       name: new FormControl('', Validators.required),
       company: new FormControl('', Validators.required),
-      members: new FormControl('', Validators.required)
+      userList: new FormControl('', Validators.required)
     });
   }
 

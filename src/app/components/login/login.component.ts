@@ -12,7 +12,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 })
 export class LoginComponent {
 
-  username = '';
+  username = 'Osvaldo';
   password = '';
   errorMessage = 'Invalid Credentials';
   invalidLogin = false;
