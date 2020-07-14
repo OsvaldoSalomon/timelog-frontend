@@ -18,6 +18,7 @@ export class ProjectComponent implements OnInit {
   public projectList;
   newProject: FormGroup;
   public projectAutomatically;
+  term: string;
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
 

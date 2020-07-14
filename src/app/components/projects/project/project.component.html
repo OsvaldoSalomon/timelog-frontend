@@ -8,15 +8,18 @@
     <div class="container">
       <button class="btn btn-primary" routerLink="/projects-add">Add a project</button>
       <div class="container mt-5">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search ID or name here" [(ngModel)]="term">
+        </div>
         <table class="table table-bordered table-hover table-sm">
           <thead class="thead-light">
           <tr>
-            <th>ID</th>
-            <th>Name</th>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let project of projectList">
+          <tr *ngFor="let project of projectList | filter:term">
             <td>
               <a [routerLink]="['/projects', project.id]" (click)="reload()">{{project.id}}</a>
             </td>

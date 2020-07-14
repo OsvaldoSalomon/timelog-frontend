@@ -24,6 +24,7 @@ import { UserEditComponent } from './components/users/user-edit/user-edit.compon
 import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
 import { LogoutComponent } from './components/logout/logout.component';
+import { Ng2SearchPipeModule } from "ng2-search-filter";
 
 @NgModule({
   declarations: [
@@ -53,6 +54,7 @@ import { LogoutComponent } from './components/logout/logout.component';
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
+    Ng2SearchPipeModule
     // ROUTING
   ],
   providers: [],

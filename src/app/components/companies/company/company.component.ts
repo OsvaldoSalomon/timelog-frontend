@@ -15,7 +15,7 @@ export class CompanyComponent implements OnInit {
   Projects: any = [];
   Users: any = [];
   company: CompanyModel;
-  href = '';
+  term: string;
 
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }

@@ -28,6 +28,7 @@ export class UserEditComponent implements OnInit {
     "Frontend developer",
     "Backend developer"
   ];
+
   editUser() {
     if (this.updatedUser.valid) {
       console.log("User has been created!");

@@ -15,8 +15,7 @@
     <div class="form-group">
       <label class="text-muted blockquote">Members</label>
       <select class="form-control" formControlName="userList" multiple>
-        <option *ngFor="let m of userList"
-                [value]="m">
+        <option *ngFor="let m of userList">
           {{m.firstName}} {{m.lastName}}
         </option>
       </select>

@@ -1,5 +1,5 @@
-<h3 class="display-4 text-muted">Add a new user</h3>
-<div class="col-sm-9 pl-5">
+<h3 class="display-4 text-muted">Edit user</h3>
+<div class="position-fixed col-lg-9 pl-5">
   <form [formGroup]="updatedUser" (ngSubmit)="editUser()">
     <div class="form-group">
       <label for="firstName">First name</label>
@@ -45,15 +45,7 @@
         [(ngModel)]="userDetails.password"
       >
     </div>
-    <!--        <div class="form-group">-->
-    <!--          <label>Role</label>-->
-    <!--          <select class="form-control" formControlName="role">-->
-    <!--            <option *ngFor="let r of roleList"-->
-    <!--                    [value]="r">-->
-    <!--              {{r}}-->
-    <!--            </option>-->
-    <!--          </select>-->
-    <!--        </div>-->
-    <button type="submit" class="btn btn-primary">Add User</button>
+    <button type="submit" class="btn btn-primary">Edit User</button> |
+    <button type="submit" class="btn btn-danger">Delete User</button>
   </form>
 </div>

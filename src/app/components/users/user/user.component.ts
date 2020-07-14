@@ -15,6 +15,7 @@ export class UserComponent implements OnInit {
   public userList;
   public projectList;
   public userAutomatically;
+  term: string;
   newUser: FormGroup;
   validMessage: string = "";
 

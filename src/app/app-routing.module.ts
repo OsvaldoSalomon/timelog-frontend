@@ -20,7 +20,7 @@ import { LogoutComponent } from "./components/logout/logout.component";
 import { ErrorComponent } from "./components/error/error.component";
 
 export const routes: Routes = [
-  { path : '', component : ErrorComponent },
+  { path : '', component : LoginComponent },
   { path : 'login', component : LoginComponent },
   { path : 'home/:name', component : HomeComponent, canActivate : [RouteGuardService] },
   {
@@ -46,7 +46,7 @@ export const routes: Routes = [
   { path : 'user-edit/:id', component : UserEditComponent, canActivate : [RouteGuardService] },
   { path : 'users-add', component : AddUserComponent, canActivate : [RouteGuardService] },
   { path : 'logout', component : LogoutComponent, canActivate : [RouteGuardService] },
-  // { path: '**', component: ErrorComponent }
+  { path: '**', component: ErrorComponent }
 ];
 
 

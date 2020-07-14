@@ -15,6 +15,7 @@ export class CompanyDetailsComponent implements OnInit {
   public companyDetails;
   public companyList;
   id: string;
+  term: string;
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) {
   }

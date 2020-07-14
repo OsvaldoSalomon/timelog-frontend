@@ -1,20 +1,21 @@
 <div class="container">
-  <h3 class="display-4 text-muted">
-    Companies
-  </h3>
+  <h3 class="display-4 text-muted">Companies</h3>
   <div class="row">
     <div class="container">
       <button class="btn btn-primary" routerLink="/companies-add">Add a company</button>
       <div class="container mt-lg-5">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search ID or name here" [(ngModel)]="term">
+        </div>
         <table class="table table-bordered table-hover">
           <thead class="thead-light">
           <tr>
-            <th>ID</th>
-            <th>Name</th>
+            <th scope="col">ID</th>
+            <th scope="col">Name</th>
           </tr>
           </thead>
           <tbody>
-          <tr *ngFor="let company of Companies">
+          <tr *ngFor="let company of Companies | filter:term">
             <td>
               <a [routerLink]="['/companies', company.id]" (click)="reload()">{{company.id}}</a>
             </td>
@@ -25,34 +26,49 @@
           </tbody>
         </table>
       </div>
+      <br>
+      <!--  Company Details  -->
+      <router-outlet></router-outlet>
+      <!--  Company Details Automatically  -->
+      <br>
+      <div class="card">
+        <h3 class="card-header">Details of the company</h3>
+        <div class="row">
+          <!--   Begin table square     -->
+          <div class="card-body">
+            <dt class="col-sm-3">Name:</dt>
+            <dd class="col-sm-3">{{companyAuto.name}}</dd>
+            <dt class="col-sm-3">Projects:</dt>
+            <dd class="col-sm-3">{{companyAuto.projectList}}</dd>
+            <dt class="col-sm-3">Users:</dt>
+            <dd class="col-sm-3">{{companyAuto.userList}}</dd>
+          </div> <!--   End table square     -->
+        </div>
+        <br>
+        <button class="btn btn-secondary" routerLink="/company-edit/{{companyAuto.id}}">Edit company</button>
+      </div> <!--  End of Company Details  -->
     </div>
 
     <!--  Company Details  -->
     <router-outlet></router-outlet>
 
-    <!--  Company Details  -->
-    <div  class="container">
+    <!--  Company Details Automatically  -->
+    <div class="card">
+      <h3 class="card-header">Details of the company</h3>
       <div class="row">
-        <!--  Company Details  -->
-        <div class="container">
-          <h3 class="display-4 text-muted">Details of the company</h3>
-          <div class="container mt-lg-5">
-            <!--   Begin table square     -->
-            <div class="row border border-dark ">
-              <dt class="col-sm-3">Name:</dt>
-              <dd class="col-sm-9">{{companyAuto.name}}</dd>
-              <dt class="col-sm-3">Projects:</dt>
-              <dd class="col-sm-9">{{companyAuto.projectList}}</dd>
-              <dt class="col-sm-3">Users:</dt>
-              <dd class="col-sm-9">{{companyAuto.userList}}</dd>
-            </div>
-            <!--   End table square     -->
-          </div>
-          <br>
-          <button class="btn btn-secondary" routerLink="/company-edit/{{companyAuto.id}}">Edit company</button>
-        </div><!--  End of Company Details  -->
-      </div> <!-- End row -->
-    </div>
+        <!--   Begin table square     -->
+        <div class="card-body">
+          <dt class="col-sm-3">Name:</dt>
+          <dd class="col-sm-3">{{companyAuto.name}}</dd>
+          <dt class="col-sm-3">Projects:</dt>
+          <dd class="col-sm-3">{{companyAuto.projectList}}</dd>
+          <dt class="col-sm-3">Users:</dt>
+          <dd class="col-sm-3">{{companyAuto.userList}}</dd>
+        </div> <!--   End table square     -->
+      </div>
+      <br>
+      <button class="btn btn-secondary" routerLink="/company-edit/{{companyAuto.id}}">Edit company</button>
+    </div> <!--  End of Company Details  -->
   </div>
 </div>
 
