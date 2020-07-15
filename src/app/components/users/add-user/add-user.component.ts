@@ -1,33 +1,30 @@
 import { Component, OnInit } from '@angular/core';
-import {throwError} from 'rxjs';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {TimelogService} from '../../../services/timelog.service';
+import { throwError } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TimelogService } from '../../../services/timelog.service';
 
 @Component({
-  selector: 'app-add-user',
-  templateUrl: './add-user.component.html',
-  styleUrls: ['./add-user.component.css']
+  selector : 'app-add-user',
+  templateUrl : './add-user.component.html',
+  styleUrls : ['./add-user.component.css']
 })
 export class AddUserComponent implements OnInit {
 
   newUser: FormGroup;
   validMessage: string = "";
 
-  constructor(private timelogService: TimelogService) { }
+  constructor(private timelogService: TimelogService) {
+  }
 
   ngOnInit() {
     this.newUser = new FormGroup({
-      firstName: new FormControl('', Validators.required),
-      lastName: new FormControl('', Validators.required),
-      email: new FormControl('', Validators.required),
-      password: new FormControl('', Validators.required)
+      firstName : new FormControl('', Validators.required),
+      lastName : new FormControl('', Validators.required),
+      email : new FormControl('', Validators.required),
+      password : new FormControl('', Validators.required)
     });
   }
 
-  roleList = [
-    "Frontend developer",
-    "Backend developer"
-  ];
   submitUser() {
     if (this.newUser.valid) {
       this.validMessage = "User has been created!";

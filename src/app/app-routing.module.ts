@@ -46,7 +46,8 @@ export const routes: Routes = [
   { path : 'user-edit/:id', component : UserEditComponent, canActivate : [RouteGuardService] },
   { path : 'users-add', component : AddUserComponent, canActivate : [RouteGuardService] },
   { path : 'logout', component : LogoutComponent, canActivate : [RouteGuardService] },
-  { path: '**', component: ErrorComponent }
+  { path: '**', component: ErrorComponent },
+  { path: 'something', redirectTo: '**' }
 ];
 
 

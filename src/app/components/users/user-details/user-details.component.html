@@ -1,24 +1,17 @@
-<div class="container">
-  <div class="row">
-    <!--  Company Details  -->
-    <div class="container">
-      <h3 class="display-4 text-muted">Details of the user</h3>
-      <div class="container mt-lg-5">
-        <!--   Begin table square     -->
-        <div class="row border border-dark ">
-          <dt class="col-sm-3">ID:</dt>
-          <dd class="col-sm-9">{{userDetails.id}}</dd>
-          <dt class="col-sm-3">First name:</dt>
-          <dd class="col-sm-9">{{userDetails.firstName}}</dd>
-          <dt class="col-sm-3">Last name:</dt>
-          <dd class="col-sm-9">{{userDetails.lastName}}</dd>
-          <dt class="col-sm-3">E-mail:</dt>
-          <dd class="col-sm-9">{{userDetails.email}}</dd>
-        </div>
-        <!--   End table square     -->
-      </div>
-      <br>
-      <button class="btn btn-secondary" routerLink="/user-edit/{{userDetails.id}}">Edit user</button>
-    </div><!--  End of Company Details  -->
-  </div> <!-- End row -->
+<div class="card" style="width: 500px"> <!--  User Details Automatically  -->
+  <h3 class="card-header">Details of the user</h3>
+  <div class="card-body">
+    <div class="row">
+      <dt class="col-sm-5">ID:</dt>
+      <dd class="col-sm-7">{{userDetails.id}}</dd>
+      <dt class="col-sm-5">First name:</dt>
+      <dd class="col-sm-7">{{userDetails.firstName}}</dd>
+      <dt class="col-sm-5">Last name:</dt>
+      <dd class="col-sm-7">{{userDetails.lastName}}</dd>
+      <dt class="col-sm-5">E-mail:</dt>
+      <dd class="col-sm-7">{{userDetails.email}}</dd>
+    </div>
+  </div>
 </div>
+<br>
+<button class="btn btn-secondary" routerLink="/user-edit/{{userDetails.id}}">Edit user</button>

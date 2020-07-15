@@ -1,58 +1,58 @@
 <div class="container">
   <h3 class="display-4 text-muted">Users</h3>
-  <div class="container">
-    <button class="btn btn-primary" routerLink="/users-add">Add a User</button>
-    <div class="container mt-lg-5">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Search ID or name here" [(ngModel)]="term">
+  <br>
+  <div class="row">
+    <div class="col-lg">
+      <button class="btn btn-primary" routerLink="/users-add">Add a User</button>
+      <div class="container mt-lg-5">
+        <div class="form-group">
+          <input type="text" class="form-control" placeholder="Search ID or name here" [(ngModel)]="term">
+        </div>
+        <table class="table table-bordered table-hover ">
+          <thead class="thead-light">
+          <tr>
+            <th scope="col">ID</th>
+            <th scope="col">First name</th>
+            <th scope="col">Last name</th>
+          </tr>
+          </thead>
+          <tbody>
+          <tr *ngFor="let user of userList | filter:term">
+            <td>
+              <a [routerLink]="['/users',user.id]" (click)="reload()">{{user.id}}</a>
+            </td>
+            <td>
+              {{user.firstName}}
+            </td>
+            <td>
+              {{user.lastName}}
+            </td>
+          </tr>
+          </tbody>
+        </table>
       </div>
-      <table class="table table-bordered table-hover ">
-        <thead class="thead-light">
-        <tr>
-          <th scope="col">ID</th>
-          <th scope="col">First name</th>
-          <th scope="col">Last name</th>
-        </tr>
-        </thead>
-        <tbody>
-        <tr *ngFor="let user of userList | filter:term">
-          <td>
-            <a [routerLink]="['/users',user.id]" (click)="reload()">{{user.id}}</a>
-          </td>
-          <td>
-            {{user.firstName}}
-          </td>
-          <td>
-            {{user.lastName}}
-          </td>
-        </tr>
-        </tbody>
-      </table>
+      <br>
     </div>
-
-    <router-outlet></router-outlet>
-
-    <!--  Details of user  -->
-
-  </div> <!-- End row -->
-  <div class="container">
-    <div class="card">
-      <h3 class="card-header display-4 text-muted">Details of the user</h3>
-      <div class="card-body ">
-        <div class="row">
-          <dt class="col-sm-3">ID:</dt>
-          <dd class="col-sm-3">{{userAutomatically.id}}</dd>
-          <dt class="col-sm-3">First name:</dt>
-          <dd class="col-sm-3">{{userAutomatically.firstName}}</dd>
-          <dt class="col-sm-3">Last name:</dt>
-          <dd class="col-sm-3">{{userAutomatically.lastName}}</dd>
-          <dt class="col-sm-3">E-mail:</dt>
-          <dd class="col-sm-3">{{userAutomatically.email}}</dd>
+    <div class="col-lg ml-5 mt-5 pt-5">
+      <router-outlet></router-outlet> <!--  User Details  -->
+      <br>
+      <div class="card" style="width: 500px"> <!--  User Details Automatically  -->
+        <h3 class="card-header">Details of the user</h3>
+        <div class="card-body">
+          <div class="row">
+            <dt class="col-sm-5">ID:</dt>
+            <dd class="col-sm-7">{{userAutomatically.id}}</dd>
+            <dt class="col-sm-5">First name:</dt>
+            <dd class="col-sm-7">{{userAutomatically.firstName}}</dd>
+            <dt class="col-sm-5">Last name:</dt>
+            <dd class="col-sm-7">{{userAutomatically.lastName}}</dd>
+            <dt class="col-sm-5">E-mail:</dt>
+            <dd class="col-sm-7">{{userAutomatically.email}}</dd>
+          </div>
         </div>
       </div>
+      <br>
+      <button class="btn btn-secondary" routerLink="/user-edit/{{userAutomatically.id}}">Edit user</button>
     </div>
-    <br>
-    <button class="btn btn-secondary" routerLink="/user-edit/{{userAutomatically.id}}">Edit user</button>
-  </div><!--  End of User Details  -->
+  </div> <!-- End row -->
 </div>
-

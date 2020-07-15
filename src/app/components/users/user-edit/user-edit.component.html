@@ -1,6 +1,6 @@
 <h3 class="display-4 text-muted">Edit user</h3>
 <div class="position-fixed col-lg-9 pl-5">
-  <form [formGroup]="updatedUser" (ngSubmit)="editUser()">
+  <form [formGroup]="updatedUser" (ngSubmit)="editUser(userDetails.id)">
     <div class="form-group">
       <label for="firstName">First name</label>
       <input
@@ -45,7 +45,7 @@
         [(ngModel)]="userDetails.password"
       >
     </div>
-    <button type="submit" class="btn btn-primary">Edit User</button> |
-    <button type="submit" class="btn btn-danger">Delete User</button>
+    <button type="submit" class="btn btn-secondary">Edit User</button> |
+    <button type="submit" class="btn btn-danger" (click)="deleteUser(userDetails.id)">Delete User</button>
   </form>
 </div>

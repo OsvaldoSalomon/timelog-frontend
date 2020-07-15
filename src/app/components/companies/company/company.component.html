@@ -1,7 +1,8 @@
 <div class="container">
   <h3 class="display-4 text-muted">Companies</h3>
+  <br>
   <div class="row">
-    <div class="container">
+    <div class="col-lg">
       <button class="btn btn-primary" routerLink="/companies-add">Add a company</button>
       <div class="container mt-lg-5">
         <div class="form-group">
@@ -27,49 +28,29 @@
         </table>
       </div>
       <br>
-      <!--  Company Details  -->
-      <router-outlet></router-outlet>
-      <!--  Company Details Automatically  -->
-      <br>
-      <div class="card">
-        <h3 class="card-header">Details of the company</h3>
-        <div class="row">
-          <!--   Begin table square     -->
-          <div class="card-body">
-            <dt class="col-sm-3">Name:</dt>
-            <dd class="col-sm-3">{{companyAuto.name}}</dd>
-            <dt class="col-sm-3">Projects:</dt>
-            <dd class="col-sm-3">{{companyAuto.projectList}}</dd>
-            <dt class="col-sm-3">Users:</dt>
-            <dd class="col-sm-3">{{companyAuto.userList}}</dd>
-          </div> <!--   End table square     -->
-        </div>
-        <br>
-        <button class="btn btn-secondary" routerLink="/company-edit/{{companyAuto.id}}">Edit company</button>
-      </div> <!--  End of Company Details  -->
     </div>
-
-    <!--  Company Details  -->
-    <router-outlet></router-outlet>
-
-    <!--  Company Details Automatically  -->
-    <div class="card">
-      <h3 class="card-header">Details of the company</h3>
-      <div class="row">
-        <!--   Begin table square     -->
+    <div class="col-lg ml-5 mt-5 pt-5">
+      <router-outlet></router-outlet> <!--  Company Details  -->
+      <br>
+      <div class="card" style="width: 500px"> <!--  Company Details Automatically  -->
+        <h3 class="card-header">Details of the company</h3>
         <div class="card-body">
-          <dt class="col-sm-3">Name:</dt>
-          <dd class="col-sm-3">{{companyAuto.name}}</dd>
-          <dt class="col-sm-3">Projects:</dt>
-          <dd class="col-sm-3">{{companyAuto.projectList}}</dd>
-          <dt class="col-sm-3">Users:</dt>
-          <dd class="col-sm-3">{{companyAuto.userList}}</dd>
-        </div> <!--   End table square     -->
-      </div>
+          <div class="row">
+            <dt class="col-sm-3">ID:</dt>
+            <dd class="col-sm-9">{{companyAuto.id}}</dd>
+            <dt class="col-lg-3">Name:</dt>
+            <dd class="col-lg-9">{{companyAuto.name}}</dd>
+            <dt class="col-lg-3">Projects:</dt>
+            <dd class="col-lg-9">{{companyAuto.projectList}}</dd>
+            <dt class="col-lg-3">Users:</dt>
+            <dd class="col-lg-9">{{companyAuto.userList}}</dd>
+          </div>
+        </div>
+      </div> <!--  End of Company Details Automatically  -->
       <br>
       <button class="btn btn-secondary" routerLink="/company-edit/{{companyAuto.id}}">Edit company</button>
-    </div> <!--  End of Company Details  -->
-  </div>
+    </div>
+  </div> <!-- End row -->
 </div>
 
 

@@ -5,9 +5,9 @@ import { throwError } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
-  selector: 'app-companies-edit',
-  templateUrl: './company-edit.component.html',
-  styleUrls: ['./company-edit.component.css']
+  selector : 'app-companies-edit',
+  templateUrl : './company-edit.component.html',
+  styleUrls : ['./company-edit.component.css']
 })
 export class CompanyEditComponent implements OnInit {
 
@@ -15,19 +15,19 @@ export class CompanyEditComponent implements OnInit {
   editedCompany: FormGroup;
   public companyDetails;
 
-  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit() {
     this.getUserList();
     this.getCompany(this.route.snapshot.params.id);
     this.editedCompany = new FormGroup({
-      name: new FormControl('', Validators.required),
-      userList: new FormControl('', Validators.required)
+      name : new FormControl('', Validators.required),
+      userList : new FormControl('', Validators.required)
     });
   }
 
-
-  editCompany(id:string) {
+  editCompany(id: string) {
     if (this.editedCompany.valid) {
       console.log("Your company has been edited. Thank you!");
       this.timelogService.updateCompany(id, this.editedCompany.value).subscribe(
@@ -45,7 +45,7 @@ export class CompanyEditComponent implements OnInit {
     }
   }
 
-  getCompany(id:string) {
+  getCompany(id: string) {
     this.timelogService.getCompany(id).subscribe(
       data => {
         this.companyDetails = data;
@@ -65,7 +65,7 @@ export class CompanyEditComponent implements OnInit {
     );
   }
 
-  deleteCompany(id:string) {
+  deleteCompany(id: string) {
     this.timelogService.deleteCompany(id).subscribe(
       data => {
         this.companyDetails = data;
@@ -73,10 +73,6 @@ export class CompanyEditComponent implements OnInit {
       },
       err => console.error(err),
       () => console.log('company loaded'),
-
     );
-
   }
-
-
 }

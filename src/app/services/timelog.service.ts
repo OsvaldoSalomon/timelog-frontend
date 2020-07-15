@@ -7,7 +7,7 @@ import { Project } from "../models/project.model";
 import { User } from "../models/user.model";
 
 @Injectable({
-  providedIn: 'root'
+  providedIn : 'root'
 })
 
 export class TimelogService {
@@ -18,7 +18,7 @@ export class TimelogService {
   }
 
   httpOptions = {
-    headers: new HttpHeaders({'Content-Type': 'application/json'})
+    headers : new HttpHeaders({ 'Content-Type' : 'application/json' })
   };
 
 
@@ -40,10 +40,6 @@ export class TimelogService {
       )
   }
 
-  retrieveAllCompanies() {
-    return this.http.get<CompanyModel[]>(this.apiURL + '/companies');
-  }
-
   getProjects(): Observable<Project> {
     return this.http.get<Project>(this.apiURL + '/projects')
       .pipe(
@@ -51,10 +47,6 @@ export class TimelogService {
         catchError(this.handleError)
       )
   }
-
-  // getProjects() {
-  //   return this.http.get('/server/timelog/v1/projects');
-  // }
 
   getUsers(): Observable<User> {
     return this.http.get<User>(this.apiURL + '/users')
@@ -64,15 +56,7 @@ export class TimelogService {
       )
   }
 
-  // getUsers() {
-  //   return this.http.get('/server/timelog/v1/users');
-  // }
-
   // Get specific company, project and user
-
-  // getCompany(id: string) {
-  //   return this.http.get('/server/timelog/v1/companies/' + id);
-  // }
 
   getCompany(id): Observable<CompanyModel> {
     return this.http.get<CompanyModel>(this.apiURL + '/companies/' + id)
@@ -82,10 +66,6 @@ export class TimelogService {
       )
   }
 
-  // getProject(id: string) {
-  //   return this.http.get('/server/timelog/v1/projects/' + id);
-  // }
-
   getProject(id): Observable<Project> {
     return this.http.get<Project>(this.apiURL + '/projects/' + id)
       .pipe(
@@ -93,10 +73,6 @@ export class TimelogService {
         catchError(this.handleError)
       )
   }
-
-  // getUser(id: string) {
-  //   return this.http.get('/server/timelog/v1/users/' + id);
-  // }
 
   getUser(id): Observable<User> {
     return this.http.get<User>(this.apiURL + '/users/' + id)
@@ -108,10 +84,6 @@ export class TimelogService {
 
   //Get Company, Project and User automatically
 
-  // getCompanyAutomatically() {
-  //   return this.http.get('/server/timelog/v1/companies/C001');
-  // }
-
   getCompanyAutomatically(): Observable<CompanyModel> {
     return this.http.get<CompanyModel>(this.apiURL + '/companies/C001')
       .pipe(
@@ -119,10 +91,6 @@ export class TimelogService {
         catchError(this.handleError)
       )
   }
-
-  // getProjectAutomatically() {
-  //   return this.http.get('/server/timelog/v1/projects/P001');
-  // }
 
   getProjectAutomatically(): Observable<Project> {
     return this.http.get<Project>(this.apiURL + '/projects/P001')
@@ -132,10 +100,6 @@ export class TimelogService {
       )
   }
 
-  // getUserAutomatically() {
-  //   return this.http.get('/server/timelog/v1/users/U001');
-  // }
-
   getUserAutomatically(): Observable<User> {
     return this.http.get<User>(this.apiURL + '/users/U001')
       .pipe(
@@ -144,13 +108,8 @@ export class TimelogService {
       )
   }
 
-
   // Create Companies, Projects and Users
 
-  // createCompany(company) {
-  //   let body = JSON.stringify(company);
-  //   return this.http.post('/timelog/v1/companies', body, this.httpOptions);
-  // }
   createCompany(company): Observable<CompanyModel> {
     return this.http.post<CompanyModel>(this.apiURL + '/companies', JSON.stringify(company), this.httpOptions)
       .pipe(
@@ -159,13 +118,7 @@ export class TimelogService {
       )
   }
 
-  // createProject(project) {
-  //   let body = JSON.stringify(project);
-  //   return this.http.post('/server/timelog/v1/projects', body, httpOptions);
-  // }
-
   createProject(project): Observable<Project> {
-    // @ts-ignore
     return this.http.post<Project>(this.apiURL + '/projects', JSON.stringify(project), this.httpOptions)
       .pipe(
         retry(1),
@@ -173,13 +126,7 @@ export class TimelogService {
       )
   }
 
-  // createUser(user) {
-  //   let body = JSON.stringify(user);
-  //   return this.http.post('/server/timelog/v1/users', body, httpOptions);
-  // }
-
   createUser(user): Observable<User> {
-    // @ts-ignore
     return this.http.post<User>(this.apiURL + '/users', JSON.stringify(user), this.httpOptions)
       .pipe(
         retry(1),
@@ -189,10 +136,6 @@ export class TimelogService {
 
   // Delete company, project and user
 
-  // deleteCompany(id: string) {
-  //   return this.http.delete('/server/timelog/v1/companies/' + id);
-  // }
-
   deleteCompany(id) {
     return this.http.delete<CompanyModel>(this.apiURL + '/companies/' + id, this.httpOptions)
       .pipe(
@@ -201,10 +144,6 @@ export class TimelogService {
       )
   }
 
-  // deleteProject(id: string) {
-  //   return this.http.delete('/server/timelog/v1/projects/' + id);
-  // }
-
   deleteProject(id) {
     return this.http.delete<Project>(this.apiURL + '/projects/' + id, this.httpOptions)
       .pipe(
@@ -212,10 +151,6 @@ export class TimelogService {
         catchError(this.handleError)
       )
   }
-
-  // deleteUser(id: string) {
-  //   return this.http.delete('/server/timelog/v1/users/' + id);
-  // }
 
   deleteUser(id) {
     return this.http.delete<User>(this.apiURL + '/users/' + id, this.httpOptions)
@@ -227,11 +162,6 @@ export class TimelogService {
 
   // Edit
 
-  // updateCompany(id: string, company) {
-  //   let body = JSON.stringify(company);
-  //   return this.http.put('/server/timelog/v1/companies/' + id, body, httpOptions);
-  // }
-
   updateCompany(id, company): Observable<CompanyModel> {
     return this.http.put<CompanyModel>(this.apiURL + '/companies/' + id, JSON.stringify(company), this.httpOptions)
       .pipe(
@@ -240,11 +170,6 @@ export class TimelogService {
       )
   }
 
-  // updateProject(id: string, project) {
-  //   let body = JSON.stringify(project);
-  //   return this.http.put('/server/timelog/v1/projects/' + id, body, httpOptions);
-  // }
-
   updateProject(id, project): Observable<Project> {
     return this.http.put<Project>(this.apiURL + '/projects/' + id, JSON.stringify(project), this.httpOptions)
       .pipe(
@@ -252,11 +177,6 @@ export class TimelogService {
         catchError(this.handleError)
       )
   }
-
-  // updateUser(id: string, user) {
-  //   let body = JSON.stringify(user);
-  //   return this.http.put('/server/timelog/v1/users/' + id, body, httpOptions);
-  // }
 
   updateUser(id, user): Observable<User> {
     return this.http.put<User>(this.apiURL + '/users/' + id, JSON.stringify(user), this.httpOptions)
@@ -273,7 +193,7 @@ export class TimelogService {
       errorMessage = error.error.message;
     } else {
       // Get server-side error
-      errorMessage = `Error Code: ${error.status}\nMessage: ${error.message}`;
+      errorMessage = `Error Code: ${ error.status }\nMessage: ${ error.message }`;
     }
     window.alert(errorMessage);
     return throwError(errorMessage);

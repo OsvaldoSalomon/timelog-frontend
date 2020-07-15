@@ -41,7 +41,7 @@ export class CompanyComponent implements OnInit {
   }
 
   getCompanyList() {
-    return this.timelogService.retrieveAllCompanies().subscribe((data: {}) => {
+    return this.timelogService.getCompanies().subscribe((data: {}) => {
       this.Companies = data;
     })
   }
