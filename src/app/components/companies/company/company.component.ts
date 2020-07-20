@@ -10,27 +10,14 @@ import { CompanyModel } from "../../../models/company.model";
 })
 export class CompanyComponent implements OnInit {
 
-  Companies: any = [];
+  companyList: any = [];
   companyAuto: any = [];
-  Projects: any = [];
-  Users: any = [];
+  projectList: any = [];
+  userList: any = [];
   company: CompanyModel;
   term: string;
 
-
   constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
-
-  reload() {
-    setTimeout(() =>
-      {
-        window.location.reload()
-      },
-      700);
-  }
-
-  // onEdit() {
-  //   this.router.navigate(['company-edit'], {relativeTo: this.route, queryParamsHandling: 'preserve'});
-  // }
 
   ngOnInit() {
     this.company = new CompanyModel("", "", [],[]);
@@ -42,20 +29,20 @@ export class CompanyComponent implements OnInit {
 
   getCompanyList() {
     return this.timelogService.getCompanies().subscribe((data: {}) => {
-      this.Companies = data;
+      this.companyList = data;
     })
   }
 
 
   getUserList() {
     return this.timelogService.getUsers().subscribe((data: {}) => {
-      this.Users = data;
+      this.userList = data;
     })
   }
 
   getProjectList() {
     return this.timelogService.getProjects().subscribe((data: {}) => {
-      this.Projects = data;
+      this.projectList = data;
     })
   }
 

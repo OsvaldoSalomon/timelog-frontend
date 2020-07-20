@@ -1,30 +1,49 @@
 <h3 class="display-4 text-muted mb-4">Add a new Company</h3>
-<button class="btn btn-primary mb-5" routerLink="/companies">Return to list</button>
-<div class="col-9 pl-5">
-  <form [formGroup]="companySubmit" (ngSubmit)="addCompany(companySubmit)">
-
+<button class="btn btn-secondary mb-5 mr-5 ml-5" routerLink="/companies">Return to list</button>
+<br>
+<div class="alert alert-danger" *ngIf="invalidForm">{{errorMessage}}</div>
+<div class="container mr-5 ml-5">
+  <form [formGroup]="newCompany">
+    <div class="form-row">
+      <div class="col-lg-4">
+        <div class="form-label-group">
+          <input
+            class="form-control mt-4"
+            type="text"
+            id="company"
+            placeholder="Company name"
+            required
+            minlength="4"
+            formControlName="name"
+            [class.is-invalid]="name.invalid && (name.dirty || name.touched )">
+          <label for="company">Company name</label>
+          <div *ngIf="(name.invalid && name.touched) || name.dirty">
+            <small *ngIf="name.errors?.required" class="text-danger">Name is required.</small>
+            <small *ngIf="name.errors?.minlength" class="text-danger">Name must be at least 4 characters long.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label>Members
+            <select
+              class="custom-select"
+              required
+              formControlName="userList"
+              [class.is-invalid]="userList.invalid && (userList.dirty || userList.touched)"
+              multiple>
+              <option *ngFor="let m of userListFromService">
+                {{m.firstName}} {{m.lastName}}
+              </option>
+            </select>
+            <div *ngIf="(userList.invalid && userList.touched) || userList.dirty">
+              <small *ngIf="userList.errors?.required" class="text-danger">User list is required.</small>
+            </div>
+          </label>
+        </div>
+      </div>
+    </div>
+    <button class="btn btn-primary" type="submit" (click)="submitCompany()">Add Company</button>
   </form>
-    <div class="form-group">
-      <label for="name">Company Name</label>
-      <input
-        class="form-control"
-        type="text"
-        id="name"
-        [(ngModel)]="companySubmit.name"
-        placeholder="Company name">
-<!--      <div *ngIf="(name.invalid && name.touched) || name.dirty">-->
-<!--        <small *ngIf="name.errors?.required" class="text-danger">Name is required.</small>-->
-<!--        <small *ngIf="name.errors?.minlength" class="text-danger">Name must be at least 4 characters long.</small>-->
-<!--      </div>-->
-    </div>
-    <div class="form-group">
-      <label>Members
-      <select class="form-control" [(ngModel)]="companySubmit.userList" multiple>
-        <option *ngFor="let m of Users">
-          {{m.firstName}} {{m.lastName}}
-        </option>
-      </select>
-      </label>
-    </div>
-    <button class="btn btn-primary" type="submit" (click)="addCompany(companySubmit)">Add Company</button>
+
 </div>

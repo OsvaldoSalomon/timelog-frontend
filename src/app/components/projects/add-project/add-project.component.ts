@@ -1,31 +1,39 @@
 import { Component, OnInit } from '@angular/core';
-import {throwError} from 'rxjs';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {TimelogService} from '../../../services/timelog.service';
+import { throwError } from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { TimelogService } from '../../../services/timelog.service';
+import { Router } from "@angular/router";
 
 @Component({
-  selector: 'app-add-project',
-  templateUrl: './add-project.component.html',
-  styleUrls: ['./add-project.component.css']
+  selector : 'app-add-project',
+  templateUrl : './add-project.component.html',
+  styleUrls : ['./add-project.component.css']
 })
 export class AddProjectComponent implements OnInit {
 
   public companyList;
-  public userList;
+  public usersList;
   newProject: FormGroup;
-  validMessage: string = "";
+  errorMessage = 'Please fill out the form before submitting!';
+  invalidForm = false;
 
-  constructor(private timelogService: TimelogService) { }
+  constructor(private timelogService: TimelogService, private router: Router) { }
 
   ngOnInit() {
     this.getUserList();
     this.getCompanyList();
     this.newProject = new FormGroup({
-      name: new FormControl('', Validators.required),
-      company: new FormControl('', Validators.required),
-      userList: new FormControl('', Validators.required)
+      'name' : new FormControl('', [Validators.required, Validators.minLength(4)]),
+      'company' : new FormControl('', [Validators.required]),
+      'userList' : new FormControl('', [Validators.required])
     });
   }
+
+  get name() { return this.newProject.get('name'); }
+
+  get company() { return this.newProject.get('company'); }
+
+  get userList() { return this.newProject.get('userList'); }
 
   getCompanyList() {
     this.timelogService.getCompanies().subscribe(
@@ -40,7 +48,7 @@ export class AddProjectComponent implements OnInit {
   getUserList() {
     this.timelogService.getUsers().subscribe(
       data => {
-        this.userList = data;
+        this.usersList = data;
       },
       err => console.error(err),
       () => console.log('members loaded')
@@ -49,7 +57,7 @@ export class AddProjectComponent implements OnInit {
 
   submitProject() {
     if (this.newProject.valid) {
-      this.validMessage = "Your project has been created!";
+      console.log("Your project has been created!");
       this.timelogService.createProject(this.newProject.value).subscribe(
         data => {
           this.newProject.reset();
@@ -58,12 +66,13 @@ export class AddProjectComponent implements OnInit {
         error => {
           return throwError(error);
         }
-      )
+      );
+      this.router.navigate(['projects']);
     } else {
-      this.validMessage = "Please fill out the form before submitting!";
+      this.invalidForm = true;
+      console.log('Please fill out the form before submitting!');
     }
   }
-
 
 
 }

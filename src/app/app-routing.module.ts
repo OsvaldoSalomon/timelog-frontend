@@ -18,6 +18,7 @@ import { LoginComponent } from './components/login/login.component';
 import { RouteGuardService } from "./services/route-guard.service";
 import { LogoutComponent } from "./components/logout/logout.component";
 import { ErrorComponent } from "./components/error/error.component";
+import { TasksComponent } from "./components/tasks/tasks.component";
 
 export const routes: Routes = [
   { path : '', component : LoginComponent },
@@ -45,6 +46,7 @@ export const routes: Routes = [
   },
   { path : 'user-edit/:id', component : UserEditComponent, canActivate : [RouteGuardService] },
   { path : 'users-add', component : AddUserComponent, canActivate : [RouteGuardService] },
+  { path : 'tasks', component : TasksComponent, canActivate : [RouteGuardService] },
   { path : 'logout', component : LogoutComponent, canActivate : [RouteGuardService] },
   { path: '**', component: ErrorComponent },
   { path: 'something', redirectTo: '**' }

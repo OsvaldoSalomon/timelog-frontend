@@ -25,6 +25,7 @@
     "bootstrap-select": "^1.13.17",
     "feather-icons": "^4.28.0",
     "jquery": "^3.5.1",
+    "jw-angular-pagination": "^1.2.0",
     "ng2-search-filter": "^0.5.1",
     "popper.js": "^1.16.1",
     "rxjs": "~6.5.4",
