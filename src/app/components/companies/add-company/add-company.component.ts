@@ -22,20 +22,26 @@ export class AddCompanyComponent implements OnInit {
   ngOnInit() {
     this.getUserList();
     this.newCompany = new FormGroup({
-      'name': new FormControl('', [Validators.required, Validators.minLength(4)]),
-      'userList': new FormControl('', [Validators.required])
+      'name' : new FormControl('', [Validators.required, Validators.minLength(4)]),
+      'userList' : new FormControl('', [Validators.required])
     });
   }
-  get name() { return this.newCompany.get('name'); }
-  get userList() { return this.newCompany.get('userList'); }
+
+  get name() {
+    return this.newCompany.get('name');
+  }
+
+  get userList() {
+    return this.newCompany.get('userList');
+  }
 
   submitCompany() {
     if (this.newCompany.valid) {
       console.log("Your company has been created!");
       this.timelogService.createCompany(this.newCompany.value).subscribe(
         data => {
-            this.newCompany.reset();
-            return true;
+          this.newCompany.reset();
+          return true;
         },
         error => {
 

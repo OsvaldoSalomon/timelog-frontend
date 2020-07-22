@@ -1,51 +1,92 @@
 <h3 class="display-4 text-muted">Edit user</h3>
-<div class="position-fixed col-lg-9 pl-5">
+<br>
+<button class="btn btn-primary" routerLink="/users">Return to list</button>
+<div class="col-lg-9 pl-5">
+  <br>
   <form [formGroup]="updatedUser" (ngSubmit)="editUser(userDetails.id)">
-    <div class="form-group">
-      <label for="firstName">First name</label>
-      <input
-        class="form-control"
-        type="text"
-        id="firstName"
-        formControlName="firstName"
-        placeholder="First name"
-        [(ngModel)]="userDetails.firstName"
-      >
+    <div class="form-row">
+      <div class="col-lg-4">
+        <div class="form-label-group">
+          <input
+            class="form-control"
+            type="text"
+            id="firstName"
+            formControlName="firstName"
+            required
+            minlength="2"
+            placeholder="First name"
+            [(ngModel)]="userDetails.firstName"
+            [class.is-invalid]="firstName.invalid && (firstName.dirty || firstName.touched )">
+          <label for="firstName">First name</label>
+          <div *ngIf="(firstName.invalid && firstName.touched) || firstName.dirty">
+            <small *ngIf="firstName.errors?.required" class="text-danger">First name is required.</small>
+            <small *ngIf="firstName.errors?.minlength" class="text-danger">First name must be at least 2 characters
+              long.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="form-label-group">
+          <input
+            class="form-control"
+            type="text"
+            id="lastName"
+            formControlName="lastName"
+            required
+            minlength="2"
+            [(ngModel)]="userDetails.lastName"
+            placeholder="Last name"
+            [class.is-invalid]="lastName.invalid && (lastName.dirty || lastName.touched )">
+          <label for="lastName">Last name</label>
+          <div *ngIf="(lastName.invalid && lastName.touched) || lastName.dirty">
+            <small *ngIf="lastName.errors?.required" class="text-danger">Last name is required.</small>
+            <small *ngIf="lastName.errors?.minlength" class="text-danger">Last name must be at least 2 characters
+              long.</small>
+          </div>
+        </div>
+      </div>
+    </div> <!-- -->
+    <div class="form-row">
+      <div class="col-lg-4">
+        <div class="form-label-group">
+          <input
+            class="form-control"
+            type="email"
+            id="email"
+            formControlName="email"
+            required
+            [(ngModel)]="userDetails.email"
+            placeholder="Email"
+            [class.is-invalid]="email.invalid && (email.dirty || email.touched )">
+          <label for="email">Email</label>
+          <div *ngIf="(email.invalid && email.touched) || email.dirty">
+            <small *ngIf="email.errors?.required" class="text-danger">Email is required.</small>
+            <small *ngIf="email.errors?.email" class="text-danger">Email is not valid.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="form-label-group">
+          <input
+            class="form-control"
+            type="password"
+            id="password"
+            formControlName="password"
+            required
+            [(ngModel)]="userDetails.password"
+            placeholder="Password"
+            [class.is-invalid]="password.invalid && (password.dirty || password.touched )">
+          <label for="password">Password</label>
+          <div *ngIf="(password.invalid && email.touched) || password.dirty">
+            <small *ngIf="password.errors?.required" class="text-danger">Password is required.</small>
+            <small *ngIf="lastName.errors?.minlength" class="text-danger">Password must be at least 5 characters
+              long.</small>
+          </div>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label for="lastName">Last name</label>
-      <input
-        class="form-control"
-        type="text"
-        id="lastName"
-        formControlName="lastName"
-        placeholder="Last name"
-        [(ngModel)]="userDetails.lastName"
-      >
-    </div>
-    <div class="form-group">
-      <label for="email">Email</label>
-      <input
-        class="form-control"
-        type="email"
-        id="email"
-        formControlName="email"
-        placeholder="Email"
-        [(ngModel)]="userDetails.email"
-      >
-    </div>
-    <div class="form-group">
-      <label for="password">Password</label>
-      <input
-        class="form-control"
-        type="password"
-        id="password"
-        formControlName="password"
-        placeholder="Password"
-        [(ngModel)]="userDetails.password"
-      >
-    </div>
-    <button type="submit" class="btn btn-secondary">Edit User</button> |
+    <button type="submit" class="btn btn-warning">Edit User</button>
+    |
     <button type="submit" class="btn btn-danger" (click)="deleteUser(userDetails.id)">Delete User</button>
   </form>
 </div>

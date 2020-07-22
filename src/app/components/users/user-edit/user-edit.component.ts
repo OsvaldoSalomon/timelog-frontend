@@ -14,17 +14,35 @@ export class UserEditComponent implements OnInit {
   public userList;
   updatedUser: FormGroup;
   public userDetails;
+  errorMessage = 'Please fill out the form before submitting!';
+  invalidForm = false;
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     this.getUser(this.route.snapshot.params.id);
     this.updatedUser = new FormGroup({
-      firstName : new FormControl('', Validators.required),
-      lastName : new FormControl('', Validators.required),
-      email : new FormControl('', Validators.required),
-      password : new FormControl('', Validators.required)
+      'firstName' : new FormControl('', [Validators.required, Validators.minLength(2)]),
+      'lastName' : new FormControl('', [Validators.required, Validators.minLength(2)]),
+      'email' : new FormControl('', [Validators.required, Validators.email]),
+      'password' : new FormControl('', [Validators.required, Validators.minLength(5)])
     });
+  }
+
+  get firstName() {
+    return this.updatedUser.get('firstName');
+  }
+
+  get lastName() {
+    return this.updatedUser.get('lastName');
+  }
+
+  get email() {
+    return this.updatedUser.get('email');
+  }
+
+  get password() {
+    return this.updatedUser.get('password');
   }
 
   editUser(id:string) {

@@ -11,9 +11,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 })
 export class CompanyEditComponent implements OnInit {
 
-  public userList;
+  public userListFromService;
   editedCompany: FormGroup;
   public companyDetails;
+  errorMessage = 'Please fill out the form before submitting!';
+  invalidForm = false;
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) {
   }
@@ -22,9 +24,17 @@ export class CompanyEditComponent implements OnInit {
     this.getUserList();
     this.getCompany(this.route.snapshot.params.id);
     this.editedCompany = new FormGroup({
-      name : new FormControl('', Validators.required),
-      userList : new FormControl('', Validators.required)
+      'name' : new FormControl('', [Validators.required, Validators.minLength(4)]),
+      'userList' : new FormControl('', [Validators.required])
     });
+  }
+
+  get name() {
+    return this.editedCompany.get('name');
+  }
+
+  get userList() {
+    return this.editedCompany.get('userList');
   }
 
   editCompany(id: string) {
@@ -41,6 +51,7 @@ export class CompanyEditComponent implements OnInit {
       );
       this.router.navigate(['companies']);
     } else {
+      this.invalidForm = true;
       console.log("Please fill out the form before submitting!");
     }
   }
@@ -58,7 +69,7 @@ export class CompanyEditComponent implements OnInit {
   getUserList() {
     this.timelogService.getUsers().subscribe(
       data => {
-        this.userList = data;
+        this.userListFromService = data;
       },
       err => console.error(err),
       () => console.log('users loaded')

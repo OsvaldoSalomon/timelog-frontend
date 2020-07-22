@@ -1,27 +1,52 @@
 <h3 class="display-4 text-muted mb-4">Edit Company</h3>
-<button class="btn btn-primary mb-5" routerLink="/companies">Return to list</button>
-<div class="col-12 pl-5">
+<button class="btn btn-secondary mb-5 mr-5 ml-5" routerLink="/companies">Return to list</button>
+<br>
+<div class="alert alert-danger" *ngIf="invalidForm">{{errorMessage}}</div>
+<div class="container mr-5 ml-5">
   <form [formGroup]="editedCompany" (ngSubmit)="editCompany(companyDetails.id)">
-    <div class="form-group">
-      <label for="name" class="text-muted blockquote">Company Name</label>
-      <input
-        class="form-control"
-        type="text"
-        id="name"
-        formControlName="name"
-        [(ngModel)]="companyDetails.name"
-        placeholder="Company name">
+    <div class="form-row">
+      <div class="col-lg-4">
+        <div class="form-label-group">
+          <input
+            class="form-control mt-4"
+            type="text"
+            id="name"
+            placeholder="Company name"
+            required
+            minlength="4"
+            formControlName="name"
+            [(ngModel)]="companyDetails.name"
+            [class.is-invalid]="name.invalid && (name.dirty || name.touched )">
+          <label for="name">Company name</label>
+          <div *ngIf="(name.invalid && name.touched) || name.dirty">
+            <small *ngIf="name.errors?.required" class="text-danger">Name is required.</small>
+            <small *ngIf="name.errors?.minlength" class="text-danger">Name must be at least 4 characters long.</small>
+          </div>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label>Members
+            <select
+              [(ngModel)]="companyDetails.userList"
+              class="custom-select"
+              required
+              formControlName="userList"
+              [class.is-invalid]="userList.invalid && (userList.dirty || userList.touched)"
+              multiple>
+              <option *ngFor="let m of userListFromService">
+                {{m.firstName}} {{m.lastName}}
+              </option>
+            </select>
+            <div *ngIf="(userList.invalid && userList.touched) || userList.dirty">
+              <small *ngIf="userList.errors?.required" class="text-danger">User list is required.</small>
+            </div>
+          </label>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label class="text-muted blockquote">Members</label>
-      <select class="form-control" formControlName="userList" multiple>
-        <option *ngFor="let m of userList">
-          {{m.firstName}} {{m.lastName}}
-        </option>
-      </select>
-    </div>
-    <button class="btn btn-secondary" type="submit">Edit Company</button> |
-    <button class="btn btn-danger" (click)="deleteCompany(companyDetails.id)" >Delete Company</button>
+    <button class="btn btn-warning" type="submit">Edit Company</button>
+    |
+    <button class="btn btn-danger" (click)="deleteCompany(companyDetails.id)">Delete Company</button>
   </form>
 </div>
-

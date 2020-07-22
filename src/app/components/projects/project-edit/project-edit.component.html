@@ -1,34 +1,53 @@
 <h3 class="display-4 text-muted">Edit project</h3>
-<div class="col-lg-12 pl-5">
-  <button class="btn btn-primary mb-5" routerLink="/projects">Return to list</button>
+<br>
+<button class="btn btn-secondary mb-5 mr-5 ml-5" routerLink="/projects">Return to list</button>
+<br>
+<div class="alert alert-danger" *ngIf="invalidForm">{{errorMessage}}</div>
+<div class="container mr-5 ml-5">
   <form [formGroup]="editedProject" (ngSubmit)="editProject(projectDetails.id)">
-    <div class="form-group">
-      <label for="name">Project Name</label>
-      <input
-        class="form-control"
-        type="text"
-        id="name"
-        formControlName="name"
-        [(ngModel)]="projectDetails.name">
+    <div class="form-row">
+      <div class="col-lg-4">
+        <div class="form-label-group">
+          <input
+            class="form-control"
+            type="text" id="name"
+            formControlName="name"
+            placeholder="Project name"
+            required
+            minlength="4"
+            [class.is-invalid]="name.invalid && (name.dirty || name.touched )"
+            [(ngModel)]="projectDetails.name">
+          <label for="name">Project Name</label>
+          <div *ngIf="(name.invalid && name.touched) || name.dirty">
+            <small *ngIf="name.errors?.required" class="text-danger">Name is required.</small>
+            <small *ngIf="name.errors?.minlength" class="text-danger">Name must be at least 4 characters long.</small>
+          </div>
+        </div>
+        <div class="form-group">
+          <label>Company</label>
+          <select class="form-control" formControlName="company">
+            <option selected>Select a company</option>
+            <option *ngFor="let companies of companyList">
+              {{companies.name}}
+            </option>
+          </select>
+        </div>
+      </div>
+      <div class="col-lg-4">
+        <div class="form-group">
+          <label>Members</label>
+          <select class="form-control" formControlName="userList" multiple>
+            <option *ngFor="let m of usersList">
+              {{m.firstName}} {{m.lastName}}
+            </option>
+          </select>
+        </div>
+      </div>
     </div>
-    <div class="form-group">
-      <label>Company</label>
-      <select class="form-control">
-        <option *ngFor="let companies of companyList">
-          {{companies.name}}
-        </option>
-      </select>
-    </div>
-    <div class="form-group">
-      <label>Members</label>
-      <select class="form-control" formControlName="userList" multiple>
-        <option *ngFor="let m of userList">
-          {{m.firstName}} {{m.lastName}}
-        </option>
-      </select>
-    </div>
-    <button class="btn btn-secondary" type="submit">Edit Project</button> |
+    <button class="btn btn-warning" type="submit">Edit Project</button>
+    |
     <button class="btn btn-danger" (click)="deleteProject(projectDetails.id)">Delete Project</button>
   </form>
 </div>
+
 

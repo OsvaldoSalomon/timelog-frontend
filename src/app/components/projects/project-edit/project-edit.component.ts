@@ -11,10 +11,12 @@ import {ActivatedRoute, Router} from '@angular/router';
 })
 export class ProjectEditComponent implements OnInit {
 
-  public userList;
+  public usersList;
   editedProject: FormGroup;
   public projectDetails;
   public companyList;
+  errorMessage = 'Please fill out the form before submitting!';
+  invalidForm = false;
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
 
@@ -23,11 +25,17 @@ export class ProjectEditComponent implements OnInit {
     this.getCompanyList();
     this.getProject(this.route.snapshot.params.id);
     this.editedProject = new FormGroup({
-      name: new FormControl('', Validators.required),
-      userList: new FormControl('', Validators.required)
+      'name' : new FormControl('', [Validators.required, Validators.minLength(4)]),
+      'company' : new FormControl('', [Validators.required]),
+      'userList' : new FormControl('', [Validators.required])
     });
   }
 
+  get name() { return this.editedProject.get('name'); }
+
+  get company() { return this.editedProject.get('company'); }
+
+  get userList() { return this.editedProject.get('userList'); }
 
   editProject(id:string) {
     if (this.editedProject.valid) {
@@ -70,7 +78,7 @@ export class ProjectEditComponent implements OnInit {
   getUserList() {
     this.timelogService.getUsers().subscribe(
       data => {
-        this.userList = data;
+        this.usersList = data;
       },
       err => console.error(err),
       () => console.log('users loaded')
