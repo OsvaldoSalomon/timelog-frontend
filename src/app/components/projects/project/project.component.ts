@@ -27,7 +27,8 @@ export class ProjectComponent implements OnInit {
     this.projectAutomatically = new Project("", "", "", []);
     this.getUserList();
     this.getCompanyList();
-    this.getProjectList();
+    // this.getProjectList();
+    this.loadProjects({page: "0", size: "5"})
     this.getProjectAutomatically();
     this.newProject = new FormGroup({
       name: new FormControl('', Validators.required),
@@ -54,15 +55,15 @@ export class ProjectComponent implements OnInit {
     );
   }
 
-  getProjectList() {
-    this.timelogService.getProjects().subscribe(
-      data => {
-        this.projectList = data;
-      },
-      err => console.error(err),
-      () => console.log('projects loaded')
-    );
-  }
+  // getProjectList() {
+  //   this.timelogService.getProjects().subscribe(
+  //     data => {
+  //       this.projectList = data;
+  //     },
+  //     err => console.error(err),
+  //     () => console.log('projects loaded')
+  //   );
+  // }
 
   getProjectAutomatically() {
     this.timelogService.getProjectAutomatically().subscribe(
@@ -83,6 +84,17 @@ export class ProjectComponent implements OnInit {
       () => console.log('members loaded')
     );
   }
+
+  loadProjects(request) {
+  this.timelogService.getProjectsRequest(request)
+    .subscribe( data => {
+      this.projectList = data;
+      this.totalElements = data['totalElements'];
+    }, error => {
+      console.error(error);
+    })
+  }
+
 
 
 }

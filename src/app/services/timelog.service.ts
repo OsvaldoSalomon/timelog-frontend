@@ -40,6 +40,15 @@ export class TimelogService {
       )
   }
 
+  getProjectsRequest(request): Observable<Project> {
+    const params = request
+    return this.http.get<Project>(this.apiURL + '/projects', {params})
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
+  }
+
   getUsers(): Observable<User> {
     return this.http.get<User>(this.apiURL + '/users')
       .pipe(
