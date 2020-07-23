@@ -32,14 +32,6 @@ export class TimelogService {
       )
   }
 
-  getCompaniesFiltered(id) {
-    return this.http.get<CompanyModel>(this.apiURL + '?companyList=' + id)
-      .pipe(
-        retry(1),
-        catchError(this.handleError)
-      )
-  }
-
   getProjects(): Observable<Project> {
     return this.http.get<Project>(this.apiURL + '/projects')
       .pipe(

@@ -1,8 +1,8 @@
 <h3 class="display-4 text-muted mb-4">Add a new Company</h3>
 <button class="btn btn-secondary mb-5 mr-5 ml-5" routerLink="/companies">Return to list</button>
 <br>
-<div class="alert alert-danger" *ngIf="invalidForm">{{errorMessage}}</div>
 <div class="container mr-5 ml-5">
+  <div class="alert alert-danger" *ngIf="invalidForm">{{errorMessage}}</div>
   <form [formGroup]="newCompany">
     <div class="form-row">
       <div class="col-lg-4">

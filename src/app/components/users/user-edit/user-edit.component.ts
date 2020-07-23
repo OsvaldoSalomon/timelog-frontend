@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TimelogService } from '../../../services/timelog.service';
 import { throwError } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { User } from "../../../models/user.model";
 
 @Component({
   selector: 'app-user-edit',
@@ -14,12 +15,13 @@ export class UserEditComponent implements OnInit {
   public userList;
   updatedUser: FormGroup;
   public userDetails;
-  errorMessage = 'Please fill out the form before submitting!';
   invalidForm = false;
+  errorMessage = 'Please fill out the form before submitting.'
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
+    this.userDetails = new User('', '', '', '', '');
     this.getUser(this.route.snapshot.params.id);
     this.updatedUser = new FormGroup({
       'firstName' : new FormControl('', [Validators.required, Validators.minLength(2)]),
@@ -59,6 +61,7 @@ export class UserEditComponent implements OnInit {
       );
       this.router.navigate(['users']);
     } else {
+      this.invalidForm = true;
       console.log("Please fill out the form before submitting!");
     }
   }

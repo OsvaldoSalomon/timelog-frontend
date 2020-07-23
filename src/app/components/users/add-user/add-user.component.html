@@ -3,6 +3,8 @@
 <button class="btn btn-primary" routerLink="/users">Return to list</button>
 <div class="col-sm-9 pl-5">
   <br>
+  <div class="alert alert-danger" *ngIf="invalidForm">{{errorMessage}}</div>
+  <br>
   <form [formGroup]="newUser" (ngSubmit)="submitUser()">
     <div class="form-row">
       <div class="col-lg-4">

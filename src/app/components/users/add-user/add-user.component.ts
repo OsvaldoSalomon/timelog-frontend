@@ -12,7 +12,6 @@ import { Router } from "@angular/router";
 export class AddUserComponent implements OnInit {
 
   newUser: FormGroup;
-  validMessage: string = "";
   errorMessage = 'Please fill out the form before submitting!';
   invalidForm = false;
 

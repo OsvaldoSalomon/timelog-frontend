@@ -3,6 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TimelogService } from '../../../services/timelog.service';
 import { throwError } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
+import { CompanyModel } from "../../../models/company.model";
 
 @Component({
   selector : 'app-companies-edit',
@@ -14,13 +15,14 @@ export class CompanyEditComponent implements OnInit {
   public userListFromService;
   editedCompany: FormGroup;
   public companyDetails;
-  errorMessage = 'Please fill out the form before submitting!';
   invalidForm = false;
+  errorMessage = 'Please fill out the form before submitting.'
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
+    this.companyDetails = new CompanyModel("", "", [], []);
     this.getUserList();
     this.getCompany(this.route.snapshot.params.id);
     this.editedCompany = new FormGroup({

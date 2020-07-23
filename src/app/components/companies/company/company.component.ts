@@ -27,6 +27,14 @@ export class CompanyComponent implements OnInit {
     this.getCompanyAutomatically();
   }
 
+  reload() {
+    setTimeout(() =>
+      {
+        window.location.reload()
+      },
+      700);
+  }
+
   getCompanyList() {
     return this.timelogService.getCompanies().subscribe((data: {}) => {
       this.companyList = data;

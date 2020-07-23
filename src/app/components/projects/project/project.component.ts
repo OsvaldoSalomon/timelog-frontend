@@ -19,6 +19,7 @@ export class ProjectComponent implements OnInit {
   newProject: FormGroup;
   public projectAutomatically;
   term: string;
+  totalElements: number = 0;
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
 
@@ -33,10 +34,6 @@ export class ProjectComponent implements OnInit {
       company: new FormControl('', Validators.required),
       userList: new FormControl('', Validators.required)
     });
-  }
-
-  onEdit() {
-    this.router.navigate(['edit'], {relativeTo: this.route, queryParamsHandling: 'preserve'});
   }
 
   reload() {

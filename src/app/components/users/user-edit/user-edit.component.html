@@ -3,6 +3,8 @@
 <button class="btn btn-primary" routerLink="/users">Return to list</button>
 <div class="col-lg-9 pl-5">
   <br>
+  <div class="alert alert-danger" *ngIf="invalidForm">{{errorMessage}}</div>
+  <br>
   <form [formGroup]="updatedUser" (ngSubmit)="editUser(userDetails.id)">
     <div class="form-row">
       <div class="col-lg-4">
@@ -79,14 +81,12 @@
           <label for="password">Password</label>
           <div *ngIf="(password.invalid && email.touched) || password.dirty">
             <small *ngIf="password.errors?.required" class="text-danger">Password is required.</small>
-            <small *ngIf="lastName.errors?.minlength" class="text-danger">Password must be at least 5 characters
-              long.</small>
+            <small *ngIf="password.errors?.minlength" class="text-danger">Password must be at least 5 characters long.</small>
           </div>
         </div>
       </div>
     </div>
-    <button type="submit" class="btn btn-warning">Edit User</button>
-    |
+    <button type="submit" class="btn btn-warning">Edit User</button> |
     <button type="submit" class="btn btn-danger" (click)="deleteUser(userDetails.id)">Delete User</button>
   </form>
 </div>

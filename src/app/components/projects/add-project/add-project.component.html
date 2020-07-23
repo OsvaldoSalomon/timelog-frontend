@@ -25,22 +25,35 @@
         </div>
         <div class="form-group">
           <label>Company</label>
-          <select class="form-control" formControlName="company">
+          <select class="form-control"
+                  required
+                  formControlName="company"
+                  [class.is-invalid]="company.invalid && (company.dirty || company.touched )">
             <option selected>Select a company</option>
             <option *ngFor="let companies of companyList">
               {{companies.name}}
             </option>
           </select>
+          <div *ngIf="(company.invalid && company.touched) || company.dirty">
+            <small *ngIf="company.errors?.required" class="text-danger">Company is required.</small>
+          </div>
         </div>
       </div>
       <div class="col-lg-4">
         <div class="form-group">
           <label>Members</label>
-          <select class="form-control" formControlName="userList" multiple>
+          <select class="form-control"
+                  formControlName="userList"
+                  required
+                  [class.is-invalid]="userList.invalid && (userList.dirty || userList.touched )"
+                  multiple>
             <option *ngFor="let m of usersList">
               {{m.firstName}} {{m.lastName}}
             </option>
           </select>
+          <div *ngIf="(userList.invalid && userList.touched) || userList.dirty">
+            <small *ngIf="userList.errors?.required" class="text-danger">This field is required.</small>
+          </div>
         </div>
       </div>
     </div>
