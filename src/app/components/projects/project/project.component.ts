@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, EventEmitter, OnInit } from '@angular/core';
 import { TimelogService } from '../../../services/timelog.service';
 import {FormControl, FormGroup, FormsModule, Validators} from '@angular/forms';
 import {throwError} from 'rxjs';
@@ -55,15 +55,15 @@ export class ProjectComponent implements OnInit {
     );
   }
 
-  // getProjectList() {
-  //   this.timelogService.getProjects().subscribe(
-  //     data => {
-  //       this.projectList = data;
-  //     },
-  //     err => console.error(err),
-  //     () => console.log('projects loaded')
-  //   );
-  // }
+  getProjectList() {
+    this.timelogService.getProjects().subscribe(
+      data => {
+        this.projectList = data;
+      },
+      err => console.error(err),
+      () => console.log('projects loaded')
+    );
+  }
 
   getProjectAutomatically() {
     this.timelogService.getProjectAutomatically().subscribe(

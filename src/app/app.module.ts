@@ -25,6 +25,8 @@ import { ErrorComponent } from './components/error/error.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { TasksComponent } from './components/tasks/tasks.component';
+import { PaginatorComponent } from './components/paginator/paginator.component';
+import { PaginationDirective } from "./components/paginator/pagination.directive";
 
 @NgModule({
   declarations: [
@@ -46,7 +48,9 @@ import { TasksComponent } from './components/tasks/tasks.component';
     LoginComponent,
     ErrorComponent,
     LogoutComponent,
-    TasksComponent
+    TasksComponent,
+    PaginatorComponent,
+    PaginationDirective
   ],
   imports: [
     BrowserModule,

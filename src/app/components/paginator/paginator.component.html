@@ -1,0 +1,21 @@
+<button class="btn btn-primary" (click)="pagination.first()" [disabled]="pagination.isFirst">
+  <<
+</button>
+<button class="btn btn-primary" (click)="pagination.prev()" [disabled]="pagination.isFirst">
+  <
+</button>
+
+<input
+  appPagination
+  #pagination="appPagination"
+  [totalPages]="5"
+  (pageChange)="onPageChange($event)"
+/>
+<span> / {{ pagination.totalPages }}</span>
+
+<button class="btn btn-primary" (click)="pagination.next()" [disabled]="pagination.isLast">
+  >
+</button>
+<button class="btn btn-primary" (click)="pagination.last()" [disabled]="pagination.isLast">
+  >>
+</button>
