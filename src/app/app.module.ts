@@ -27,6 +27,7 @@ import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { TasksComponent } from './components/tasks/tasks.component';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { PaginationDirective } from "./components/paginator/pagination.directive";
+import { NgxPaginationModule } from "ngx-pagination";
 
 @NgModule({
   declarations: [
@@ -59,7 +60,8 @@ import { PaginationDirective } from "./components/paginator/pagination.directive
     ReactiveFormsModule,
     FormsModule,
     BrowserAnimationsModule,
-    Ng2SearchPipeModule
+    Ng2SearchPipeModule,
+    NgxPaginationModule
     // ROUTING
   ],
   providers: [],

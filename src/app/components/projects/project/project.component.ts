@@ -1,15 +1,13 @@
-import { Component, EventEmitter, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { TimelogService } from '../../../services/timelog.service';
-import {FormControl, FormGroup, FormsModule, Validators} from '@angular/forms';
-import {throwError} from 'rxjs';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Project } from "../../../models/project.model";
-import { CompanyModel } from "../../../models/company.model";
 import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
-  selector: 'app-projects',
-  templateUrl: './project.component.html',
-  styleUrls: ['./project.component.css']
+  selector : 'app-projects',
+  templateUrl : './project.component.html',
+  styleUrls : ['./project.component.css']
 })
 export class ProjectComponent implements OnInit {
 
@@ -20,26 +18,87 @@ export class ProjectComponent implements OnInit {
   public projectAutomatically;
   term: string;
   totalElements: number = 0;
+  currentProject = null;
+  currentIndex = -1;
+  name = '';
 
-  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
+  page = 1;
+  count = 0;
+  pageSize = 3;
+  pageSizes = [3, 6, 9];
+
+  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit() {
     this.projectAutomatically = new Project("", "", "", []);
     this.getUserList();
     this.getCompanyList();
+    this.retrieveProjects()
     // this.getProjectList();
-    this.loadProjects({page: "0", size: "5"})
+    // this.loadProjects({page: "0", size: "5"})
     this.getProjectAutomatically();
     this.newProject = new FormGroup({
-      name: new FormControl('', Validators.required),
-      company: new FormControl('', Validators.required),
-      userList: new FormControl('', Validators.required)
+      name : new FormControl('', Validators.required),
+      company : new FormControl('', Validators.required),
+      userList : new FormControl('', Validators.required)
     });
   }
 
+  getRequestParams(searchName, page, pageSize) {
+    // tslint:disable-next-line:prefer-const
+    let params = {};
+
+    if (searchName) {
+      params[`name`] = searchName;
+    }
+
+    if (page) {
+      params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
+  }
+
+  retrieveProjects() {
+    const params = this.getRequestParams(this.name, this.page, this.pageSize);
+
+    this.timelogService.getAllProjects(params)
+      .subscribe(
+        response => {
+          const { projects, totalProjects } = response;
+          this.projectList = projects;
+          this.count = totalProjects;
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  handlePageChange(event) {
+    this.page = event;
+    this.retrieveProjects();
+  }
+
+  handlePageSizeChange(event) {
+    this.pageSize = event.target.value;
+    this.page = 1;
+    this.retrieveProjects();
+  }
+
+  setActiveTutorial(project, index) {
+    this.currentProject = project;
+    this.currentIndex = index;
+  }
+
+
   reload() {
-    setTimeout(() =>
-      {
+    setTimeout(() => {
         window.location.reload()
       },
       700);
@@ -86,15 +145,14 @@ export class ProjectComponent implements OnInit {
   }
 
   loadProjects(request) {
-  this.timelogService.getProjectsRequest(request)
-    .subscribe( data => {
-      this.projectList = data;
-      this.totalElements = data['totalElements'];
-    }, error => {
-      console.error(error);
-    })
+    this.timelogService.getProjectsRequest(request)
+      .subscribe(data => {
+        this.projectList = data;
+        this.totalElements = data['totalElements'];
+      }, error => {
+        console.error(error);
+      })
   }
-
 
 
 }

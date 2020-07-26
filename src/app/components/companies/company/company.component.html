@@ -15,7 +15,8 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let company of companyList | filter:term">
+        <tr *ngFor="let company of companyList | filter:term; let i = index" [class.active]="i == currentIndex"
+            (click)="setActiveDetail(company, i)">
           <td>
             <a [routerLink]="['/companies', company.id]" (click)="reload()">{{company.id}}</a>
           </td>
@@ -29,9 +30,9 @@
     <br>
   </div>
   <div class="col-lg ml-5 mt-5 pt-5">
-    <router-outlet></router-outlet> <!--  Company Details  -->
+    <router-outlet *ngIf="currentDetail"></router-outlet> <!--  Company Details  -->
     <br>
-    <div class="card" style="width: 500px"> <!--  Company Details Automatically  -->
+    <div *ngIf="!currentDetail" class="card" style="width: 500px"> <!--  Company Details Automatically  -->
       <h3 class="card-header">Details of the company</h3>
       <div class="card-body">
         <div class="row">

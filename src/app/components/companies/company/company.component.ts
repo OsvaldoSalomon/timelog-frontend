@@ -14,6 +14,8 @@ export class CompanyComponent implements OnInit {
   companyAuto: any = [];
   projectList: any = [];
   userList: any = [];
+  currentDetail = null;
+  currentIndex = -1;
   company: CompanyModel;
   term: string;
 
@@ -58,6 +60,11 @@ export class CompanyComponent implements OnInit {
     return this.timelogService.getCompanyAutomatically().subscribe((data: {}) => {
       this.companyAuto = data;
     })
+  }
+
+  setActiveDetail(detail, index) {
+    this.currentDetail = detail;
+    this.currentIndex = index;
   }
 
 }

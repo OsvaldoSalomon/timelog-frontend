@@ -40,6 +40,10 @@ export class TimelogService {
       )
   }
 
+  getAllProjects(params): Observable<any> {
+    return this.http.get(this.apiURL + '/projects', { params });
+  }
+
   getProjectsRequest(request): Observable<Project> {
     const params = request
     return this.http.get<Project>(this.apiURL + '/projects', {params})
