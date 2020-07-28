@@ -32,6 +32,10 @@ export class TimelogService {
       )
   }
 
+  getAllCompanies(params): Observable<any> {
+    return this.http.get(this.apiURL + '/companies', { params });
+  }
+
   getProjects(): Observable<Project> {
     return this.http.get<Project>(this.apiURL + '/projects')
       .pipe(
@@ -59,6 +63,10 @@ export class TimelogService {
         retry(1),
         catchError(this.handleError)
       )
+  }
+
+  getAllUsers(params): Observable<any> {
+    return this.http.get(this.apiURL + '/users', { params });
   }
 
   // Get specific company, project and user

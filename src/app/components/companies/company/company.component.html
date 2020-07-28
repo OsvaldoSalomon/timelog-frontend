@@ -1,11 +1,16 @@
 <h3 class="display-4 text-muted">Companies</h3>
 <br>
 <div class="row">
-  <div class="col-lg">
+  <div class="col-lg mr-5">
     <button class="btn btn-primary" routerLink="/companies-add">Add a company</button>
     <div class="container mt-lg-5">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Search ID or name here" [(ngModel)]="term">
+      <div class="form-group form-inline col-12">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search by title"
+          [(ngModel)]="name"/>
+        <button class="btn btn-outline-secondary" type="button" (click)="retrieveCompanies()"> Search </button>
       </div>
       <table class="table table-bordered table-hover">
         <thead class="thead-light">
@@ -15,8 +20,14 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let company of companyList | filter:term; let i = index" [class.active]="i == currentIndex"
-            (click)="setActiveDetail(company, i)">
+        <tr *ngFor="let company of companyList | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };
+          let i = index"
+            [class.active]="i == currentIndex"
+        >
           <td>
             <a [routerLink]="['/companies', company.id]" (click)="reload()">{{company.id}}</a>
           </td>
@@ -26,13 +37,31 @@
         </tr>
         </tbody>
       </table>
+      <div class="col-md-12">
+        <div class="row">
+          <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            responsive="true"
+            (pageChange)="handlePageChange($event)"
+          ></pagination-controls>
+          <div class="col-6">
+            Items per Page:
+            <select (change)="handlePageSizeChange($event)">
+              <option *ngFor="let size of pageSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
     <br>
   </div>
   <div class="col-lg ml-5 mt-5 pt-5">
-    <router-outlet *ngIf="currentDetail"></router-outlet> <!--  Company Details  -->
+    <router-outlet></router-outlet> <!--  Company Details  -->
     <br>
-    <div *ngIf="!currentDetail" class="card" style="width: 500px"> <!--  Company Details Automatically  -->
+    <div class="card" style="width: 500px"> <!--  Company Details Automatically  -->
       <h3 class="card-header">Details of the company</h3>
       <div class="card-body">
         <div class="row">

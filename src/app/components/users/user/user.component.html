@@ -4,8 +4,13 @@
   <div class="col-lg">
     <button class="btn btn-primary" routerLink="/users-add">Add a User</button>
     <div class="container mt-lg-5">
-      <div class="form-group">
-        <input type="text" class="form-control" placeholder="Search ID or name here" [(ngModel)]="term">
+      <div class="form-group form-inline col-12">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search by title"
+          [(ngModel)]="name"/>
+        <button class="btn btn-outline-secondary" type="button" (click)="retrieveUsers()"> Search </button>
       </div>
       <table class="table table-bordered table-hover ">
         <thead class="thead-light">
@@ -16,7 +21,13 @@
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let user of userList | filter:term">
+        <tr *ngFor="let user of userList | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };
+          let i = index"
+            [class.active]="i == currentIndex">
           <td>
             <a [routerLink]="['/users',user.id]" (click)="reload()">{{user.id}}</a>
           </td>
@@ -29,6 +40,24 @@
         </tr>
         </tbody>
       </table>
+      <div class="col-md-12">
+        <div class="row">
+          <pagination-controls
+            previousLabel="Prev"
+            nextLabel="Next"
+            responsive="true"
+            (pageChange)="handlePageChange($event)"
+          ></pagination-controls>
+          <div class="col-6">
+            Items per Page:
+            <select (change)="handlePageSizeChange($event)">
+              <option *ngFor="let size of pageSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
     </div>
     <br>
   </div>

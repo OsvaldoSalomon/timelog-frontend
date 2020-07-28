@@ -15,15 +15,23 @@ export class CompanyComponent implements OnInit {
   projectList: any = [];
   userList: any = [];
   currentDetail = null;
-  currentIndex = -1;
   company: CompanyModel;
   term: string;
+  totalElements: number = 0;
+  currentIndex = -1;
+  name = '';
+
+  page = 1;
+  count = 0;
+  pageSize = 3;
+  pageSizes = [3, 6, 9];
 
   constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.company = new CompanyModel("", "", [],[]);
-    this.getCompanyList();
+    // this.getCompanyList();
+    this.retrieveCompanies()
     this.getUserList();
     this.getProjectList();
     this.getCompanyAutomatically();
@@ -34,7 +42,7 @@ export class CompanyComponent implements OnInit {
       {
         window.location.reload()
       },
-      700);
+      500);
   }
 
   getCompanyList() {
@@ -65,6 +73,52 @@ export class CompanyComponent implements OnInit {
   setActiveDetail(detail, index) {
     this.currentDetail = detail;
     this.currentIndex = index;
+  }
+
+  getRequestParams(searchName, page, pageSize) {
+    // tslint:disable-next-line:prefer-const
+    let params = {};
+
+    if (searchName) {
+      params[`name`] = searchName;
+    }
+
+    if (page) {
+      params[`page`] = page - 1;
+    }
+
+    if (pageSize) {
+      params[`size`] = pageSize;
+    }
+
+    return params;
+  }
+
+  retrieveCompanies() {
+    const params = this.getRequestParams(this.name, this.page, this.pageSize);
+
+    this.timelogService.getAllCompanies(params)
+      .subscribe(
+        response => {
+          const { companies, totalCompanies } = response;
+          this.companyList = companies;
+          this.count = totalCompanies;
+          console.log(response);
+        },
+        error => {
+          console.log(error);
+        });
+  }
+
+  handlePageChange(event) {
+    this.page = event;
+    this.retrieveCompanies();
+  }
+
+  handlePageSizeChange(event) {
+    this.pageSize = event.target.value;
+    this.page = 1;
+    this.retrieveCompanies();
   }
 
 }

@@ -16,7 +16,6 @@ export class ProjectComponent implements OnInit {
   public projectList;
   newProject: FormGroup;
   public projectAutomatically;
-  term: string;
   totalElements: number = 0;
   currentProject = null;
   currentIndex = -1;
@@ -38,11 +37,6 @@ export class ProjectComponent implements OnInit {
     // this.getProjectList();
     // this.loadProjects({page: "0", size: "5"})
     this.getProjectAutomatically();
-    this.newProject = new FormGroup({
-      name : new FormControl('', Validators.required),
-      company : new FormControl('', Validators.required),
-      userList : new FormControl('', Validators.required)
-    });
   }
 
   getRequestParams(searchName, page, pageSize) {
