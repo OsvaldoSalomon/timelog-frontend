@@ -4,13 +4,17 @@
   <div class="col-lg">
     <button class="btn btn-primary" routerLink="/users-add">Add a User</button>
     <div class="container mt-lg-5">
-      <div class="form-group form-inline col-12">
-        <input
-          type="text"
-          class="form-control"
-          placeholder="Search by title"
-          [(ngModel)]="name"/>
-        <button class="btn btn-outline-secondary" type="button" (click)="retrieveUsers()"> Search </button>
+      <div class="row ">
+        <div class="col-10">
+          <input
+            type="text"
+            class="form-control "
+            placeholder="Search by title"
+            [(ngModel)]="name"/>
+        </div>
+        <div class="col">
+          <button class="btn btn-outline-secondary" type="button" (click)="retrieveUsers()"> Search</button>
+        </div>
       </div>
       <table class="table table-bordered table-hover ">
         <thead class="thead-light">
@@ -26,10 +30,9 @@
                   currentPage: page,
                   totalItems: count
                 };
-          let i = index"
-            [class.active]="i == currentIndex">
+          let i = index" [class.active]="i == currentIndex" (click)="setActiveUser(user, i)">
           <td>
-            <a [routerLink]="['/users',user.id]" (click)="reload()">{{user.id}}</a>
+            {{user.id}}
           </td>
           <td>
             {{user.firstName}}
@@ -61,26 +64,47 @@
     </div>
     <br>
   </div>
+
   <div class="col-lg ml-5 mt-5 pt-5">
-    <router-outlet></router-outlet> <!--  User Details  -->
-    <br>
-    <div class="card" style="width: 500px"> <!--  User Details Automatically  -->
-      <h3 class="card-header">Details of the user</h3>
-      <div class="card-body">
-        <div class="row">
-          <dt class="col-sm-5">ID:</dt>
-          <dd class="col-sm-7">{{userAutomatically.id}}</dd>
-          <dt class="col-sm-5">First name:</dt>
-          <dd class="col-sm-7">{{userAutomatically.firstName}}</dd>
-          <dt class="col-sm-5">Last name:</dt>
-          <dd class="col-sm-7">{{userAutomatically.lastName}}</dd>
-          <dt class="col-sm-5">E-mail:</dt>
-          <dd class="col-sm-7">{{userAutomatically.email}}</dd>
+    <div class="container" *ngIf="currentUser">
+      <div class="card" style="width: 500px"> <!--  User Details Automatically  -->
+        <h3 class="card-header">Details of the user</h3>
+        <div class="card-body">
+          <div class="row">
+            <dt class="col-sm-5">ID:</dt>
+            <dd class="col-sm-7">{{currentUser.id}}</dd>
+            <dt class="col-sm-5">First name:</dt>
+            <dd class="col-sm-7">{{currentUser.firstName}}</dd>
+            <dt class="col-sm-5">Last name:</dt>
+            <dd class="col-sm-7">{{currentUser.lastName}}</dd>
+            <dt class="col-sm-5">E-mail:</dt>
+            <dd class="col-sm-7">{{currentUser.email}}</dd>
+          </div>
         </div>
       </div>
+      <br>
+      <button class="btn btn-secondary" routerLink="/user-edit/{{currentUser.id}}">Edit user</button>
     </div>
-    <br>
-    <button class="btn btn-secondary" routerLink="/user-edit/{{userAutomatically.id}}">Edit user</button>
+
+    <div class="container" *ngIf="!currentUser">
+      <div class="card" style="width: 500px"> <!--  User Details Automatically  -->
+        <h3 class="card-header">Details of the user</h3>
+        <div class="card-body">
+          <div class="row">
+            <dt class="col-sm-5">ID:</dt>
+            <dd class="col-sm-7">{{userAutomatically.id}}</dd>
+            <dt class="col-sm-5">First name:</dt>
+            <dd class="col-sm-7">{{userAutomatically.firstName}}</dd>
+            <dt class="col-sm-5">Last name:</dt>
+            <dd class="col-sm-7">{{userAutomatically.lastName}}</dd>
+            <dt class="col-sm-5">E-mail:</dt>
+            <dd class="col-sm-7">{{userAutomatically.email}}</dd>
+          </div>
+        </div>
+      </div> <!--  End of User Details Automatically  -->
+      <br>
+      <button class="btn btn-secondary" routerLink="/user-edit/{{userAutomatically.id}}">Edit user</button>
+    </div>
   </div>
 </div> <!-- End row -->
 

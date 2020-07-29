@@ -4,13 +4,17 @@
   <div class="col-lg mr-5">
     <button class="btn btn-primary" routerLink="/projects-add">Add a project</button>
     <div class="container mt-lg-5">
-      <div class="form-group form-inline col-12">
+      <div class="row ">
+        <div class="col-10">
           <input
             type="text"
-            class="form-control"
+            class="form-control "
             placeholder="Search by title"
             [(ngModel)]="name"/>
-          <button class="btn btn-outline-secondary" type="button" (click)="retrieveProjects()"> Search </button>
+        </div>
+        <div class="col">
+          <button class="btn btn-outline-secondary" type="button" (click)="retrieveProjects()"> Search</button>
+        </div>
       </div>
       <table class="table table-bordered table-hover table-sm">
         <thead class="thead-light">
@@ -25,12 +29,9 @@
                   currentPage: page,
                   totalItems: count
                 };
-          let i = index"
-            [class.active]="i == currentIndex"
-            (click)="setActiveTutorial(project, i)"
-        >
+          let i = index" [class.active]="i == currentIndex" (click)="setActiveProject(project, i)">
           <td>
-            <a [routerLink]="['/projects', project.id]" >{{project.id}}</a>
+            {{project.id}}
           </td>
           <td>
             {{project.name}}
@@ -61,25 +62,45 @@
   </div>
 
   <div class="col-lg ml-5 mt-5 pt-5">
-    <router-outlet *ngIf="currentProject"></router-outlet>
-    <br>
-    <div *ngIf="!currentProject" class="card" style="width: 500px"> <!--  Project Details Automatically  -->
-      <h3 class="card-header">Details of the project</h3>
-      <div class="card-body">
-        <div class="row">
-          <dt class="col-sm-3">ID:</dt>
-          <dd class="col-sm-9">{{projectAutomatically.id}}</dd>
-          <dt class="col-sm-3">Name:</dt>
-          <dd class="col-sm-9">{{projectAutomatically.name}}</dd>
-          <dt class="col-sm-3">Company:</dt>
-          <dd class="col-sm-9">{{projectAutomatically.company}}</dd>
-          <dt class="col-sm-3">Users:</dt>
-          <dd class="col-sm-9">{{projectAutomatically.userList}}</dd>
+    <div class="container" *ngIf="currentProject">
+      <div class="card" style="width: 500px"> <!--  Project Details -->
+        <h3 class="card-header">Details of the project</h3>
+        <div class="card-body">
+          <div class="row">
+            <dt class="col-sm-3">ID:</dt>
+            <dd class="col-sm-9">{{currentProject.id}}</dd>
+            <dt class="col-sm-3">Name:</dt>
+            <dd class="col-sm-9">{{currentProject.name}}</dd>
+            <dt class="col-sm-3">Company:</dt>
+            <dd class="col-sm-9">{{currentProject.company}}</dd>
+            <dt class="col-sm-3">Users:</dt>
+            <dd class="col-sm-9">{{currentProject.userList}}</dd>
+          </div>
         </div>
-      </div>
-    </div> <!--  End of Project Details Automatically  -->
-    <br>
-    <button class="btn btn-secondary" routerLink="/project-edit/{{projectAutomatically.id}}">Edit Project Auto</button>
+      </div> <!--  End of Project Details -->
+      <br>
+      <button class="btn btn-secondary" routerLink="/project-edit/{{currentProject.id}}">Edit Project</button>
+    </div>
+
+    <div class="container" *ngIf="!currentProject">
+      <div class="card" style="width: 500px"> <!--  Project Details Automatically  -->
+        <h3 class="card-header">Details of the project</h3>
+        <div class="card-body">
+          <div class="row">
+            <dt class="col-sm-3">ID:</dt>
+            <dd class="col-sm-9">{{projectAutomatically.id}}</dd>
+            <dt class="col-sm-3">Name:</dt>
+            <dd class="col-sm-9">{{projectAutomatically.name}}</dd>
+            <dt class="col-sm-3">Company:</dt>
+            <dd class="col-sm-9">{{projectAutomatically.company}}</dd>
+            <dt class="col-sm-3">Users:</dt>
+            <dd class="col-sm-9">{{projectAutomatically.userList}}</dd>
+          </div>
+        </div>
+      </div> <!--  End of Project Details Automatically  -->
+      <br>
+      <button class="btn btn-secondary" routerLink="/project-edit/{{projectAutomatically.id}}">Edit Project</button>
+    </div>
   </div>
 </div> <!-- End row -->
 

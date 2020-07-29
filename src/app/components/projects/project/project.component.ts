@@ -1,8 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TimelogService } from '../../../services/timelog.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { Project } from "../../../models/project.model";
-import { ActivatedRoute, Router } from "@angular/router";
 
 @Component({
   selector : 'app-projects',
@@ -14,10 +12,9 @@ export class ProjectComponent implements OnInit {
   public companyList;
   public userList;
   public projectList;
-  newProject: FormGroup;
   public projectAutomatically;
   totalElements: number = 0;
-  currentProject: string = 'A';
+  currentProject: any;
   currentIndex = -1;
   name = '';
 
@@ -26,7 +23,7 @@ export class ProjectComponent implements OnInit {
   pageSize = 3;
   pageSizes = [3, 6, 9];
 
-  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) {
+  constructor(private timelogService: TimelogService) {
   }
 
   ngOnInit() {
@@ -34,13 +31,7 @@ export class ProjectComponent implements OnInit {
     this.getUserList();
     this.getCompanyList();
     this.retrieveProjects()
-    // this.getProjectList();
-    // this.loadProjects({page: "0", size: "5"})
     this.getProjectAutomatically();
-  }
-
-  ShowDiv(divVal: string) {
-    this.currentProject = divVal;
   }
 
   getRequestParams(searchName, page, pageSize) {
@@ -89,17 +80,9 @@ export class ProjectComponent implements OnInit {
     this.retrieveProjects();
   }
 
-  setActiveTutorial(project, index) {
+  setActiveProject(project, index) {
     this.currentProject = project;
     this.currentIndex = index;
-  }
-
-
-  reload() {
-    setTimeout(() => {
-        window.location.reload()
-      },
-      700);
   }
 
   getCompanyList() {
@@ -109,16 +92,6 @@ export class ProjectComponent implements OnInit {
       },
       err => console.error(err),
       () => console.log('companies loaded')
-    );
-  }
-
-  getProjectList() {
-    this.timelogService.getProjects().subscribe(
-      data => {
-        this.projectList = data;
-      },
-      err => console.error(err),
-      () => console.log('projects loaded')
     );
   }
 
@@ -141,16 +114,5 @@ export class ProjectComponent implements OnInit {
       () => console.log('members loaded')
     );
   }
-
-  loadProjects(request) {
-    this.timelogService.getProjectsRequest(request)
-      .subscribe(data => {
-        this.projectList = data;
-        this.totalElements = data['totalElements'];
-      }, error => {
-        console.error(error);
-      })
-  }
-
 
 }

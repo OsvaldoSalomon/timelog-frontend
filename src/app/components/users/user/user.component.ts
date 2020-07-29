@@ -1,7 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { TimelogService } from '../../../services/timelog.service';
-import { throwError } from 'rxjs';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { User } from "../../../models/user.model";
 
 @Component({
@@ -15,7 +13,6 @@ export class UserComponent implements OnInit {
   public userList;
   public projectList;
   public userAutomatically;
-  term: string;
   totalElements: number = 0;
   currentUser = null;
   currentIndex = -1;
@@ -31,18 +28,9 @@ export class UserComponent implements OnInit {
 
   ngOnInit() {
     this.userAutomatically = new User("", "", "", "", "");
-    // this.getUserList();
     this.retrieveUsers()
     this.getCompanyList();
-    this.getProjectList();
     this.getUserAutomatically();
-  }
-
-  reload() {
-    setTimeout(() => {
-        window.location.reload()
-      },
-      700);
   }
 
   getRequestParams(searchName, page, pageSize) {
@@ -91,7 +79,7 @@ export class UserComponent implements OnInit {
     this.retrieveUsers();
   }
 
-  setActiveTutorial(user, index) {
+  setActiveUser(user, index) {
     this.currentUser = user;
     this.currentIndex = index;
   }
@@ -123,16 +111,6 @@ export class UserComponent implements OnInit {
       },
       err => console.error(err),
       () => console.log('users loaded')
-    );
-  }
-
-  getProjectList() {
-    this.timelogService.getProjects().subscribe(
-      data => {
-        this.projectList = data;
-      },
-      err => console.error(err),
-      () => console.log('projects loaded')
     );
   }
 

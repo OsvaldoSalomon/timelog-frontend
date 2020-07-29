@@ -1,23 +1,20 @@
 import { Component, OnInit } from '@angular/core';
 import { TimelogService } from '../../../services/timelog.service';
-import { ActivatedRoute, Router } from '@angular/router';
 import { CompanyModel } from "../../../models/company.model";
 
 @Component({
-  selector: 'app-company',
-  templateUrl: './company.component.html',
-  styleUrls: ['./company.component.css']
+  selector : 'app-company',
+  templateUrl : './company.component.html',
+  styleUrls : ['./company.component.css']
 })
 export class CompanyComponent implements OnInit {
 
-  companyList: any = [];
-  companyAuto: any = [];
-  projectList: any = [];
-  userList: any = [];
-  currentDetail = null;
-  company: CompanyModel;
-  term: string;
+  public companyList;
+  public userList;
+  public projectList;
+  public companyAutomatically;
   totalElements: number = 0;
+  currentCompany = null;
   currentIndex = -1;
   name = '';
 
@@ -26,53 +23,14 @@ export class CompanyComponent implements OnInit {
   pageSize = 3;
   pageSizes = [3, 6, 9];
 
-  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private timelogService: TimelogService) { }
 
   ngOnInit() {
-    this.company = new CompanyModel("", "", [],[]);
-    // this.getCompanyList();
+    this.companyAutomatically = new CompanyModel("", "", [], []);
     this.retrieveCompanies()
     this.getUserList();
     this.getProjectList();
     this.getCompanyAutomatically();
-  }
-
-  reload() {
-    setTimeout(() =>
-      {
-        window.location.reload()
-      },
-      500);
-  }
-
-  getCompanyList() {
-    return this.timelogService.getCompanies().subscribe((data: {}) => {
-      this.companyList = data;
-    })
-  }
-
-
-  getUserList() {
-    return this.timelogService.getUsers().subscribe((data: {}) => {
-      this.userList = data;
-    })
-  }
-
-  getProjectList() {
-    return this.timelogService.getProjects().subscribe((data: {}) => {
-      this.projectList = data;
-    })
-  }
-
-  getCompanyAutomatically() {
-    return this.timelogService.getCompanyAutomatically().subscribe((data: {}) => {
-      this.companyAuto = data;
-    })
-  }
-
-  setActiveDetail(detail, index) {
-    this.currentDetail = detail;
-    this.currentIndex = index;
   }
 
   getRequestParams(searchName, page, pageSize) {
@@ -119,6 +77,41 @@ export class CompanyComponent implements OnInit {
     this.pageSize = event.target.value;
     this.page = 1;
     this.retrieveCompanies();
+  }
+
+  setActiveCompany(company, index) {
+    this.currentCompany = company;
+    this.currentIndex = index;
+  }
+
+  getProjectList() {
+    this.timelogService.getProjects().subscribe(
+      data => {
+        this.projectList = data;
+      },
+      err => console.log(err),
+      () => console.log('projects loaded')
+    );
+  }
+
+  getCompanyAutomatically() {
+    this.timelogService.getCompanyAutomatically().subscribe(
+      data => {
+        this.companyAutomatically = data;
+      },
+      err => console.log(err),
+      () => console.log('Auto company loaded')
+    );
+  }
+
+  getUserList() {
+    this.timelogService.getUsers().subscribe(
+      data => {
+        this.userList = data;
+      },
+      err => console.error(err),
+      () => console.log('members loaded')
+    );
   }
 
 }
