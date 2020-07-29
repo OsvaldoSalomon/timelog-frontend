@@ -25,9 +25,8 @@ import { ErrorComponent } from './components/error/error.component';
 import { LogoutComponent } from './components/logout/logout.component';
 import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { TasksComponent } from './components/tasks/tasks.component';
-import { PaginatorComponent } from './components/paginator/paginator.component';
-import { PaginationDirective } from "./components/paginator/pagination.directive";
 import { NgxPaginationModule } from "ngx-pagination";
+import { TestingComponent } from './components/testing/testing.component';
 
 @NgModule({
   declarations: [
@@ -50,8 +49,7 @@ import { NgxPaginationModule } from "ngx-pagination";
     ErrorComponent,
     LogoutComponent,
     TasksComponent,
-    PaginatorComponent,
-    PaginationDirective
+    TestingComponent
   ],
   imports: [
     BrowserModule,

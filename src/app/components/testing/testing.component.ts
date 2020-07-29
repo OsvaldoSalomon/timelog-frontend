@@ -1,15 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { TimelogService } from '../../../services/timelog.service';
-import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { Project } from "../../../models/project.model";
+import { FormGroup } from "@angular/forms";
+import { TimelogService } from "../../services/timelog.service";
 import { ActivatedRoute, Router } from "@angular/router";
+import { Project } from "../../models/project.model";
 
 @Component({
-  selector : 'app-projects',
-  templateUrl : './project.component.html',
-  styleUrls : ['./project.component.css']
+  selector: 'app-testing',
+  templateUrl: './testing.component.html',
+  styleUrls: ['./testing.component.css']
 })
-export class ProjectComponent implements OnInit {
+export class TestingComponent implements OnInit {
 
   public companyList;
   public userList;
@@ -26,9 +26,13 @@ export class ProjectComponent implements OnInit {
   pageSize = 3;
   pageSizes = [3, 6, 9];
 
-  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) {
-  }
+  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
 
+  currDiv: string = 'A';
+
+  ShowDiv(divVal: string) {
+    this.currDiv = divVal;
+  }
   ngOnInit() {
     this.projectAutomatically = new Project("", "", "", []);
     this.getUserList();
@@ -38,11 +42,6 @@ export class ProjectComponent implements OnInit {
     // this.loadProjects({page: "0", size: "5"})
     this.getProjectAutomatically();
   }
-
-  ShowDiv(divVal: string) {
-    this.currentProject = divVal;
-  }
-
   getRequestParams(searchName, page, pageSize) {
     // tslint:disable-next-line:prefer-const
     let params = {};
@@ -151,6 +150,4 @@ export class ProjectComponent implements OnInit {
         console.error(error);
       })
   }
-
-
 }

@@ -1,3 +1,19 @@
+<div *ngIf="currDiv == 'A'">
+  Div A
+</div>
+<div *ngIf="currDiv == 'B'">
+  Div B
+</div>
+<div *ngIf="currDiv == 'C'">
+  Div C
+</div>
+
+<button class="btn btn-primary" type="button" (click)="ShowDiv('A')">Show A</button>
+<button class="btn btn-primary" type="button" (click)="ShowDiv('B')">Show B</button>
+<button class="btn btn-primary" type="button" (click)="ShowDiv('C')">Show C</button>
+
+<hr>
+
 <h3 class="display-4 text-muted">Projects</h3>
 <br>
 <div class="row">
@@ -5,12 +21,12 @@
     <button class="btn btn-primary" routerLink="/projects-add">Add a project</button>
     <div class="container mt-lg-5">
       <div class="form-group form-inline col-12">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Search by title"
-            [(ngModel)]="name"/>
-          <button class="btn btn-outline-secondary" type="button" (click)="retrieveProjects()"> Search </button>
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search by title"
+          [(ngModel)]="name"/>
+        <button class="btn btn-outline-secondary" type="button" (click)="retrieveProjects()"> Search </button>
       </div>
       <table class="table table-bordered table-hover table-sm">
         <thead class="thead-light">
