@@ -58,7 +58,9 @@ export class ProjectEditComponent implements OnInit {
   getCompanyList() {
     this.timelogService.getCompanies().subscribe(
       data => {
-        this.companyList = data;
+        const { companies } = data
+        this.companyList = companies;
+        console.log(this.companyList);
       },
       err => console.error(err),
       () => console.log('companies loaded')
@@ -78,12 +80,14 @@ export class ProjectEditComponent implements OnInit {
   getUserList() {
     this.timelogService.getUsers().subscribe(
       data => {
-        this.usersList = data;
+        const { users } = data;
+        this.usersList = users;
       },
       err => console.error(err),
-      () => console.log('users loaded')
+      () => console.log('members loaded')
     );
   }
+
 
   deleteProject(id:string) {
     this.timelogService.deleteProject(id).subscribe(

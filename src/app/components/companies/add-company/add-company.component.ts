@@ -58,7 +58,9 @@ export class AddCompanyComponent implements OnInit {
   getUserList() {
     this.timelogService.getUsers().subscribe(
       data => {
-        this.userListFromService = data;
+        const { users } = data
+        this.userListFromService = users;
+        console.log(this.userListFromService)
       },
       err => console.error(err),
       () => console.log('users loaded')
@@ -66,48 +68,3 @@ export class AddCompanyComponent implements OnInit {
   }
 
 }
-
-// import { Component, Input, OnInit } from '@angular/core';
-// import { TimelogService } from '../../../services/timelog.service';
-// import { Router } from '@angular/router';
-//
-// @Component({
-//   selector : 'app-add-company',
-//   templateUrl : './add-company.component.html',
-//   styleUrls : ['./add-company.component.css']
-// })
-// export class AddCompanyComponent implements OnInit {
-//
-//   Users: any = [];
-//
-//   @Input() companySubmit = { name : '', userList : [] }
-//
-//   constructor(private timelogService: TimelogService, private router: Router) {
-//   }
-//
-//   ngOnInit() {
-//     this.getUserList();
-//   }
-//
-//   addCompany(dataCompany) {
-//     this.timelogService.createCompany(this.companySubmit).subscribe((data: {}) => {
-//       alert(JSON.stringify(this.companySubmit));
-//       console.log(this.companySubmit);
-//       this.router.navigate(['/companies']);
-//     })
-//   }
-//
-//   // get name() {
-//   //   return this.companySubmit.get('name');
-//   // }
-//
-//
-//   getUserList() {
-//     return this.timelogService.getUsers().subscribe((data: {}) => {
-//       this.Users = data;
-//     })
-//   }
-//
-//
-//
-// }

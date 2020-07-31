@@ -13,8 +13,7 @@ export class HomeComponent implements OnInit {
   constructor(private route: ActivatedRoute) { }
 
   ngOnInit() {
-    this.name = this.route.snapshot.params['name'];
-    console.log(this.name);
+    this.name = sessionStorage.getItem('authenticateUser');
   }
 
 }

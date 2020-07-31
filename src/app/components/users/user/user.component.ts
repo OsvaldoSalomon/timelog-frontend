@@ -29,7 +29,6 @@ export class UserComponent implements OnInit {
   ngOnInit() {
     this.userAutomatically = new User("", "", "", "", "");
     this.retrieveUsers()
-    this.getCompanyList();
     this.getUserAutomatically();
   }
 
@@ -55,7 +54,7 @@ export class UserComponent implements OnInit {
   retrieveUsers() {
     const params = this.getRequestParams(this.name, this.page, this.pageSize);
 
-    this.timelogService.getAllUsers(params)
+    this.timelogService.getUsersPagination(params)
       .subscribe(
         response => {
           const { users, totalUsers } = response;
@@ -82,16 +81,6 @@ export class UserComponent implements OnInit {
   setActiveUser(user, index) {
     this.currentUser = user;
     this.currentIndex = index;
-  }
-
-  getCompanyList() {
-    this.timelogService.getCompanies().subscribe(
-      data => {
-        this.companyList = data;
-      },
-      err => console.error(err),
-      () => console.log('companies loaded')
-    );
   }
 
   getUserAutomatically() {

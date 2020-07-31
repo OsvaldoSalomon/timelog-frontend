@@ -28,9 +28,7 @@ export class ProjectComponent implements OnInit {
 
   ngOnInit() {
     this.projectAutomatically = new Project("", "", "", []);
-    this.getUserList();
-    this.getCompanyList();
-    this.retrieveProjects()
+    this.retrieveProjects();
     this.getProjectAutomatically();
   }
 
@@ -56,7 +54,7 @@ export class ProjectComponent implements OnInit {
   retrieveProjects() {
     const params = this.getRequestParams(this.name, this.page, this.pageSize);
 
-    this.timelogService.getAllProjects(params)
+    this.timelogService.getAllProjectsPagination(params)
       .subscribe(
         response => {
           const { projects, totalProjects } = response;
@@ -83,16 +81,6 @@ export class ProjectComponent implements OnInit {
   setActiveProject(project, index) {
     this.currentProject = project;
     this.currentIndex = index;
-  }
-
-  getCompanyList() {
-    this.timelogService.getCompanies().subscribe(
-      data => {
-        this.companyList = data;
-      },
-      err => console.error(err),
-      () => console.log('companies loaded')
-    );
   }
 
   getProjectAutomatically() {

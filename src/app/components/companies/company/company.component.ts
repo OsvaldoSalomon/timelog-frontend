@@ -28,8 +28,8 @@ export class CompanyComponent implements OnInit {
   ngOnInit() {
     this.companyAutomatically = new CompanyModel("", "", [], []);
     this.retrieveCompanies()
-    this.getUserList();
-    this.getProjectList();
+    // this.getUserList();
+    // this.getProjectList();
     this.getCompanyAutomatically();
   }
 
@@ -55,7 +55,7 @@ export class CompanyComponent implements OnInit {
   retrieveCompanies() {
     const params = this.getRequestParams(this.name, this.page, this.pageSize);
 
-    this.timelogService.getAllCompanies(params)
+    this.timelogService.getAllCompaniesPagination(params)
       .subscribe(
         response => {
           const { companies, totalCompanies } = response;

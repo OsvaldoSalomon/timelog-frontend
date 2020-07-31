@@ -24,48 +24,39 @@ export class TimelogService {
 
   // Get all Companies, Projects and Users
 
-  getCompanies(): Observable<CompanyModel> {
-    return this.http.get<CompanyModel>(this.apiURL + '/companies')
+  getCompanies(): Observable<any> {
+    return this.http.get<any>(this.apiURL + '/companies')
       .pipe(
         retry(1),
         catchError(this.handleError)
       )
   }
 
-  getAllCompanies(params): Observable<any> {
+  getAllCompaniesPagination(params): Observable<any> {
     return this.http.get(this.apiURL + '/companies', { params });
   }
 
-  getProjects(): Observable<Project> {
-    return this.http.get<Project>(this.apiURL + '/projects')
+  getProjects(): Observable<any> {
+    return this.http.get<any>(this.apiURL + '/projects')
       .pipe(
         retry(1),
         catchError(this.handleError)
       )
   }
 
-  getAllProjects(params): Observable<any> {
+  getAllProjectsPagination(params): Observable<any> {
     return this.http.get(this.apiURL + '/projects', { params });
   }
 
-  getProjectsRequest(request): Observable<Project> {
-    const params = request
-    return this.http.get<Project>(this.apiURL + '/projects', {params})
+  getUsers(): Observable<any> {
+    return this.http.get<any>(this.apiURL + '/users')
       .pipe(
         retry(1),
         catchError(this.handleError)
       )
   }
 
-  getUsers(): Observable<User> {
-    return this.http.get<User>(this.apiURL + '/users')
-      .pipe(
-        retry(1),
-        catchError(this.handleError)
-      )
-  }
-
-  getAllUsers(params): Observable<any> {
+  getUsersPagination(params): Observable<any> {
     return this.http.get(this.apiURL + '/users', { params });
   }
 

@@ -71,10 +71,11 @@ export class CompanyEditComponent implements OnInit {
   getUserList() {
     this.timelogService.getUsers().subscribe(
       data => {
-        this.userListFromService = data;
+        const { users } = data;
+        this.userListFromService = users;
       },
       err => console.error(err),
-      () => console.log('users loaded')
+      () => console.log('members loaded')
     );
   }
 
