@@ -37,7 +37,7 @@ export class UserComponent implements OnInit {
     let params = {};
 
     if (searchName) {
-      params[`name`] = searchName;
+      params[ `firstName` ] = searchName;
     }
 
     if (page) {

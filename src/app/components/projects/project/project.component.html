@@ -5,15 +5,17 @@
     <button class="btn btn-primary" routerLink="/projects-add">Add a project</button>
     <div class="container mt-lg-5">
       <div class="row ">
-        <div class="col-10">
+        <div class="input-group mb-3">
           <input
             type="text"
-            class="form-control "
+            class="form-control"
             placeholder="Search by title"
             [(ngModel)]="name"/>
-        </div>
-        <div class="col">
-          <button class="btn btn-outline-secondary" type="button" (click)="retrieveProjects()"> Search</button>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary"
+                    type="button"
+                    (click)="retrieveProjects()"> Search</button>
+          </div>
         </div>
       </div>
       <table class="table table-bordered table-hover table-sm">
@@ -79,7 +81,7 @@
         </div>
       </div> <!--  End of Project Details -->
       <br>
-      <button class="btn btn-secondary" routerLink="/project-edit/{{currentProject.id}}">Edit Project</button>
+      <button class="btn btn-outline-warning" routerLink="/project-edit/{{currentProject.id}}">Edit Project</button>
     </div>
 
     <div class="container" *ngIf="!currentProject">
@@ -99,7 +101,7 @@
         </div>
       </div> <!--  End of Project Details Automatically  -->
       <br>
-      <button class="btn btn-secondary" routerLink="/project-edit/{{projectAutomatically.id}}">Edit Project</button>
+      <button class="btn btn-outline-warning" routerLink="/project-edit/{{projectAutomatically.id}}">Edit Project</button>
     </div>
   </div>
 </div> <!-- End row -->

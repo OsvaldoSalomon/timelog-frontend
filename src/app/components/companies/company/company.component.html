@@ -5,15 +5,17 @@
     <button class="btn btn-primary" routerLink="/companies-add">Add a company</button>
     <div class="container mt-lg-5">
       <div class="row ">
-        <div class="col-10">
+        <div class="input-group mb-3">
           <input
             type="text"
-            class="form-control "
+            class="form-control"
             placeholder="Search by title"
             [(ngModel)]="name"/>
-        </div>
-        <div class="col">
-          <button class="btn btn-outline-secondary" type="button" (click)="retrieveCompanies()"> Search</button>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary"
+                    type="button"
+                    (click)="retrieveCompanies()"> Search</button>
+          </div>
         </div>
       </div>
       <table class="table table-bordered table-hover">
@@ -79,7 +81,7 @@
         </div>
       </div> <!--  End of Company Details Automatically  -->
       <br>
-      <button class="btn btn-secondary" routerLink="/company-edit/{{currentCompany.id}}">Edit company</button>
+      <button class="btn btn-outline-warning" routerLink="/company-edit/{{currentCompany.id}}">Edit company</button>
     </div>
 
     <div class="container" *ngIf="!currentCompany">
@@ -99,7 +101,7 @@
         </div>
       </div> <!--  End of Company Details Automatically  -->
       <br>
-      <button class="btn btn-secondary" routerLink="/company-edit/{{companyAutomatically.id}}">Edit company</button>
+      <button class="btn btn-outline-warning" routerLink="/company-edit/{{companyAutomatically.id}}">Edit company</button>
     </div>
   </div>
 </div> <!-- End row -->
