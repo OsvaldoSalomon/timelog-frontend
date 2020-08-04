@@ -23,13 +23,12 @@ export class CompanyComponent implements OnInit {
   pageSize = 3;
   pageSizes = [3, 6, 9];
 
-  constructor(private timelogService: TimelogService) { }
+  constructor(private timelogService: TimelogService) {
+  }
 
   ngOnInit() {
     this.companyAutomatically = new CompanyModel("", "", [], []);
     this.retrieveCompanies()
-    // this.getUserList();
-    // this.getProjectList();
     this.getCompanyAutomatically();
   }
 
@@ -84,33 +83,14 @@ export class CompanyComponent implements OnInit {
     this.currentIndex = index;
   }
 
-  getProjectList() {
-    this.timelogService.getProjects().subscribe(
-      data => {
-        this.projectList = data;
-      },
-      err => console.log(err),
-      () => console.log('projects loaded')
-    );
-  }
-
   getCompanyAutomatically() {
     this.timelogService.getCompanyAutomatically().subscribe(
       data => {
         this.companyAutomatically = data;
+        console.log('Auto company' + data);
       },
       err => console.log(err),
       () => console.log('Auto company loaded')
-    );
-  }
-
-  getUserList() {
-    this.timelogService.getUsers().subscribe(
-      data => {
-        this.userList = data;
-      },
-      err => console.error(err),
-      () => console.log('members loaded')
     );
   }
 

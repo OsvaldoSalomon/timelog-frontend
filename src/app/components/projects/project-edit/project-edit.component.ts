@@ -46,7 +46,7 @@ export class ProjectEditComponent implements OnInit {
           return true;
         },
         error => {
-          return throwError(error);
+          console.log(error);
         }
       );
       this.router.navigate(['projects']);

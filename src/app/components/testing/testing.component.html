@@ -1,11 +1,112 @@
-<a class="btn btn-primary" data-toggle="collapse" href="#multiCollapseExample1" role="button" aria-expanded="false" aria-controls="multiCollapseExample1">Toggle first element</a>
-
+<h3 class="display-4 text-muted">Users Testing filter pipe</h3>
+<br>
 <div class="row">
-  <div class="col">
-    <div class="collapse multi-collapse" id="multiCollapseExample1">
-      <div class="card card-body">
-        Anim pariatur cliche reprehenderit, enim eiusmod high life accusamus terry richardson ad squid. Nihil anim keffiyeh helvetica, craft beer labore wes anderson cred nesciunt sapiente ea proident.
+  <div class="col-lg">
+    <button class="btn btn-primary" routerLink="/users-add">Add a User</button>
+    <div class="container mt-lg-5">
+      <div class="row ">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search by name"
+            [(ngModel)]="name"/>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary"
+                    type="button"
+                    (click)="retrieveUsers()"> Search</button>
+          </div>
+        </div>
+      </div>
+      <table class="table table-bordered table-hover ">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">First name</th>
+          <th scope="col">Last name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of userList | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };
+          let i = index" [class.active]="i == currentIndex" (click)="setActiveUser(user, i)">
+          <td>
+            {{user.id}}
+          </td>
+          <td>
+            {{user.firstName}}
+          </td>
+          <td>
+            {{user.lastName}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="col-md-12">
+        <div class="row">
+          <pagination-controls
+            previousLabel="Previous"
+            nextLabel="Next"
+            responsive="true"
+            (pageChange)="handlePageChange($event)"
+          ></pagination-controls>
+          <div class="col-6">
+            Items per Page:
+            <select (change)="handlePageSizeChange($event)">
+              <option *ngFor="let size of pageSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+        </div>
       </div>
     </div>
+    <br>
   </div>
-</div>
+
+  <div class="col-lg ml-5 mt-5 pt-5">
+    <div class="container" *ngIf="currentUser">
+      <div class="card" style="width: 500px"> <!--  User Details Automatically  -->
+        <h3 class="card-header">Details of the user</h3>
+        <div class="card-body">
+          <div class="row">
+            <dt class="col-sm-5">ID:</dt>
+            <dd class="col-sm-7">{{currentUser.id}}</dd>
+            <dt class="col-sm-5">First name:</dt>
+            <dd class="col-sm-7">{{currentUser.firstName}}</dd>
+            <dt class="col-sm-5">Last name:</dt>
+            <dd class="col-sm-7">{{currentUser.lastName}}</dd>
+            <dt class="col-sm-5">E-mail:</dt>
+            <dd class="col-sm-7">{{currentUser.email}}</dd>
+          </div>
+        </div>
+      </div>
+      <br>
+      <button class="btn btn-outline-warning" routerLink="/user-edit/{{currentUser.id}}">Edit user</button>
+    </div>
+
+    <div class="container" *ngIf="!currentUser">
+      <div class="card" style="width: 500px"> <!--  User Details Automatically  -->
+        <h3 class="card-header">Details of the user</h3>
+        <div class="card-body">
+          <div class="row">
+            <dt class="col-sm-5">ID:</dt>
+            <dd class="col-sm-7">{{userAutomatically.id}}</dd>
+            <dt class="col-sm-5">First name:</dt>
+            <dd class="col-sm-7">{{userAutomatically.firstName}}</dd>
+            <dt class="col-sm-5">Last name:</dt>
+            <dd class="col-sm-7">{{userAutomatically.lastName}}</dd>
+            <dt class="col-sm-5">E-mail:</dt>
+            <dd class="col-sm-7">{{userAutomatically.email}}</dd>
+          </div>
+        </div>
+      </div> <!--  End of User Details Automatically  -->
+      <br>
+      <button class="btn btn-outline-warning" routerLink="/user-edit/{{userAutomatically.id}}">Edit user</button>
+    </div>
+  </div>
+</div> <!-- End row -->
+

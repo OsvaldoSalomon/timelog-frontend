@@ -44,8 +44,7 @@ export class AddCompanyComponent implements OnInit {
           return true;
         },
         error => {
-
-          return throwError(error);
+          console.log(error);
         }
       );
       this.router.navigate(['companies']);

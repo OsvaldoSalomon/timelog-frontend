@@ -87,6 +87,7 @@ export class ProjectComponent implements OnInit {
     this.timelogService.getProjectAutomatically().subscribe(
       data => {
         this.projectAutomatically = data;
+        console.log('Auto project' + this.projectAutomatically)
       },
       err => console.error(err),
       () => console.log('Auto project loaded')

@@ -12,10 +12,8 @@ export class LoginService {
   }
 
   authenticate(username, password) {
-    // console.log('before ' + this.isUserLoggedIn());
     if (username === "Osvaldo" && password === '123') {
       sessionStorage.setItem('authenticateUser', username);
-      // console.log('after ' + this.isUserLoggedIn());
       return true;
     }
     return false;

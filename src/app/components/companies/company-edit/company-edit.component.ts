@@ -41,14 +41,13 @@ export class CompanyEditComponent implements OnInit {
 
   editCompany(id: string) {
     if (this.editedCompany.valid) {
-      console.log("Your company has been edited. Thank you!");
       this.timelogService.updateCompany(id, this.editedCompany.value).subscribe(
         data => {
           this.editedCompany.reset();
           return true;
         },
         error => {
-          return throwError(error);
+          console.log(error);
         }
       );
       this.router.navigate(['companies']);

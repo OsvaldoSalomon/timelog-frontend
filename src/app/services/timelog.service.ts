@@ -86,6 +86,7 @@ export class TimelogService {
       )
   }
 
+
   //Get Company, Project and User automatically
 
   getCompanyAutomatically(): Observable<CompanyModel> {
@@ -199,17 +200,9 @@ export class TimelogService {
       // Get server-side error
       errorMessage = `Error Code: ${ error.status }\nMessage: ${ error.message }`;
     }
-    window.alert(errorMessage);
+    console.log(errorMessage);
     return throwError(errorMessage);
   }
 
 }
-
-
-
-
-
-
-
-
 
