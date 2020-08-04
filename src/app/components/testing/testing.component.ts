@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TimelogService } from "../../services/timelog.service";
-import { CompanyModel } from "../../models/company.model";
+import { Company } from "../../models/company.model";
 import { User } from "../../models/user.model";
 
 @Component({

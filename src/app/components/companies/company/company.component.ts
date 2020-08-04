@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { TimelogService } from '../../../services/timelog.service';
-import { CompanyModel } from "../../../models/company.model";
+import { Company } from "../../../models/company.model";
 
 @Component({
   selector : 'app-company',
@@ -27,7 +27,7 @@ export class CompanyComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.companyAutomatically = new CompanyModel("", "", [], []);
+    this.companyAutomatically = new Company("", "", [], []);
     this.retrieveCompanies()
     this.getCompanyAutomatically();
   }

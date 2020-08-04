@@ -3,6 +3,7 @@ import {FormControl, FormGroup, Validators} from '@angular/forms';
 import {TimelogService} from '../../../services/timelog.service';
 import {throwError} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
+import { Project } from "../../../models/project.model";
 
 @Component({
   selector: 'app-project-edit',
@@ -21,6 +22,7 @@ export class ProjectEditComponent implements OnInit {
   constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
+    this.projectDetails = new Project("", "", "", []);
     this.getUserList();
     this.getCompanyList();
     this.getProject(this.route.snapshot.params.id);
@@ -58,8 +60,7 @@ export class ProjectEditComponent implements OnInit {
   getCompanyList() {
     this.timelogService.getCompanies().subscribe(
       data => {
-        const { companies } = data
-        this.companyList = companies;
+        this.companyList = data;
         console.log(this.companyList);
       },
       err => console.error(err),
@@ -80,8 +81,7 @@ export class ProjectEditComponent implements OnInit {
   getUserList() {
     this.timelogService.getUsers().subscribe(
       data => {
-        const { users } = data;
-        this.usersList = users;
+        this.usersList = data;
       },
       err => console.error(err),
       () => console.log('members loaded')

@@ -57,8 +57,7 @@ export class AddCompanyComponent implements OnInit {
   getUserList() {
     this.timelogService.getUsers().subscribe(
       data => {
-        const { users } = data
-        this.userListFromService = users;
+        this.userListFromService = data;
         console.log(this.userListFromService)
       },
       err => console.error(err),

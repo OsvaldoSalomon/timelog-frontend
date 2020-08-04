@@ -3,7 +3,7 @@ import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TimelogService } from '../../../services/timelog.service';
 import { throwError } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
-import { CompanyModel } from "../../../models/company.model";
+import { Company } from "../../../models/company.model";
 
 @Component({
   selector : 'app-companies-edit',
@@ -22,7 +22,7 @@ export class CompanyEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.companyDetails = new CompanyModel("", "", [], []);
+    this.companyDetails = new Company("", "", [], []);
     this.getUserList();
     this.getCompany(this.route.snapshot.params.id);
     this.editedCompany = new FormGroup({
@@ -70,8 +70,7 @@ export class CompanyEditComponent implements OnInit {
   getUserList() {
     this.timelogService.getUsers().subscribe(
       data => {
-        const { users } = data;
-        this.userListFromService = users;
+        this.userListFromService = data;
       },
       err => console.error(err),
       () => console.log('members loaded')

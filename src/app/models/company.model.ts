@@ -1,7 +1,7 @@
 import { Project } from './project.model';
 import { User } from './user.model';
 
-export class CompanyModel {
+export class Company {
 
   constructor(
     public id: string,
