@@ -49,10 +49,14 @@ export class UserEditComponent implements OnInit {
 
   editUser(id:string) {
     if (this.updatedUser.valid) {
-      console.log("User has been has been edited!");
+      this.invalidForm = true;
+      console.log("Please fill out the form before submitting!");
+    } else {
+
       this.timelogService.updateUser(id, this.updatedUser.value).subscribe(
         data => {
           this.updatedUser.reset();
+          console.log("User has been has been edited");
           return true;
         },
         error => {
@@ -60,9 +64,6 @@ export class UserEditComponent implements OnInit {
         }
       );
       this.router.navigate(['users']);
-    } else {
-      this.invalidForm = true;
-      console.log("Please fill out the form before submitting!");
     }
   }
 

@@ -44,11 +44,14 @@ export class AddUserComponent implements OnInit {
   }
 
   submitUser() {
-    if (this.newUser.valid) {
-      console.log("User has been created!");
+    if (!this.newUser.valid) {
+      this.invalidForm = true;
+      console.log('Please fill out the form before submitting!');
+    } else {
       this.timelogService.createUser(this.newUser.value).subscribe(
         data => {
           this.newUser.reset();
+          console.log("User has been created!");
           return true;
         },
         error => {
@@ -56,9 +59,6 @@ export class AddUserComponent implements OnInit {
         }
       );
       this.router.navigate(['users']);
-    } else {
-      this.invalidForm = true;
-      console.log('Please fill out the form before submitting!');
     }
   }
 

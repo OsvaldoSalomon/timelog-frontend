@@ -40,10 +40,14 @@ export class CompanyEditComponent implements OnInit {
   }
 
   editCompany(id: string) {
-    if (this.editedCompany.valid) {
+    if (!this.editedCompany.valid) {
+      this.invalidForm = true;
+      console.log("Please fill out the form before submitting!");
+    } else {
       this.timelogService.updateCompany(id, this.editedCompany.value).subscribe(
         data => {
           this.editedCompany.reset();
+          console.log("Your company has been created.")
           return true;
         },
         error => {
@@ -51,9 +55,6 @@ export class CompanyEditComponent implements OnInit {
         }
       );
       this.router.navigate(['companies']);
-    } else {
-      this.invalidForm = true;
-      console.log("Please fill out the form before submitting!");
     }
   }
 

@@ -53,7 +53,7 @@ import { TestingComponent } from './components/testing/testing.component';
     FormsModule,
     BrowserAnimationsModule,
     Ng2SearchPipeModule,
-    NgxPaginationModule
+    NgxPaginationModule,
     // ROUTING
   ],
   providers: [],

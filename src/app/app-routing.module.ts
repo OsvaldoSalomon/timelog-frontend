@@ -19,7 +19,7 @@ import { TasksComponent } from "./components/tasks/tasks.component";
 import { TestingComponent } from "./components/testing/testing.component";
 
 export const routes: Routes = [
-  { path : '', component : LoginComponent },
+  { path : '', component : HomeComponent, canActivate: [RouteGuardService] },
   { path : 'login', component : LoginComponent },
   { path : 'home/:name', component : HomeComponent, canActivate : [RouteGuardService] },
   { path : 'companies', component : CompanyComponent, canActivate : [RouteGuardService] },

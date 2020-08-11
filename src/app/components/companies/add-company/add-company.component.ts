@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { throwError } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TimelogService } from '../../../services/timelog.service';
 import { Router } from '@angular/router';
@@ -36,11 +35,14 @@ export class AddCompanyComponent implements OnInit {
   }
 
   submitCompany() {
-    if (this.newCompany.valid) {
-      console.log("Your company has been created!");
+    if (!this.newCompany.valid) {
+      this.invalidForm = true;
+      console.log('Please fill out the form before submitting!');
+    } else {
       this.timelogService.createCompany(this.newCompany.value).subscribe(
         data => {
           this.newCompany.reset();
+          console.log("Your company has been created.");
           return true;
         },
         error => {
@@ -48,9 +50,6 @@ export class AddCompanyComponent implements OnInit {
         }
       );
       this.router.navigate(['companies']);
-    } else {
-      this.invalidForm = true;
-      console.log('Please fill out the form before submitting!');
     }
   }
 

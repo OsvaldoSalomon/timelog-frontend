@@ -1,7 +1,7 @@
 import { Component } from '@angular/core';
 import { LoginService } from '../../services/login.service';
 import { Router } from "@angular/router";
-import { TimelogService } from "../../services/timelog.service";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
   selector : 'app-login',
@@ -15,9 +15,8 @@ export class LoginComponent {
   password = '';
   errorMessage = 'Invalid Credentials';
   invalidLogin = false;
-  public userDetails;
 
-  constructor(private loginService: LoginService, private router: Router, private timelogService: TimelogService) {
+  constructor(private loginService: LoginService, private router: Router) {
   }
 
   handleLogin() {
@@ -28,17 +27,4 @@ export class LoginComponent {
       this.invalidLogin = true
     }
   }
-
-  getUser(name:string) {
-    this.timelogService.getUser(name).subscribe(
-      data => {
-        this.userDetails = data;
-      },
-      err => console.error(err),
-      () => console.log('user loaded'),
-    );
-  }
-
-
-
 }

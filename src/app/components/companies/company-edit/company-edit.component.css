@@ -1,7 +1,8 @@
-input.ng-invalid.ng-touched,
-textarea.ng-invalid.ng-touched{
-  border: 1px solid red;
-}
+/* invalid*/
+.form-control.ng-touched.ng-invalid{border:2px solid red;}
+
+/*valid*/
+.form-control.ng-touched.ng-valid{border:2px solid green;}
 
 .form-label-group {
   position: relative;

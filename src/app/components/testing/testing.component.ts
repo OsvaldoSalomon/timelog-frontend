@@ -1,105 +1,59 @@
 import { Component, OnInit } from '@angular/core';
+import { Router } from "@angular/router";
 import { TimelogService } from "../../services/timelog.service";
-import { Company } from "../../models/company.model";
-import { User } from "../../models/user.model";
+import { FormControl, FormGroup, Validators } from "@angular/forms";
 
 @Component({
-  selector: 'app-testing',
-  templateUrl: './testing.component.html',
-  styleUrls: ['./testing.component.css']
+  selector : 'app-testing',
+  templateUrl : './testing.component.html',
+  styleUrls : ['./testing.component.css']
 })
 export class TestingComponent implements OnInit {
 
-  public companyList;
-  public userList;
-  public projectList;
-  public userAutomatically;
-  totalElements: number = 0;
-  currentUser = null;
-  currentIndex = -1;
-  name = '';
+  public userListFromService;
+  newCompany: FormGroup;
+  errorMessage = 'Please fill out the form before submitting!';
+  invalidForm = false;
 
-  page = 1;
-  count = 0;
-  pageSize = 3;
-  pageSizes = [3, 6, 9];
-
-  constructor(private timelogService: TimelogService) {
+  constructor(private timelogService: TimelogService, private router: Router) {
   }
 
   ngOnInit() {
-    this.userAutomatically = new User("", "", "", "", "");
-    this.retrieveUsers()
-    this.getUserAutomatically();
+    this.getUserList();
+    this.newCompany = new FormGroup({
+      'name' : new FormControl('', [Validators.required, Validators.minLength(4)]),
+      'userList' : new FormControl('', [Validators.required])
+    });
   }
 
-  getRequestParams(searchName, page, pageSize) {
-    let params = {};
+  get name() {
+    return this.newCompany.get('name');
+  }
 
-    if (searchName) {
-      params[ `firstName` ] = searchName;
+  get userList() {
+    return this.newCompany.get('userList');
+  }
+
+  submitCompany() {
+    if (!this.newCompany.valid) {
+      this.invalidForm = true;
+      console.log('Please fill out the form before submitting!');
+    } else {
+      console.log("Your company has been created!");
+      console.log(this.newCompany.value);
     }
-
-    if (page) {
-      params[`page`] = page - 1;
-    }
-
-    if (pageSize) {
-      params[`size`] = pageSize;
-    }
-
-    return params;
-  }
-
-  retrieveUsers() {
-    const params = this.getRequestParams(this.name, this.page, this.pageSize);
-
-    this.timelogService.getUsersPagination(params)
-      .subscribe(
-        response => {
-          const { users, totalUsers } = response;
-          this.userList = users;
-          this.count = totalUsers;
-          console.log(response);
-        },
-        error => {
-          console.log(error);
-        });
-  }
-
-  handlePageChange(event) {
-    this.page = event;
-    this.retrieveUsers();
-  }
-
-  handlePageSizeChange(event) {
-    this.pageSize = event.target.value;
-    this.page = 1;
-    this.retrieveUsers();
-  }
-
-  setActiveUser(user, index) {
-    this.currentUser = user;
-    this.currentIndex = index;
-  }
-
-  getUserAutomatically() {
-    this.timelogService.getUserAutomatically().subscribe(
-      data => {
-        this.userAutomatically = data;
-      },
-      err => console.error(err),
-      () => console.log('Auto user loaded')
-    );
   }
 
   getUserList() {
     this.timelogService.getUsers().subscribe(
       data => {
-        this.userList = data;
+        this.userListFromService = data;
+        console.log(this.userListFromService)
       },
       err => console.error(err),
       () => console.log('users loaded')
     );
   }
+
+
 }

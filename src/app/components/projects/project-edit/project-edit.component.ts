@@ -40,11 +40,14 @@ export class ProjectEditComponent implements OnInit {
   get userList() { return this.editedProject.get('userList'); }
 
   editProject(id:string) {
-    if (this.editedProject.valid) {
-      console.log("Your project has been edited. Thank you!");
+    if (!this.editedProject.valid) {
+      this.invalidForm = true;
+      console.log("Please fill out the form before submitting!");
+    } else {
       this.timelogService.updateProject(id, this.editedProject.value).subscribe(
         data => {
           this.editedProject.reset();
+          console.log("Your project has been edited. Thank you!");
           return true;
         },
         error => {
@@ -52,8 +55,6 @@ export class ProjectEditComponent implements OnInit {
         }
       );
       this.router.navigate(['projects']);
-    } else {
-      console.log("Please fill out the form before submitting!");
     }
   }
 

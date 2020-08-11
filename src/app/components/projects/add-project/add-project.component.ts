@@ -57,11 +57,15 @@ export class AddProjectComponent implements OnInit {
   }
 
   submitProject() {
-    if (this.newProject.valid) {
-      console.log("Your project has been created!");
+    if (!this.newProject.valid) {
+      this.invalidForm = true;
+      console.log('Please fill out the form before submitting!');
+    } else {
+
       this.timelogService.createProject(this.newProject.value).subscribe(
         data => {
           this.newProject.reset();
+          console.log("Your project has been created!");
           return true;
         },
         error => {
@@ -69,9 +73,6 @@ export class AddProjectComponent implements OnInit {
         }
       );
       this.router.navigate(['projects']);
-    } else {
-      this.invalidForm = true;
-      console.log('Please fill out the form before submitting!');
     }
   }
 
