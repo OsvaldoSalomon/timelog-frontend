@@ -34,7 +34,7 @@
               formControlName="userList"
               [class.is-invalid]="userList.invalid && (userList.dirty || userList.touched)"
               multiple>
-              <option *ngFor="let m of userListFromService" [ngValue]="m">
+              <option *ngFor="let m of userListFromService" [ngValue]="m.id">
                 {{m.firstName}} {{m.lastName}}
               </option>
             </select>

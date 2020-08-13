@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TimelogService } from '../../../services/timelog.service';
-import { throwError } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Company } from "../../../models/company.model";
 

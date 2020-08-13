@@ -29,8 +29,8 @@
                   required
                   formControlName="company"
                   [class.is-invalid]="company.invalid && (company.dirty || company.touched )">
-            <option selected>Select a company</option>
-            <option *ngFor="let companies of companyList">
+            <option value="" selected>Select a company</option>
+            <option *ngFor="let companies of companyList" [ngValue]="companies.id">
               {{companies.name}}
             </option>
           </select>
@@ -47,7 +47,7 @@
                   required
                   [class.is-invalid]="userList.invalid && (userList.dirty || userList.touched )"
                   multiple>
-            <option *ngFor="let m of usersList">
+            <option *ngFor="let m of usersList" [ngValue]="m.id">
               {{m.firstName}} {{m.lastName}}
             </option>
           </select>

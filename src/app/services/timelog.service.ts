@@ -36,6 +36,14 @@ export class TimelogService {
     return this.http.get(this.apiURL + '/companies', { params });
   }
 
+  getProjects(): Observable<Project> {
+    return this.http.get<Project>(this.apiURL + '/projectsAll')
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
+  }
+
   getAllProjectsPagination(params): Observable<any> {
     return this.http.get(this.apiURL + '/projects', { params });
   }
@@ -83,6 +91,14 @@ export class TimelogService {
 
   getCompanyAutomatically(): Observable<Company> {
     return this.http.get<Company>(this.apiURL + '/companiesAll/C001')
+      .pipe(
+        retry(1),
+        catchError(this.handleError)
+      )
+  }
+
+  getCompanyAutomatically2(): Observable<Company> {
+    return this.http.get<Company>(this.apiURL + '/companiesAll/5f326db9d1f6e00f85d83495')
       .pipe(
         retry(1),
         catchError(this.handleError)

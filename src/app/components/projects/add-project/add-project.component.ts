@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { throwError } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { TimelogService } from '../../../services/timelog.service';
 import { Router } from "@angular/router";
@@ -16,24 +15,33 @@ export class AddProjectComponent implements OnInit {
   newProject: FormGroup;
   errorMessage = 'Please fill out the form before submitting!';
   invalidForm = false;
+  companyInfo: string;
+  companyUpdate: FormGroup;
 
-  constructor(private timelogService: TimelogService, private router: Router) { }
+  constructor(private timelogService: TimelogService, private router: Router) {
+  }
 
   ngOnInit() {
     this.getUserList();
     this.getCompanyList();
     this.newProject = new FormGroup({
-      'name' : new FormControl('', [Validators.required, Validators.minLength(4)]),
-      'company' : new FormControl('', [Validators.required]),
-      'userList' : new FormControl('', [Validators.required])
+      name : new FormControl('', [Validators.required, Validators.minLength(4)]),
+      company : new FormControl('', [Validators.required]),
+      userList : new FormControl('', [Validators.required])
     });
   }
 
-  get name() { return this.newProject.get('name'); }
+  get name() {
+    return this.newProject.get('name');
+  }
 
-  get company() { return this.newProject.get('company'); }
+  get company() {
+    return this.newProject.get('company');
+  }
 
-  get userList() { return this.newProject.get('userList'); }
+  get userList() {
+    return this.newProject.get('userList');
+  }
 
   getCompanyList() {
     this.timelogService.getCompanies().subscribe(
@@ -56,12 +64,24 @@ export class AddProjectComponent implements OnInit {
     );
   }
 
+  updateCompany(id: string) {
+    this.timelogService.updateCompany(id, this.company.value).subscribe(
+      data => {
+        this.newProject.reset();
+        console.log("Your company has been created.")
+        return true;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   submitProject() {
     if (!this.newProject.valid) {
       this.invalidForm = true;
       console.log('Please fill out the form before submitting!');
     } else {
-
       this.timelogService.createProject(this.newProject.value).subscribe(
         data => {
           this.newProject.reset();
@@ -75,6 +95,4 @@ export class AddProjectComponent implements OnInit {
       this.router.navigate(['projects']);
     }
   }
-
-
 }

@@ -1,38 +1,38 @@
-<h3 class="display-4 text-muted mb-4">Add a new Company</h3>
+<h3 class="display-4 text-muted mb-4">Edit Company</h3>
 <button class="btn btn-secondary mb-5 mr-5 ml-5" routerLink="/companies">Return to list</button>
 <br>
+<div class="alert alert-danger" *ngIf="invalidForm">{{errorMessage}}</div>
 <div class="container mr-5 ml-5">
-  <div class="alert alert-danger" *ngIf="invalidForm">{{errorMessage}}</div>
-  <form [formGroup]="newCompany">
+  <form [formGroup]="editedCompany" (ngSubmit)="editCompany(companyAutomatically.id)">
     <div class="form-row">
       <div class="col-lg-4">
         <div class="form-label-group">
           <input
             class="form-control mt-4"
             type="text"
-            id="company"
+            id="name"
             placeholder="Company name"
             required
             minlength="4"
             formControlName="name"
+            [(ngModel)]="companyAutomatically.name"
             [class.is-invalid]="name.invalid && (name.dirty || name.touched )">
-          <label for="company">Company name</label>
+          <label for="name">Company name</label>
           <div *ngIf="(name.invalid && name.touched) || name.dirty">
             <small *ngIf="name.errors?.required" class="text-danger">Name is required.</small>
             <small *ngIf="name.errors?.minlength" class="text-danger">Name must be at least 4 characters long.</small>
           </div>
         </div>
-      </div>
-      <div class="col-lg-6">
         <div class="form-group">
           <label>Members
             <select
+              [(ngModel)]="companyAutomatically.userList"
               class="custom-select"
               required
               formControlName="userList"
               [class.is-invalid]="userList.invalid && (userList.dirty || userList.touched)"
               multiple>
-              <option *ngFor="let m of userListFromService">
+              <option *ngFor="let m of userListFromService" [ngValue]="m.id">
                 {{m.firstName}} {{m.lastName}}
               </option>
             </select>
@@ -42,11 +42,25 @@
           </label>
         </div>
       </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label>Projects
+            <select
+              [(ngModel)]="companyAutomatically.projectList"
+              formControlName="projectList"
+              class="custom-select"
+              required
+              multiple>
+              <option *ngFor="let m of projects" [ngValue]="m.id">
+                {{m.name}}
+              </option>
+            </select>
+          </label>
+        </div>
+      </div>
     </div>
-    <button class="btn btn-success" type="submit" (click)="submitCompany()">Add Company</button>
+    <button class="btn btn-warning" type="submit">Edit Company</button>
+    |
+    <button class="btn btn-danger" (click)="deleteCompany(companyDetails.id)">Delete Company</button>
   </form>
-
-  <input #box (keyup)="0">
-  <p>{{box.value}}</p>
-
 </div>
