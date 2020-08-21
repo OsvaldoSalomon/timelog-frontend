@@ -14,6 +14,7 @@ export class CompanyEditComponent implements OnInit {
   public userListFromService;
   editedCompany: FormGroup;
   public companyDetails;
+  public projects;
   invalidForm = false;
   errorMessage = 'Please fill out the form before submitting.'
 
@@ -21,12 +22,14 @@ export class CompanyEditComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.companyDetails = new Company("", "", [], []);
+    this.companyDetails = new Company('', '', [], []);
     this.getUserList();
+    this.getProjectList()
     this.getCompany(this.route.snapshot.params.id);
     this.editedCompany = new FormGroup({
       'name' : new FormControl('', [Validators.required, Validators.minLength(4)]),
-      'userList' : new FormControl('', [Validators.required])
+      'userList' : new FormControl('', [Validators.required]),
+      'projectList': new FormControl('', [Validators.required])
     });
   }
 
@@ -36,6 +39,10 @@ export class CompanyEditComponent implements OnInit {
 
   get userList() {
     return this.editedCompany.get('userList');
+  }
+
+  get projectList() {
+    return this.editedCompany.get('projectList');
   }
 
   editCompany(id: string) {
@@ -64,6 +71,16 @@ export class CompanyEditComponent implements OnInit {
       },
       err => console.error(err),
       () => console.log('company loaded'),
+    );
+  }
+
+  getProjectList() {
+    this.timelogService.getProjects().subscribe(
+      data => {
+        this.projects = data;
+      },
+      err => console.error(err),
+      () => console.log('projects loaded')
     );
   }
 

@@ -13,6 +13,7 @@ export class ProjectComponent implements OnInit {
   public userList;
   public projectList;
   public projectAutomatically;
+
   totalElements: number = 0;
   currentProject: any;
   currentIndex = -1;

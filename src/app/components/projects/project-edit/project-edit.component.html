@@ -26,12 +26,12 @@
         <div class="form-group">
           <label>Company</label>
           <select class="form-control"
-                  required
                   [(ngModel)]="projectDetails.companyList"
+                  required
                   formControlName="company"
                   [class.is-invalid]="company.invalid && (company.dirty || company.touched )">
             <option value="" selected>Select a company</option>
-            <option *ngFor="let companies of companyList">
+            <option *ngFor="let companies of companyList" [ngValue]="companies.id">
               {{companies.name}}
             </option>
           </select>
@@ -42,12 +42,12 @@
       </div>
       <div class="col-lg-4">
         <div class="form-group">
-          <label>Members</label>
+          <label>Members
           <select
-            class="custom-select"
             [(ngModel)]="projectDetails.userList"
-            formControlName="userList"
+            class="custom-select"
             required
+            formControlName="userList"
             [class.is-invalid]="userList.invalid && (userList.dirty || userList.touched )"
             multiple>
             <option *ngFor="let m of usersList" [ngValue]="m.id">
@@ -57,6 +57,7 @@
           <div *ngIf="(userList.invalid && userList.touched) || userList.dirty">
             <small *ngIf="userList.errors?.required" class="text-danger">This field is required.</small>
           </div>
+          </label>
         </div>
       </div>
     </div>
@@ -65,5 +66,3 @@
     <button class="btn btn-danger" (click)="deleteProject(projectDetails.id)">Delete Project</button>
   </form>
 </div>
-
-

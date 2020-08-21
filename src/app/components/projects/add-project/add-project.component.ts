@@ -15,7 +15,7 @@ export class AddProjectComponent implements OnInit {
   newProject: FormGroup;
   errorMessage = 'Please fill out the form before submitting!';
   invalidForm = false;
-  companyInfo: string;
+  companyID: string;
   companyUpdate: FormGroup;
 
   constructor(private timelogService: TimelogService, private router: Router) {
@@ -43,6 +43,26 @@ export class AddProjectComponent implements OnInit {
     return this.newProject.get('userList');
   }
 
+  companyForm() {
+    this.companyUpdate = new FormGroup({
+      name: new FormControl(''),
+      projectList: new FormControl(''),
+      userList: new FormControl('')
+    });
+  }
+
+  updateCompany(id: string) {
+    this.timelogService.updateCompany(id, this.companyUpdate.value).subscribe(
+      data => {
+        console.log("Your company has been edited.")
+        return true;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
   getCompanyList() {
     this.timelogService.getCompanies().subscribe(
       data => {
@@ -64,19 +84,6 @@ export class AddProjectComponent implements OnInit {
     );
   }
 
-  updateCompany(id: string) {
-    this.timelogService.updateCompany(id, this.company.value).subscribe(
-      data => {
-        this.newProject.reset();
-        console.log("Your company has been created.")
-        return true;
-      },
-      error => {
-        console.log(error);
-      }
-    );
-  }
-
   submitProject() {
     if (!this.newProject.valid) {
       this.invalidForm = true;
@@ -84,6 +91,7 @@ export class AddProjectComponent implements OnInit {
     } else {
       this.timelogService.createProject(this.newProject.value).subscribe(
         data => {
+          console.log(this.newProject.value);
           this.newProject.reset();
           console.log("Your project has been created!");
           return true;

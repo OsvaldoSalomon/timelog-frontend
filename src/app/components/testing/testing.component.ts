@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { TimelogService } from "../../services/timelog.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
-import { ActivatedRoute, Router } from "@angular/router";
-import { Company } from "../../models/company.model";
+import { Project } from "../../models/project.model";
 
 @Component({
   selector : 'app-testing',
@@ -11,109 +10,150 @@ import { Company } from "../../models/company.model";
 })
 export class TestingComponent implements OnInit {
 
-  public userListFromService;
-  public companyAutomatically;
-  public projects;
-  editedCompany: FormGroup;
+  public companyList;
+  public usersList;
+  public projectList;
+  public projectListArray: Array<Project>;
   public companyDetails;
-  invalidForm = false;
-  errorMessage = 'Please fill out the form before submitting.'
+  public projectDetails;
+  public companyId;
+  project: Project;
 
-  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) {
+  newProject: FormGroup;
+  companyUpdate: FormGroup;
+  errorMessage = 'Please fill out the form before submitting!';
+  invalidForm = false;
+
+  constructor(private timelogService: TimelogService) {
   }
 
   ngOnInit() {
-    this.companyDetails = new Company("", "", [], []);
     this.getUserList();
-    this.getProjectList();
-    this.getCompanyAutomatically();
-    this.editedCompany = new FormGroup({
-      'name' : new FormControl('', [Validators.required, Validators.minLength(4)]),
-      'userList' : new FormControl('', [Validators.required]),
-      'projectList': new FormControl('', [Validators.required])
+    this.getCompanyList();
+    this.newProject = new FormGroup({
+      name : new FormControl('', [Validators.required, Validators.minLength(4)]),
+      company : new FormControl('', [Validators.required]),
+      userList : new FormControl('', [Validators.required])
     });
+
   }
 
   get name() {
-    return this.editedCompany.get('name');
+    return this.newProject.get('name');
+  }
+
+  get company() {
+    return this.newProject.get('company');
   }
 
   get userList() {
-    return this.editedCompany.get('userList');
+    return this.newProject.get('userList');
   }
 
-  get projectList() {
-    return this.editedCompany.get('projectList');
+  getId() {
+    this.companyId = this.company.value;
+    console.log(this.companyId);
   }
 
-  getCompanyAutomatically() {
-    this.timelogService.getCompanyAutomatically2().subscribe(
+  getCompanyList() {
+    this.timelogService.getCompanies().subscribe(
       data => {
-        this.companyAutomatically = data;
-        console.log('Auto company' + data);
-      },
-      err => console.log(err),
-      () => console.log('Auto company loaded')
-    );
-  }
-
-  editCompany(id: string) {
-    if (!this.editedCompany.valid) {
-      this.invalidForm = true;
-      console.log("Please fill out the form before submitting!");
-    } else {
-      this.timelogService.updateCompany(id, this.editedCompany.value).subscribe(
-        data => {
-          this.editedCompany.reset();
-          console.log("Your company has been created.")
-          return true;
-        },
-        error => {
-          console.log(error);
-        }
-      );
-      this.router.navigate(['companies']);
-    }
-  }
-
-  getCompany(id: string) {
-    this.timelogService.getCompany(id).subscribe(
-      data => {
-        this.companyDetails = data;
+        this.companyList = data;
+        console.log(this.companyList);
       },
       err => console.error(err),
-      () => console.log('company loaded'),
+      () => console.log('companies loaded')
     );
   }
 
   getUserList() {
     this.timelogService.getUsers().subscribe(
       data => {
-        this.userListFromService = data;
+        this.usersList = data;
       },
       err => console.error(err),
       () => console.log('members loaded')
     );
   }
 
+  submitProject() {
+    if (!this.newProject.valid) {
+      this.invalidForm = true;
+      console.log('Please fill out the form before submitting!');
+    } else {
+      this.timelogService.createProject(this.newProject.value).subscribe(
+        data => {
+          console.log(this.newProject.value);
+          this.getId();
+          this.companyId = this.company.value;
+          this.getCompany(this.companyId);
+          console.log(this.companyDetails);
+          this.getProjectList();
+          let last:any = this.projectList[this.projectList.length-1];
+          console.log(last.id);
+          return true;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
+  }
+
   getProjectList() {
     this.timelogService.getProjects().subscribe(
       data => {
-        this.projects = data;
+        this.projectList = data;
+        console.log(this.projectList);
+        let index = this.projectList;
+        let lastElement = [index.length-1];
+        console.log("index is : " + index);
+        console.log("Last Element is : " + lastElement);
       },
       err => console.error(err),
-      () => console.log('projects loaded')
+      () => console.log('companies loaded')
     );
   }
 
-  deleteCompany(id: string) {
-    this.timelogService.deleteCompany(id).subscribe(
+  getCompany(id: string) {
+    this.timelogService.getCompany(this.companyId).subscribe(
       data => {
         this.companyDetails = data;
-        this.router.navigate(['companies']);
+        console.log(this.companyDetails);
       },
       err => console.error(err),
       () => console.log('company loaded'),
     );
   }
+
+  getProject(id: string) {
+    this.timelogService.getProject(id).subscribe(
+      data => {
+        this.projectDetails = data;
+      },
+      err => console.error(err),
+      () => console.log('project loaded'),
+    );
+  }
+
+  companyForm() {
+    this.companyUpdate = new FormGroup({
+      name : new FormControl(''),
+      projectList : new FormControl(''),
+      userList : new FormControl('')
+    });
+  }
+
+  updateCompany(id: string) {
+    this.timelogService.updateCompany(id, this.companyDetails.value).subscribe(
+      data => {
+        console.log("Your company has been edited.")
+        return true;
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
+
 }

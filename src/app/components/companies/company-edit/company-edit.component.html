@@ -23,8 +23,6 @@
             <small *ngIf="name.errors?.minlength" class="text-danger">Name must be at least 4 characters long.</small>
           </div>
         </div>
-      </div>
-      <div class="col-lg-6">
         <div class="form-group">
           <label>Members
             <select
@@ -41,6 +39,22 @@
             <div *ngIf="(userList.invalid && userList.touched) || userList.dirty">
               <small *ngIf="userList.errors?.required" class="text-danger">User list is required.</small>
             </div>
+          </label>
+        </div>
+      </div>
+      <div class="col-lg-6">
+        <div class="form-group">
+          <label>Projects
+            <select
+              [(ngModel)]="companyDetails.projectList"
+              formControlName="projectList"
+              class="custom-select"
+              required
+              multiple>
+              <option *ngFor="let m of projects" [ngValue]="m.id">
+                {{m.name}}
+              </option>
+            </select>
           </label>
         </div>
       </div>
