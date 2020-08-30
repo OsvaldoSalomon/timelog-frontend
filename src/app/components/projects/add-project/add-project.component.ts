@@ -66,7 +66,8 @@ export class AddProjectComponent implements OnInit {
   getCompanyList() {
     this.timelogService.getCompanies().subscribe(
       data => {
-        this.companyList = data;
+        const  { companies } = data;
+        this.companyList = companies;
         console.log(this.companyList);
       },
       err => console.error(err),
@@ -77,10 +78,12 @@ export class AddProjectComponent implements OnInit {
   getUserList() {
     this.timelogService.getUsers().subscribe(
       data => {
-        this.usersList = data;
+        const { users } = data;
+        this.usersList = users;
+        console.log(this.usersList);
       },
       err => console.error(err),
-      () => console.log('members loaded')
+      () => console.log('users loaded')
     );
   }
 

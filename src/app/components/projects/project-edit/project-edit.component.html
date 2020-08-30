@@ -26,7 +26,6 @@
         <div class="form-group">
           <label>Company</label>
           <select class="form-control"
-                  [(ngModel)]="projectDetails.companyList"
                   required
                   formControlName="company"
                   [class.is-invalid]="company.invalid && (company.dirty || company.touched )">

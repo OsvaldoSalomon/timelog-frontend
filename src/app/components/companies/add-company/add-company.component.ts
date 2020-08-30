@@ -10,7 +10,7 @@ import { Router } from '@angular/router';
 })
 export class AddCompanyComponent implements OnInit {
 
-  public userListFromService;
+  public usersList;
   newCompany: FormGroup;
   errorMessage = 'Please fill out the form before submitting!';
   invalidForm = false;
@@ -56,12 +56,14 @@ export class AddCompanyComponent implements OnInit {
   getUserList() {
     this.timelogService.getUsers().subscribe(
       data => {
-        this.userListFromService = data;
-        console.log(this.userListFromService)
+        const { users } = data;
+        this.usersList = users;
+        console.log(this.usersList);
       },
       err => console.error(err),
       () => console.log('users loaded')
     );
   }
+
 
 }

@@ -11,7 +11,7 @@ import { Company } from "../../../models/company.model";
 })
 export class CompanyEditComponent implements OnInit {
 
-  public userListFromService;
+  public usersList;
   editedCompany: FormGroup;
   public companyDetails;
   public projects;
@@ -29,7 +29,7 @@ export class CompanyEditComponent implements OnInit {
     this.editedCompany = new FormGroup({
       'name' : new FormControl('', [Validators.required, Validators.minLength(4)]),
       'userList' : new FormControl('', [Validators.required]),
-      'projectList': new FormControl('', [Validators.required])
+      'projectList' : new FormControl('', [Validators.required])
     });
   }
 
@@ -77,7 +77,9 @@ export class CompanyEditComponent implements OnInit {
   getProjectList() {
     this.timelogService.getProjects().subscribe(
       data => {
-        this.projects = data;
+        const { projects } = data;
+        this.projects = projects;
+        console.log(this.projects);
       },
       err => console.error(err),
       () => console.log('projects loaded')
@@ -87,10 +89,12 @@ export class CompanyEditComponent implements OnInit {
   getUserList() {
     this.timelogService.getUsers().subscribe(
       data => {
-        this.userListFromService = data;
+        const { users } = data;
+        this.usersList = users;
+        console.log(this.usersList);
       },
       err => console.error(err),
-      () => console.log('members loaded')
+      () => console.log('users loaded')
     );
   }
 

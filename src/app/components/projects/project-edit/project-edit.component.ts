@@ -4,6 +4,7 @@ import {TimelogService} from '../../../services/timelog.service';
 import {throwError} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import { Project } from "../../../models/project.model";
+import { consoleTestResultHandler } from "tslint/lib/test";
 
 @Component({
   selector: 'app-project-edit',
@@ -61,7 +62,8 @@ export class ProjectEditComponent implements OnInit {
   getCompanyList() {
     this.timelogService.getCompanies().subscribe(
       data => {
-        this.companyList = data;
+        const { companies } = data;
+        this.companyList = companies;
         console.log(this.companyList);
       },
       err => console.error(err),
@@ -82,10 +84,12 @@ export class ProjectEditComponent implements OnInit {
   getUserList() {
     this.timelogService.getUsers().subscribe(
       data => {
-        this.usersList = data;
+        const { users } = data;
+        this.usersList = users;
+        console.log(this.usersList);
       },
       err => console.error(err),
-      () => console.log('members loaded')
+      () => console.log('users loaded')
     );
   }
 
@@ -100,7 +104,5 @@ export class ProjectEditComponent implements OnInit {
     );
     this.router.navigate(['projects']);
   }
-
-
 
 }
