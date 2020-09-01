@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TimelogService } from '../../../services/timelog.service';
+import { UserService } from '../../../services/user.service';
 import { Router } from "@angular/router";
+import { ProjectService } from "../../../services/project.service";
+import { CompanyService } from "../../../services/company.service";
 
 @Component({
   selector : 'app-add-project',
@@ -18,7 +20,7 @@ export class AddProjectComponent implements OnInit {
   companyID: string;
   companyUpdate: FormGroup;
 
-  constructor(private timelogService: TimelogService, private router: Router) {
+  constructor(private projectService: ProjectService, private companyService: CompanyService, private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
@@ -52,7 +54,7 @@ export class AddProjectComponent implements OnInit {
   }
 
   updateCompany(id: string) {
-    this.timelogService.updateCompany(id, this.companyUpdate.value).subscribe(
+    this.companyService.updateCompany(id, this.companyUpdate.value).subscribe(
       data => {
         console.log("Your company has been edited.")
         return true;
@@ -64,7 +66,7 @@ export class AddProjectComponent implements OnInit {
   }
 
   getCompanyList() {
-    this.timelogService.getCompanies().subscribe(
+    this.companyService.getCompanies().subscribe(
       data => {
         const  { companies } = data;
         this.companyList = companies;
@@ -76,7 +78,7 @@ export class AddProjectComponent implements OnInit {
   }
 
   getUserList() {
-    this.timelogService.getUsers().subscribe(
+    this.userService.getUsers().subscribe(
       data => {
         const { users } = data;
         this.usersList = users;
@@ -92,7 +94,7 @@ export class AddProjectComponent implements OnInit {
       this.invalidForm = true;
       console.log('Please fill out the form before submitting!');
     } else {
-      this.timelogService.createProject(this.newProject.value).subscribe(
+      this.projectService.createProject(this.newProject.value).subscribe(
         data => {
           console.log(this.newProject.value);
           this.newProject.reset();

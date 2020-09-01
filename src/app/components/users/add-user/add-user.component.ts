@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { throwError } from 'rxjs';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TimelogService } from '../../../services/timelog.service';
+import { UserService } from '../../../services/user.service';
 import { Router } from "@angular/router";
 
 @Component({
@@ -15,7 +15,7 @@ export class AddUserComponent implements OnInit {
   errorMessage = 'Please fill out the form before submitting!';
   invalidForm = false;
 
-  constructor(private timelogService: TimelogService, private router: Router) {
+  constructor(private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
@@ -48,7 +48,7 @@ export class AddUserComponent implements OnInit {
       this.invalidForm = true;
       console.log('Please fill out the form before submitting!');
     } else {
-      this.timelogService.createUser(this.newUser.value).subscribe(
+      this.userService.createUser(this.newUser.value).subscribe(
         data => {
           this.newUser.reset();
           console.log("User has been created!");

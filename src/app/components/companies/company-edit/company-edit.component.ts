@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TimelogService } from '../../../services/timelog.service';
+import { UserService } from '../../../services/user.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Company } from "../../../models/company.model";
+import { CompanyService } from "../../../services/company.service";
+import { ProjectService } from "../../../services/project.service";
 
 @Component({
   selector : 'app-companies-edit',
@@ -18,7 +20,7 @@ export class CompanyEditComponent implements OnInit {
   invalidForm = false;
   errorMessage = 'Please fill out the form before submitting.'
 
-  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) {
+  constructor(private companyService: CompanyService, private projectService: ProjectService, private userService: UserService, private route: ActivatedRoute, private router: Router) {
   }
 
   ngOnInit() {
@@ -50,7 +52,7 @@ export class CompanyEditComponent implements OnInit {
       this.invalidForm = true;
       console.log("Please fill out the form before submitting!");
     } else {
-      this.timelogService.updateCompany(id, this.editedCompany.value).subscribe(
+      this.companyService.updateCompany(id, this.editedCompany.value).subscribe(
         data => {
           this.editedCompany.reset();
           console.log("Your company has been created.")
@@ -65,7 +67,7 @@ export class CompanyEditComponent implements OnInit {
   }
 
   getCompany(id: string) {
-    this.timelogService.getCompany(id).subscribe(
+    this.companyService.getCompany(id).subscribe(
       data => {
         this.companyDetails = data;
       },
@@ -75,7 +77,7 @@ export class CompanyEditComponent implements OnInit {
   }
 
   getProjectList() {
-    this.timelogService.getProjects().subscribe(
+    this.projectService.getProjects().subscribe(
       data => {
         const { projects } = data;
         this.projects = projects;
@@ -87,7 +89,7 @@ export class CompanyEditComponent implements OnInit {
   }
 
   getUserList() {
-    this.timelogService.getUsers().subscribe(
+    this.userService.getUsers().subscribe(
       data => {
         const { users } = data;
         this.usersList = users;
@@ -99,7 +101,7 @@ export class CompanyEditComponent implements OnInit {
   }
 
   deleteCompany(id: string) {
-    this.timelogService.deleteCompany(id).subscribe(
+    this.companyService.deleteCompany(id).subscribe(
       data => {
         this.companyDetails = data;
         this.router.navigate(['companies']);

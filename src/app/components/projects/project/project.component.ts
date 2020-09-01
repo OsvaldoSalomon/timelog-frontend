@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TimelogService } from '../../../services/timelog.service';
+import { UserService } from '../../../services/user.service';
 import { Project } from "../../../models/project.model";
+import { ProjectService } from "../../../services/project.service";
 
 @Component({
   selector : 'app-projects',
@@ -10,7 +11,6 @@ import { Project } from "../../../models/project.model";
 export class ProjectComponent implements OnInit {
 
   public companyList;
-  public userList;
   public projectList;
   public projectAutomatically;
 
@@ -24,7 +24,7 @@ export class ProjectComponent implements OnInit {
   pageSize = 3;
   pageSizes = [3, 6, 9];
 
-  constructor(private timelogService: TimelogService) {
+  constructor(private projectService: ProjectService) {
   }
 
   ngOnInit() {
@@ -55,7 +55,7 @@ export class ProjectComponent implements OnInit {
   retrieveProjects() {
     const params = this.getRequestParams(this.name, this.page, this.pageSize);
 
-    this.timelogService.getAllProjectsPagination(params)
+    this.projectService.getAllProjectsPagination(params)
       .subscribe(
         response => {
           const { projects, totalProjects } = response;
@@ -85,23 +85,13 @@ export class ProjectComponent implements OnInit {
   }
 
   getProjectAutomatically() {
-    this.timelogService.getProjectAutomatically().subscribe(
+    this.projectService.getProjectAutomatically().subscribe(
       data => {
         this.projectAutomatically = data;
         console.log('Auto project' + this.projectAutomatically)
       },
       err => console.error(err),
       () => console.log('Auto project loaded')
-    );
-  }
-
-  getUserList() {
-    this.timelogService.getUsers().subscribe(
-      data => {
-        this.userList = data;
-      },
-      err => console.error(err),
-      () => console.log('members loaded')
     );
   }
 

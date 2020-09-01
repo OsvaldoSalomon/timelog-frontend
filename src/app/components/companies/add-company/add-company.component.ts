@@ -1,7 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TimelogService } from '../../../services/timelog.service';
+import { UserService } from '../../../services/user.service';
 import { Router } from '@angular/router';
+import { CompanyService } from "../../../services/company.service";
 
 @Component({
   selector : 'app-add-company',
@@ -15,7 +16,7 @@ export class AddCompanyComponent implements OnInit {
   errorMessage = 'Please fill out the form before submitting!';
   invalidForm = false;
 
-  constructor(private timelogService: TimelogService, private router: Router) {
+  constructor(private timelogService: CompanyService, private userService: UserService, private router: Router) {
   }
 
   ngOnInit() {
@@ -54,7 +55,7 @@ export class AddCompanyComponent implements OnInit {
   }
 
   getUserList() {
-    this.timelogService.getUsers().subscribe(
+    this.userService.getUsers().subscribe(
       data => {
         const { users } = data;
         this.usersList = users;
@@ -67,3 +68,4 @@ export class AddCompanyComponent implements OnInit {
 
 
 }
+

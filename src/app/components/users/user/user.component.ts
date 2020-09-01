@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { TimelogService } from '../../../services/timelog.service';
+import { UserService } from '../../../services/user.service';
 import { User } from "../../../models/user.model";
 
 @Component({
@@ -24,7 +24,7 @@ export class UserComponent implements OnInit {
   pageSize = 3;
   pageSizes = [3, 6, 9];
 
-  constructor(private timelogService: TimelogService) {
+  constructor(private userService: UserService) {
   }
 
   ngOnInit() {
@@ -55,7 +55,7 @@ export class UserComponent implements OnInit {
   retrieveUsers() {
     const params = this.getRequestParams(this.firstName, this.page, this.pageSize);
 
-    this.timelogService.getUsersPagination(params)
+    this.userService.getUsersPagination(params)
       .subscribe(
         response => {
           const { users, totalUsers } = response;
@@ -85,7 +85,7 @@ export class UserComponent implements OnInit {
   }
 
   getUserAutomatically() {
-    this.timelogService.getUserAutomatically().subscribe(
+    this.userService.getUserAutomatically().subscribe(
       data => {
         this.userAutomatically = data;
       },
@@ -95,7 +95,7 @@ export class UserComponent implements OnInit {
   }
 
   getUserList() {
-    this.timelogService.getUsers().subscribe(
+    this.userService.getUsers().subscribe(
       data => {
         this.userList = data;
       },

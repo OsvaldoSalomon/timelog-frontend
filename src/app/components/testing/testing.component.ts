@@ -1,7 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { TimelogService } from "../../services/timelog.service";
+import { UserService } from "../../services/user.service";
 import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Project } from "../../models/project.model";
+import { CompanyService } from "../../services/company.service";
+import { ProjectService } from "../../services/project.service";
 
 @Component({
   selector : 'app-testing',
@@ -24,7 +26,7 @@ export class TestingComponent implements OnInit {
   errorMessage = 'Please fill out the form before submitting!';
   invalidForm = false;
 
-  constructor(private timelogService: TimelogService) {
+  constructor(private companyService: CompanyService, private userService: UserService, private projectService: ProjectService) {
   }
 
   ngOnInit() {
@@ -56,9 +58,10 @@ export class TestingComponent implements OnInit {
   }
 
   getCompanyList() {
-    this.timelogService.getCompanies().subscribe(
+    this.companyService.getCompanies().subscribe(
       data => {
-        this.companyList = data;
+        const { companies } = data;
+        this.companyList = companies;
         console.log(this.companyList);
       },
       err => console.error(err),
@@ -67,9 +70,10 @@ export class TestingComponent implements OnInit {
   }
 
   getUserList() {
-    this.timelogService.getUsers().subscribe(
+    this.userService.getUsers().subscribe(
       data => {
-        this.usersList = data;
+        const { users } = data;
+        this.usersList = users;
       },
       err => console.error(err),
       () => console.log('members loaded')
@@ -81,7 +85,7 @@ export class TestingComponent implements OnInit {
       this.invalidForm = true;
       console.log('Please fill out the form before submitting!');
     } else {
-      this.timelogService.createProject(this.newProject.value).subscribe(
+      this.projectService.createProject(this.newProject.value).subscribe(
         data => {
           console.log(this.newProject.value);
           this.getId();
@@ -101,7 +105,7 @@ export class TestingComponent implements OnInit {
   }
 
   getProjectList() {
-    this.timelogService.getProjects().subscribe(
+    this.projectService.getProjects().subscribe(
       data => {
         this.projectList = data;
         console.log(this.projectList);
@@ -116,7 +120,7 @@ export class TestingComponent implements OnInit {
   }
 
   getCompany(id: string) {
-    this.timelogService.getCompany(this.companyId).subscribe(
+    this.companyService.getCompany(this.companyId).subscribe(
       data => {
         this.companyDetails = data;
         console.log(this.companyDetails);
@@ -127,7 +131,7 @@ export class TestingComponent implements OnInit {
   }
 
   getProject(id: string) {
-    this.timelogService.getProject(id).subscribe(
+    this.projectService.getProject(id).subscribe(
       data => {
         this.projectDetails = data;
       },
@@ -145,7 +149,7 @@ export class TestingComponent implements OnInit {
   }
 
   updateCompany(id: string) {
-    this.timelogService.updateCompany(id, this.companyDetails.value).subscribe(
+    this.companyService.updateCompany(id, this.companyDetails.value).subscribe(
       data => {
         console.log("Your company has been edited.")
         return true;

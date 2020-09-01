@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
-import { TimelogService } from '../../../services/timelog.service';
+import { UserService } from '../../../services/user.service';
 import { throwError } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from "../../../models/user.model";
@@ -18,7 +18,7 @@ export class UserEditComponent implements OnInit {
   invalidForm = false;
   errorMessage = 'Please fill out the form before submitting.'
 
-  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) {}
+  constructor(private userService: UserService, private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit() {
     this.userDetails = new User('', '', '', '', '');
@@ -53,7 +53,7 @@ export class UserEditComponent implements OnInit {
       console.log("Please fill out the form before submitting!");
     } else {
 
-      this.timelogService.updateUser(id, this.updatedUser.value).subscribe(
+      this.userService.updateUser(id, this.updatedUser.value).subscribe(
         data => {
           this.updatedUser.reset();
           console.log("User has been has been edited");
@@ -68,7 +68,7 @@ export class UserEditComponent implements OnInit {
   }
 
   getUser(id:string) {
-    this.timelogService.getUser(id).subscribe(
+    this.userService.getUser(id).subscribe(
       data => {
         this.userDetails = data;
       },
@@ -78,7 +78,7 @@ export class UserEditComponent implements OnInit {
   }
 
   deleteUser(id:string) {
-    this.timelogService.deleteUser(id).subscribe(
+    this.userService.deleteUser(id).subscribe(
       data => {
         this.userDetails = data;
         this.router.navigate(['users']);

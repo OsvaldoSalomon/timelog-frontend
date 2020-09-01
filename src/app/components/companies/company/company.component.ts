@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { TimelogService } from '../../../services/timelog.service';
+import { UserService } from '../../../services/user.service';
 import { Company } from "../../../models/company.model";
+import { CompanyService } from "../../../services/company.service";
 
 @Component({
   selector : 'app-company',
@@ -23,7 +24,7 @@ export class CompanyComponent implements OnInit {
   pageSize = 3;
   pageSizes = [3, 6, 9];
 
-  constructor(private timelogService: TimelogService) {
+  constructor(private companyService: CompanyService) {
   }
 
   ngOnInit() {
@@ -54,7 +55,7 @@ export class CompanyComponent implements OnInit {
   retrieveCompanies() {
     const params = this.getRequestParams(this.name, this.page, this.pageSize);
 
-    this.timelogService.getAllCompaniesPagination(params)
+    this.companyService.getAllCompaniesPagination(params)
       .subscribe(
         response => {
           const { companies, totalCompanies } = response;
@@ -84,7 +85,7 @@ export class CompanyComponent implements OnInit {
   }
 
   getCompanyAutomatically() {
-    this.timelogService.getCompanyAutomatically().subscribe(
+    this.companyService.getCompanyAutomatically().subscribe(
       data => {
         this.companyAutomatically = data;
         console.log('Auto company' + data);

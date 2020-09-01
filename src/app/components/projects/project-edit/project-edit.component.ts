@@ -1,10 +1,12 @@
 import { Component, OnInit } from '@angular/core';
 import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {TimelogService} from '../../../services/timelog.service';
+import {UserService} from '../../../services/user.service';
 import {throwError} from 'rxjs';
 import {ActivatedRoute, Router} from '@angular/router';
 import { Project } from "../../../models/project.model";
 import { consoleTestResultHandler } from "tslint/lib/test";
+import { ProjectService } from "../../../services/project.service";
+import { CompanyService } from "../../../services/company.service";
 
 @Component({
   selector: 'app-project-edit',
@@ -20,7 +22,7 @@ export class ProjectEditComponent implements OnInit {
   errorMessage = 'Please fill out the form before submitting!';
   invalidForm = false;
 
-  constructor(private timelogService: TimelogService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private projectService: ProjectService, private companyService: CompanyService, private userService: UserService, private route: ActivatedRoute, private router: Router) { }
 
   ngOnInit() {
     this.projectDetails = new Project("", "", "", []);
@@ -45,7 +47,7 @@ export class ProjectEditComponent implements OnInit {
       this.invalidForm = true;
       console.log("Please fill out the form before submitting!");
     } else {
-      this.timelogService.updateProject(id, this.editedProject.value).subscribe(
+      this.projectService.updateProject(id, this.editedProject.value).subscribe(
         data => {
           this.editedProject.reset();
           console.log("Your project has been edited. Thank you!");
@@ -60,7 +62,7 @@ export class ProjectEditComponent implements OnInit {
   }
 
   getCompanyList() {
-    this.timelogService.getCompanies().subscribe(
+    this.companyService.getCompanies().subscribe(
       data => {
         const { companies } = data;
         this.companyList = companies;
@@ -72,7 +74,7 @@ export class ProjectEditComponent implements OnInit {
   }
 
   getProject(id:string) {
-    this.timelogService.getProject(id).subscribe(
+    this.projectService.getProject(id).subscribe(
       data => {
         this.projectDetails = data;
       },
@@ -82,7 +84,7 @@ export class ProjectEditComponent implements OnInit {
   }
 
   getUserList() {
-    this.timelogService.getUsers().subscribe(
+    this.userService.getUsers().subscribe(
       data => {
         const { users } = data;
         this.usersList = users;
@@ -95,7 +97,7 @@ export class ProjectEditComponent implements OnInit {
 
 
   deleteProject(id:string) {
-    this.timelogService.deleteProject(id).subscribe(
+    this.projectService.deleteProject(id).subscribe(
       data => {
         this.projectDetails = data;
       },

@@ -24,6 +24,7 @@ import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { TasksComponent } from './components/tasks/tasks.component';
 import { NgxPaginationModule } from "ngx-pagination";
 import { TestingComponent } from './components/testing/testing.component';
+import { TableComponent } from './components/table/table.component';
 
 @NgModule({
   declarations: [
@@ -43,7 +44,8 @@ import { TestingComponent } from './components/testing/testing.component';
     ErrorComponent,
     LogoutComponent,
     TasksComponent,
-    TestingComponent
+    TestingComponent,
+    TableComponent
   ],
   imports: [
     BrowserModule,
