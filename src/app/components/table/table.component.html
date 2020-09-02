@@ -1,1 +1,104 @@
-<p>table works!</p>
+<h3 class="display-4 text-muted">Table</h3>
+<br>
+<div class="row">
+  <div class="col-lg mr-5">
+    <button class="btn btn-primary" routerLink="/companies-add">Add a something</button>
+    <div class="container mt-lg-5">
+      <div class="row ">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search by title"/>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary" type="button">Search</button>
+          </div>
+        </div>
+      </div>
+      <table class="table table-bordered table-hover">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let list of List | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };
+          let i = index" [class.active]="i == currentIndex" (click)="setActive(list, i)">
+          <td>
+            {{list}}
+          </td>
+          <td>
+            {{list}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="col-md-12">
+        <div class="row">
+          <pagination-controls
+            previousLabel="Previous"
+            nextLabel="Next"
+            responsive="true"
+            (pageChange)="handlePageChange($event)"
+          ></pagination-controls>
+          <div class="col-6">
+            Items per Page:
+            <select (change)="handlePageSizeChange($event)">
+              <option *ngFor="let size of pageSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </div>
+    <br>
+  </div>
+
+  <div class="col-lg ml-5 mt-5 pt-5">
+    <div class="container" >
+      <div class="card" style="width: 500px"> <!-- Company Details  -->
+        <h3 class="card-header">Details </h3>
+        <div class="card-body">
+          <div class="row">
+            <dt class="col-sm-3">ID:</dt>
+            <dd class="col-sm-9">Something</dd>
+            <dt class="col-lg-3">Name:</dt>
+            <dd class="col-lg-9">Something</dd>
+            <dt class="col-lg-3">Projects:</dt>
+            <dd class="col-lg-9">Something</dd>
+            <dt class="col-lg-3">Users:</dt>
+            <dd class="col-lg-9">Something</dd>
+          </div>
+        </div>
+      </div> <!--  End of Company Details  -->
+      <br>
+      <button class="btn btn-outline-warning" >Edit </button>
+    </div>
+
+    <div class="container">
+      <div class="card" style="width: 500px"> <!--  Company Details Automatically  -->
+        <h3 class="card-header">Details</h3>
+        <div class="card-body">
+          <div class="row">
+            <dt class="col-sm-3">ID:</dt>
+            <dd class="col-sm-9">Something</dd>
+            <dt class="col-lg-3">Name:</dt>
+            <dd class="col-lg-9">Something</dd>
+            <dt class="col-lg-3">Projects:</dt>
+            <dd class="col-lg-9">Something</dd>
+            <dt class="col-lg-3">Users:</dt>
+            <dd class="col-lg-9">Something</dd>
+          </div>
+        </div>
+      </div> <!--  End of Company Details Automatically  -->
+      <br>
+      <button class="btn btn-outline-warning">Edit company</button>
+    </div>
+  </div>
+</div>

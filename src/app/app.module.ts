@@ -45,7 +45,7 @@ import { TableComponent } from './components/table/table.component';
     LogoutComponent,
     TasksComponent,
     TestingComponent,
-    TableComponent
+    TableComponent,
   ],
   imports: [
     BrowserModule,

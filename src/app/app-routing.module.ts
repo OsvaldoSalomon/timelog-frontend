@@ -17,6 +17,7 @@ import { LogoutComponent } from "./components/logout/logout.component";
 import { ErrorComponent } from "./components/error/error.component";
 import { TasksComponent } from "./components/tasks/tasks.component";
 import { TestingComponent } from "./components/testing/testing.component";
+import { TableComponent } from "./components/table/table.component";
 
 export const routes: Routes = [
   { path : '', component : HomeComponent, canActivate: [RouteGuardService] },
@@ -33,6 +34,7 @@ export const routes: Routes = [
   { path : 'users-add', component : AddUserComponent, canActivate : [RouteGuardService] },
   { path : 'tasks', component : TasksComponent, canActivate : [RouteGuardService] },
   { path : 'tests', component : TestingComponent, canActivate : [RouteGuardService] },
+  { path : 'table', component : TableComponent, canActivate : [RouteGuardService] },
   { path : 'logout', component : LogoutComponent, canActivate : [RouteGuardService] },
   { path: '**', component: ErrorComponent },
   { path: 'something', redirectTo: '**' }

@@ -26,7 +26,11 @@ export class TestingComponent implements OnInit {
   errorMessage = 'Please fill out the form before submitting!';
   invalidForm = false;
 
-  constructor(private companyService: CompanyService, private userService: UserService, private projectService: ProjectService) {
+  constructor(
+    private companyService: CompanyService,
+    private userService: UserService,
+    private projectService: ProjectService,
+  ) {
   }
 
   ngOnInit() {
@@ -159,5 +163,6 @@ export class TestingComponent implements OnInit {
       }
     );
   }
+
 
 }
