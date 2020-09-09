@@ -1,17 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import {FormControl, FormGroup, Validators} from '@angular/forms';
-import {UserService} from '../../../services/user.service';
-import {throwError} from 'rxjs';
-import {ActivatedRoute, Router} from '@angular/router';
+import { FormControl, FormGroup, Validators } from '@angular/forms';
+import { UserService } from '../../../services/user.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { Project } from "../../../models/project.model";
-import { consoleTestResultHandler } from "tslint/lib/test";
 import { ProjectService } from "../../../services/project.service";
 import { CompanyService } from "../../../services/company.service";
 
 @Component({
-  selector: 'app-project-edit',
-  templateUrl: './project-edit.component.html',
-  styleUrls: ['./project-edit.component.css']
+  selector : 'app-project-edit',
+  templateUrl : './project-edit.component.html',
+  styleUrls : ['./project-edit.component.css']
 })
 export class ProjectEditComponent implements OnInit {
 
@@ -22,7 +20,8 @@ export class ProjectEditComponent implements OnInit {
   errorMessage = 'Please fill out the form before submitting!';
   invalidForm = false;
 
-  constructor(private projectService: ProjectService, private companyService: CompanyService, private userService: UserService, private route: ActivatedRoute, private router: Router) { }
+  constructor(private projectService: ProjectService, private companyService: CompanyService, private userService: UserService, private route: ActivatedRoute, private router: Router) {
+  }
 
   ngOnInit() {
     this.projectDetails = new Project("", "", "", []);
@@ -36,13 +35,19 @@ export class ProjectEditComponent implements OnInit {
     });
   }
 
-  get name() { return this.editedProject.get('name'); }
+  get name() {
+    return this.editedProject.get('name');
+  }
 
-  get company() { return this.editedProject.get('company'); }
+  get company() {
+    return this.editedProject.get('company');
+  }
 
-  get userList() { return this.editedProject.get('userList'); }
+  get userList() {
+    return this.editedProject.get('userList');
+  }
 
-  editProject(id:string) {
+  editProject(id: string) {
     if (!this.editedProject.valid) {
       this.invalidForm = true;
       console.log("Please fill out the form before submitting!");
@@ -61,6 +66,7 @@ export class ProjectEditComponent implements OnInit {
     }
   }
 
+
   getCompanyList() {
     this.companyService.getCompanies().subscribe(
       data => {
@@ -73,7 +79,7 @@ export class ProjectEditComponent implements OnInit {
     );
   }
 
-  getProject(id:string) {
+  getProject(id: string) {
     this.projectService.getProject(id).subscribe(
       data => {
         this.projectDetails = data;
@@ -96,7 +102,7 @@ export class ProjectEditComponent implements OnInit {
   }
 
 
-  deleteProject(id:string) {
+  deleteProject(id: string) {
     this.projectService.deleteProject(id).subscribe(
       data => {
         this.projectDetails = data;

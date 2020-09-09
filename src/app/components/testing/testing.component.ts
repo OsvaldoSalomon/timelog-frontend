@@ -117,6 +117,7 @@ export class TestingComponent implements OnInit {
         let lastElement = [index.length-1];
         console.log("index is : " + index);
         console.log("Last Element is : " + lastElement);
+
       },
       err => console.error(err),
       () => console.log('companies loaded')
