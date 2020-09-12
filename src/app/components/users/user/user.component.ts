@@ -13,6 +13,8 @@ export class UserComponent implements OnInit {
   public userList;
   public projectList;
   public userAutomatically;
+  public userDetails;
+
   totalElements: number = 0;
   currentUser = null;
   currentIndex = -1;
@@ -101,6 +103,18 @@ export class UserComponent implements OnInit {
       },
       err => console.error(err),
       () => console.log('users loaded')
+    );
+  }
+
+  deleteUser(id:string) {
+    this.userService.deleteUser(id).subscribe(
+      data => {
+        this.userDetails = data;
+        this.retrieveUsers();
+        this.currentUser = null;
+      },
+      err => console.error(err),
+      () => console.log('user loaded'),
     );
   }
 

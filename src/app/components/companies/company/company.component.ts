@@ -11,6 +11,7 @@ import { CompanyService } from "../../../services/company.service";
 export class CompanyComponent implements OnInit {
 
   public companyList;
+  public companyDetails;
   public userList;
   public projectList;
   public companyAutomatically;
@@ -95,6 +96,17 @@ export class CompanyComponent implements OnInit {
     );
   }
 
+  deleteCompany(id: string) {
+    this.companyService.deleteCompany(id).subscribe(
+      data => {
+        this.companyDetails = data;
+        this.retrieveCompanies();
+        this.currentCompany = null;
+      },
+      err => console.error(err),
+      () => console.log('company loaded'),
+    );
+  }
 
 
 

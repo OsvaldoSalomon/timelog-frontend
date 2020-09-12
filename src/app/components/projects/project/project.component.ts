@@ -13,6 +13,7 @@ export class ProjectComponent implements OnInit {
   public companyList;
   public projectList;
   public projectAutomatically;
+  public projectDetails;
 
   totalElements: number = 0;
   currentProject: any;
@@ -92,6 +93,18 @@ export class ProjectComponent implements OnInit {
       },
       err => console.error(err),
       () => console.log('Auto project loaded')
+    );
+  }
+
+  deleteProject(id: string) {
+    this.projectService.deleteProject(id).subscribe(
+      data => {
+        this.projectDetails = data;
+        this.retrieveProjects();
+        this.currentProject = null;
+      },
+      err => console.error(err),
+      () => console.log('project loaded'),
     );
   }
 
