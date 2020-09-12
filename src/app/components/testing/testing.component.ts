@@ -14,11 +14,17 @@ export class TestingComponent implements OnInit {
 
   public companyList;
   public usersList;
-  public projectList;
-  public projectListArray: Array<Project>;
+  public projectsList;
+
   public companyDetails;
   public projectDetails;
+
   public companyId;
+  public companyName;
+  public companyProjects;
+  public companyUsers;
+
+  public lastProject;
   project: Project;
 
   newProject: FormGroup;
@@ -34,12 +40,12 @@ export class TestingComponent implements OnInit {
   }
 
   ngOnInit() {
+    this.getProjectList();
     this.getUserList();
-    this.getCompanyList();
     this.newProject = new FormGroup({
-      name : new FormControl('', [Validators.required, Validators.minLength(4)]),
-      company : new FormControl('', [Validators.required]),
-      userList : new FormControl('', [Validators.required])
+      'name' : new FormControl('', [Validators.required, Validators.minLength(4)]),
+      'company' : new FormControl('', [Validators.required]),
+      'userList' : new FormControl('', [Validators.required])
     });
 
   }
@@ -56,21 +62,26 @@ export class TestingComponent implements OnInit {
     return this.newProject.get('userList');
   }
 
-  getId() {
-    this.companyId = this.company.value;
-    console.log(this.companyId);
-  }
-
-  getCompanyList() {
-    this.companyService.getCompanies().subscribe(
-      data => {
-        const { companies } = data;
-        this.companyList = companies;
-        console.log(this.companyList);
-      },
-      err => console.error(err),
-      () => console.log('companies loaded')
-    );
+  submitProject() {
+    if (!this.newProject.valid) {
+      this.invalidForm = true;
+      console.log('Please fill out the form before submitting!');
+    } else {
+      this.projectService.createProject(this.newProject.value).subscribe(
+        data => {
+          console.log(this.newProject.value);
+          this.getId();
+          this.companyId = this.company.value;
+          this.getCompany('Company ID: ' + this.companyId);
+          console.log(this.companyDetails);
+          this.getProjectList();
+          return true;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    }
   }
 
   getUserList() {
@@ -84,43 +95,22 @@ export class TestingComponent implements OnInit {
     );
   }
 
-  submitProject() {
-    if (!this.newProject.valid) {
-      this.invalidForm = true;
-      console.log('Please fill out the form before submitting!');
-    } else {
-      this.projectService.createProject(this.newProject.value).subscribe(
-        data => {
-          console.log(this.newProject.value);
-          this.getId();
-          this.companyId = this.company.value;
-          this.getCompany(this.companyId);
-          console.log(this.companyDetails);
-          this.getProjectList();
-          let last:any = this.projectList[this.projectList.length-1];
-          console.log(last.id);
-          return true;
-        },
-        error => {
-          console.log(error);
-        }
-      );
-    }
-  }
-
   getProjectList() {
     this.projectService.getProjects().subscribe(
       data => {
-        this.projectList = data;
-        console.log(this.projectList);
-        let index = this.projectList;
-        let lastElement = [index.length-1];
-        console.log("index is : " + index);
-        console.log("Last Element is : " + lastElement);
+        const { projects } = data;
+        this.projectsList = projects;
+        console.log(this.projectsList);
+        let index = this.projectsList;
+        let projectsLength = index.length;
+        this.lastProject = this.projectsList[this.projectsList.length-1];
+        console.log(this.lastProject.id);
+        console.log("The length is : " + projectsLength);
+        this.getProject(this.lastProject.id);
 
       },
       err => console.error(err),
-      () => console.log('companies loaded')
+      () => console.log('projects loaded')
     );
   }
 
@@ -129,6 +119,7 @@ export class TestingComponent implements OnInit {
       data => {
         this.companyDetails = data;
         console.log(this.companyDetails);
+        this.getCompanyProjects();
       },
       err => console.error(err),
       () => console.log('company loaded'),
@@ -139,10 +130,21 @@ export class TestingComponent implements OnInit {
     this.projectService.getProject(id).subscribe(
       data => {
         this.projectDetails = data;
+        console.log(this.projectDetails);
       },
       err => console.error(err),
-      () => console.log('project loaded'),
+      () => console.log(),
     );
+  }
+
+  getId() {
+    this.companyId = this.company.value;
+    console.log(this.companyId);
+  }
+
+  getCompanyProjects() {
+    this.companyProjects = this.companyDetails.projectList;
+    console.log('Company Projects ' + this.companyDetails.projectList);
   }
 
   companyForm() {
@@ -154,7 +156,7 @@ export class TestingComponent implements OnInit {
   }
 
   updateCompany(id: string) {
-    this.companyService.updateCompany(id, this.companyDetails.value).subscribe(
+    this.companyService.updateCompany(this.companyId, this.companyDetails.value).subscribe(
       data => {
         console.log("Your company has been edited.")
         return true;
