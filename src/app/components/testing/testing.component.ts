@@ -4,6 +4,7 @@ import { FormControl, FormGroup, Validators } from "@angular/forms";
 import { Project } from "../../models/project.model";
 import { CompanyService } from "../../services/company.service";
 import { ProjectService } from "../../services/project.service";
+import { User } from "../../models/user.model";
 
 @Component({
   selector : 'app-testing',
@@ -20,15 +21,14 @@ export class TestingComponent implements OnInit {
   public projectDetails;
 
   public companyId;
-  public companyName;
-  public companyProjects;
-  public companyUsers;
+  companyName: string;
+  companyProjects: Array<Project>;
+  companyUsers: Array<User>;
 
   public lastProject;
   project: Project;
 
   newProject: FormGroup;
-  companyUpdate: FormGroup;
   errorMessage = 'Please fill out the form before submitting!';
   invalidForm = false;
 
@@ -41,6 +41,7 @@ export class TestingComponent implements OnInit {
 
   ngOnInit() {
     this.getProjectList();
+    this.getCompanyList();
     this.getUserList();
     this.newProject = new FormGroup({
       'name' : new FormControl('', [Validators.required, Validators.minLength(4)]),
@@ -95,6 +96,18 @@ export class TestingComponent implements OnInit {
     );
   }
 
+  getCompanyList() {
+    this.companyService.getCompanies().subscribe(
+      data => {
+        const  { companies } = data;
+        this.companyList = companies;
+        console.log(this.companyList);
+      },
+      err => console.error(err),
+      () => console.log('companies loaded')
+    );
+  }
+
   getProjectList() {
     this.projectService.getProjects().subscribe(
       data => {
@@ -118,13 +131,41 @@ export class TestingComponent implements OnInit {
     this.companyService.getCompany(this.companyId).subscribe(
       data => {
         this.companyDetails = data;
+        this.companyName = data.name;
+        this.companyProjects = data.projectList;
+        this.companyUsers = data.userList;
         console.log(this.companyDetails);
-        this.getCompanyProjects();
+        console.log(this.companyUsers);
+        console.log(this.companyProjects);
+        console.log(this.companyName);
+        this.setValue();
+        console.log(this.companyDetails);
+        console.log(this.companyUsers);
+        console.log(this.companyProjects);
+        console.log(this.companyName);
+        console.log(this.companyProjects + ' , ' + this.lastProject.id)
       },
       err => console.error(err),
       () => console.log('company loaded'),
     );
   }
+
+
+  setValue() {
+    this.companyDetails = {
+      companyName: this.companyName,
+      companyProjects: this.companyProjects + this.lastProject.id,
+      companyUsers: this.companyUsers
+    };
+    this.companyUpdate.setValue(this.companyDetails);
+    console.log(this.companyProjects);
+  }
+
+  companyUpdate = new FormGroup({
+    companyName: new FormControl(),
+    companyProjects: new FormControl(),
+    companyUsers: new FormControl()
+  })
 
   getProject(id: string) {
     this.projectService.getProject(id).subscribe(
@@ -142,18 +183,6 @@ export class TestingComponent implements OnInit {
     console.log(this.companyId);
   }
 
-  getCompanyProjects() {
-    this.companyProjects = this.companyDetails.projectList;
-    console.log('Company Projects ' + this.companyDetails.projectList);
-  }
-
-  companyForm() {
-    this.companyUpdate = new FormGroup({
-      name : new FormControl(''),
-      projectList : new FormControl(''),
-      userList : new FormControl('')
-    });
-  }
 
   updateCompany(id: string) {
     this.companyService.updateCompany(this.companyId, this.companyDetails.value).subscribe(
