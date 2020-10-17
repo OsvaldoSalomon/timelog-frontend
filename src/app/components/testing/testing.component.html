@@ -1,7 +1,5 @@
 <h3 class="display-4 text-muted">Add a new project</h3>
 <br>
-<button class="btn btn-secondary mb-5 mr-5 ml-5" routerLink="/projects">Return to list</button>
-<br>
 <div class="alert alert-danger" *ngIf="invalidForm">{{errorMessage}}</div>
 <div class="container mr-5 ml-5">
   <form [formGroup]="newProject" (ngSubmit)="submitProject()">
