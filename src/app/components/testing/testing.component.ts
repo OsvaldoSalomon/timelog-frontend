@@ -43,6 +43,7 @@ export class TestingComponent implements OnInit {
     this.getProjectList();
     this.getCompanyList();
     this.getUserList();
+    this.lastProject = new Project('', '', '', []);
     this.newProject = new FormGroup({
       'name' : new FormControl('', [Validators.required, Validators.minLength(4)]),
       'company' : new FormControl('', [Validators.required]),
@@ -74,7 +75,6 @@ export class TestingComponent implements OnInit {
           this.getId();
           this.companyId = this.company.value;
           this.getCompany('Company ID: ' + this.companyId);
-          console.log(this.companyDetails);
           this.getProjectList();
           return true;
         },
@@ -99,7 +99,7 @@ export class TestingComponent implements OnInit {
   getCompanyList() {
     this.companyService.getCompanies().subscribe(
       data => {
-        const  { companies } = data;
+        const { companies } = data;
         this.companyList = companies;
         console.log(this.companyList);
       },
@@ -116,15 +116,24 @@ export class TestingComponent implements OnInit {
         console.log(this.projectsList);
         let index = this.projectsList;
         let projectsLength = index.length;
-        this.lastProject = this.projectsList[this.projectsList.length-1];
+        this.lastProject = this.projectsList[this.projectsList.length - 1];
         console.log(this.lastProject.id);
         console.log("The length is : " + projectsLength);
         this.getProject(this.lastProject.id);
-
       },
       err => console.error(err),
       () => console.log('projects loaded')
     );
+  }
+
+  setValue() {
+    this.companyDetails = {
+      companyName : this.companyName,
+      companyProjects : this.companyProjects + this.lastProject.id,
+      companyUsers : this.companyUsers
+    };
+    this.companyUpdate.setValue(this.companyDetails);
+    console.log(this.companyProjects);
   }
 
   getCompany(id: string) {
@@ -138,33 +147,23 @@ export class TestingComponent implements OnInit {
         console.log(this.companyUsers);
         console.log(this.companyProjects);
         console.log(this.companyName);
+        console.log(this.companyProjects + ' , ' + this.lastProject.id);
         this.setValue();
         console.log(this.companyDetails);
         console.log(this.companyUsers);
         console.log(this.companyProjects);
         console.log(this.companyName);
-        console.log(this.companyProjects + ' , ' + this.lastProject.id)
+        console.log(this.companyProjects + ' , ' + this.lastProject.id);
       },
       err => console.error(err),
       () => console.log('company loaded'),
     );
   }
 
-
-  setValue() {
-    this.companyDetails = {
-      companyName: this.companyName,
-      companyProjects: this.companyProjects + this.lastProject.id,
-      companyUsers: this.companyUsers
-    };
-    this.companyUpdate.setValue(this.companyDetails);
-    console.log(this.companyProjects);
-  }
-
   companyUpdate = new FormGroup({
-    companyName: new FormControl(),
-    companyProjects: new FormControl(),
-    companyUsers: new FormControl()
+    companyName : new FormControl(),
+    companyProjects : new FormControl(),
+    companyUsers : new FormControl()
   })
 
   getProject(id: string) {
