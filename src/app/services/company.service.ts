@@ -75,8 +75,8 @@ export class CompanyService {
       )
   }
 
-  updateCompany(id, company): Observable<any> {
-    return this.http.put<any>(this.apiURL + '/companies/' + id, JSON.stringify(company), this.httpOptions)
+  updateCompany(id, company): Observable<Company> {
+    return this.http.put<Company>(this.apiURL + '/companies/' + id, JSON.stringify(company), this.httpOptions)
       .pipe(
         retry(1),
         catchError(this.handleError)

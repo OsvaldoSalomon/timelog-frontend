@@ -5,7 +5,6 @@ import { Project } from "../../models/project.model";
 import { CompanyService } from "../../services/company.service";
 import { ProjectService } from "../../services/project.service";
 import { User } from "../../models/user.model";
-import { Company } from "../../models/company.model";
 
 @Component({
   selector : 'app-testing',
@@ -157,7 +156,7 @@ export class TestingComponent implements OnInit {
         console.log(this.companyDetails);
         console.log(this.companyProjects);
         this.getProjectList();
-        this.companyProjectList = [this.lastProjectId, this.companyProjects];
+        this.companyProjects.push(this.lastProjectId);
         this.setValue();
         // this.companySetValue()
         this.updateCompany(this.companyId);
@@ -172,7 +171,7 @@ export class TestingComponent implements OnInit {
   setValue() {
     this.companyDetails = {
       name : this.companyName,
-      projectList : [this.companyProjectList],
+      projectList : [this.companyProjects],
       userList : this.companyUsers
     };
     this.companyUpdate.setValue(this.companyDetails);
@@ -182,7 +181,7 @@ export class TestingComponent implements OnInit {
   companyUpdate = new FormGroup({
     'name' : new FormControl(this.companyName),
     'userList' : new FormControl(this.companyUsers),
-    'projectList' : new FormControl([this.companyProjects, this.lastProjectId])
+    'projectList' : new FormControl(this.companyProjects)
   })
 
   updateCompany(id: string) {
