@@ -18,7 +18,6 @@ export class TestingComponent implements OnInit {
   public projectsList;
 
   public companyDetails;
-  public companyProjectList=[];
   public projectDetails;
 
   public companyId;
@@ -171,7 +170,7 @@ export class TestingComponent implements OnInit {
   setValue() {
     this.companyDetails = {
       name : this.companyName,
-      projectList : [this.companyProjects],
+      projectList : this.companyProjects,
       userList : this.companyUsers
     };
     this.companyUpdate.setValue(this.companyDetails);
@@ -200,6 +199,5 @@ export class TestingComponent implements OnInit {
       );
     }
   }
-
 
 }
