@@ -50,7 +50,6 @@ export class TestingComponent implements OnInit {
       'company' : new FormControl('', [Validators.required]),
       'userList' : new FormControl('', [Validators.required])
     });
-
   }
 
   get name() {
@@ -127,7 +126,6 @@ export class TestingComponent implements OnInit {
       () => console.log('projects loaded')
     );
   }
-
 
   getProject(id: string) {
     this.projectService.getProject(id).subscribe(
