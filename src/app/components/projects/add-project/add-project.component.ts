@@ -83,7 +83,6 @@ export class AddProjectComponent implements OnInit {
           console.log(error);
         }
       );
-      // this.router.navigate(['projects']);
     }
   }
 
@@ -196,6 +195,7 @@ export class AddProjectComponent implements OnInit {
           console.log(error);
         }
       );
+      this.router.navigate(['projects']);
     }
   }
 
