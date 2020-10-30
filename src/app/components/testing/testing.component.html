@@ -1,125 +1,114 @@
-<h3 class="display-4 text-muted">Add a new project</h3>
+<h3 class="display-4 text-muted">Users</h3>
 <br>
-<div class="alert alert-danger" *ngIf="invalidForm">{{errorMessage}}</div>
-<div class="container mr-5 ml-5">
-  <form [formGroup]="newProject" (ngSubmit)="submitProject()">
-    <div class="form-row">
-      <div class="col-lg-4">
-        <div class="form-label-group">
+<div class="row">
+  <div class="col-lg">
+    <button class="btn btn-primary" routerLink="/users-add">Add a User</button>
+    <div class="container mt-lg-5">
+      <div class="row ">
+        <div class="input-group mb-3">
           <input
+            type="text"
             class="form-control"
-            type="text" id="name"
-            formControlName="name"
-            placeholder="Project name"
-            required
-            minlength="4"
-            [class.is-invalid]="name.invalid && (name.dirty || name.touched )"
-          >
-          <label for="name">Project Name</label>
-          <div *ngIf="(name.invalid && name.touched) || name.dirty">
-            <small *ngIf="name.errors?.required" class="text-danger">Name is required.</small>
-            <small *ngIf="name.errors?.minlength" class="text-danger">Name must be at least 4 characters long.</small>
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Company</label>
-          <select class="form-control"
-                  required
-                  formControlName="company"
-                  [class.is-invalid]="company.invalid && (company.dirty || company.touched )">
-            <option value="" selected>Select a company</option>
-            <option *ngFor="let companies of companyList" [ngValue]="companies.id">
-              {{companies.name}}
-            </option>
-          </select>
-          <div *ngIf="(company.invalid && company.touched) || company.dirty">
-            <small *ngIf="company.errors?.required" class="text-danger">Company is required.</small>
+            placeholder="Search by first name"
+            [(ngModel)]="firstName"/>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary"
+                    type="button"
+                    (click)="retrieveUsers()"> Search</button>
           </div>
         </div>
       </div>
-      <div class="col-lg-4">
-        <div class="form-group">
-          <label>Members</label>
-          <select class="form-control"
-                  formControlName="userList"
-                  required
-                  [class.is-invalid]="userList.invalid && (userList.dirty || userList.touched )"
-                  multiple>
-            <option *ngFor="let m of usersList" [ngValue]="m.id">
-              {{m.firstName}} {{m.lastName}}
-            </option>
-          </select>
-          <div *ngIf="(userList.invalid && userList.touched) || userList.dirty">
-            <small *ngIf="userList.errors?.required" class="text-danger">This field is required.</small>
+      <table class="table table-bordered table-hover ">
+        <thead class="thead-light">
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">First name</th>
+          <th scope="col">Last name</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr *ngFor="let user of userList | paginate : {
+                  itemsPerPage: pageSize,
+                  currentPage: page,
+                  totalItems: count
+                };
+          let i = index" [class.active]="i == currentIndex" (click)="setActiveUser(user, i)">
+          <td>
+            {{user.id}}
+          </td>
+          <td>
+            {{user.firstName}}
+          </td>
+          <td>
+            {{user.lastName}}
+          </td>
+        </tr>
+        </tbody>
+      </table>
+      <div class="col-md-12">
+        <div class="row">
+          <pagination-controls
+            previousLabel="Previous"
+            nextLabel="Next"
+            responsive="true"
+            (pageChange)="handlePageChange($event)"
+          ></pagination-controls>
+          <div class="col-6">
+            Items per Page:
+            <select (change)="handlePageSizeChange($event)">
+              <option *ngFor="let size of pageSizes" [ngValue]="size">
+                {{ size }}
+              </option>
+            </select>
           </div>
         </div>
       </div>
     </div>
-    <button class="btn btn-success">Add Project</button>
-  </form>
-</div>
+    <br>
+  </div>
 
-<hr>
-
-
-
-<div class="card">
-  <div class="card-header">Console Output</div>
-  <div class="card-body">
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          Company Id:
-        </div>
-        <div class="col">
-          {{companyId}}
+  <div class="col-lg ml-5 mt-5 pt-5">
+    <div class="container" *ngIf="currentUser">
+      <div class="card" style="width: 500px"> <!--  User Details Automatically  -->
+        <h3 class="card-header">Details of the user</h3>
+        <div class="card-body">
+          <div class="row">
+            <dt class="col-sm-5">ID:</dt>
+            <dd class="col-sm-7">{{currentUser.id}}</dd>
+            <dt class="col-sm-5">First name:</dt>
+            <dd class="col-sm-7">{{currentUser.firstName}}</dd>
+            <dt class="col-sm-5">Last name:</dt>
+            <dd class="col-sm-7">{{currentUser.lastName}}</dd>
+            <dt class="col-sm-5">E-mail:</dt>
+            <dd class="col-sm-7">{{currentUser.email}}</dd>
+          </div>
         </div>
       </div>
-      <div class="row">
-        <div class="col">
-          Company Name:
-        </div>
-        <div class="col">
-          {{companyName}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          Company Projects:
-        </div>
-        <div class="col">
-          {{companyProjects}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          Company Users:
-        </div>
-        <div class="col">
-          {{companyUsers}}
-        </div>
-      </div>
+      <br>
+      <button class="btn btn-outline-warning" routerLink="/user-edit/{{currentUser.id}}">Edit user</button> |
+      <button class="btn btn-outline-danger" (click)="deleteUser(currentUser.id)">Delete user</button>
     </div>
-    <hr>
-    <div class="container">
-      <div class="row">
-        <div class="col">
-          Last Project ID:
+
+    <div class="container" *ngIf="!currentUser">
+      <div class="card" style="width: 500px"> <!--  User Details Automatically  -->
+        <h3 class="card-header">Details of the user</h3>
+        <div class="card-body">
+          <div class="row">
+            <dt class="col-sm-5">ID:</dt>
+            <dd class="col-sm-7">{{userAutomatically.id}}</dd>
+            <dt class="col-sm-5">First name:</dt>
+            <dd class="col-sm-7">{{userAutomatically.firstName}}</dd>
+            <dt class="col-sm-5">Last name:</dt>
+            <dd class="col-sm-7">{{userAutomatically.lastName}}</dd>
+            <dt class="col-sm-5">E-mail:</dt>
+            <dd class="col-sm-7">{{userAutomatically.email}}</dd>
+          </div>
         </div>
-        <div class="col">
-          {{lastProject.id}}
-        </div>
-      </div>
-      <div class="row">
-        <div class="col">
-          Last Project Name
-        </div>
-        <div class="col">
-          {{lastProject.name}}
-        </div>
-      </div>
+      </div> <!--  End of User Details Automatically  -->
+      <br>
+      <button class="btn btn-outline-warning" routerLink="/user-edit/{{userAutomatically.id}}">Edit user</button> |
+      <button class="btn btn-outline-danger" (click)="deleteUser(userAutomatically.id)">Delete user</button>
     </div>
   </div>
-</div>
-
+</div> <!-- End row -->
 
