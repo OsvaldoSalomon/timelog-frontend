@@ -16,6 +16,7 @@ export class TestingComponent implements OnInit {
   public userDetails;
   title = 'angular-text-search-highlight';
   searchText = '';
+  searchUsers= '';
   characters = [
     'Ant-Man',
     'Aquaman',
@@ -53,6 +54,18 @@ export class TestingComponent implements OnInit {
 
     if (searchName) {
       params[ `firstName` ] = searchName;
+    }
+
+    if (searchName) {
+      params[ `lastName` ] = searchName;
+    }
+
+    if (searchName) {
+      params[ `ID` ] = searchName;
+    }
+
+    if (searchName) {
+      params[``]
     }
 
     if (page) {
