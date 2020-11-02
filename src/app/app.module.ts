@@ -25,6 +25,7 @@ import { TasksComponent } from './components/tasks/tasks.component';
 import { NgxPaginationModule } from "ngx-pagination";
 import { TestingComponent } from './components/testing/testing.component';
 import { TableComponent } from './components/table/table.component';
+import { FilterPipe } from "./pipes/filter.pipe";
 
 @NgModule({
   declarations: [
@@ -46,6 +47,7 @@ import { TableComponent } from './components/table/table.component';
     TasksComponent,
     TestingComponent,
     TableComponent,
+    FilterPipe
   ],
   imports: [
     BrowserModule,

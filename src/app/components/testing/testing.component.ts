@@ -14,6 +14,18 @@ export class TestingComponent implements OnInit {
   public projectList;
   public userAutomatically;
   public userDetails;
+  title = 'angular-text-search-highlight';
+  searchText = '';
+  characters = [
+    'Ant-Man',
+    'Aquaman',
+    'Asterix',
+    'The Atom',
+    'The Avengers',
+    'Batgirl',
+    'Batman',
+    'Batwoman'
+  ]
 
   totalElements: number = 0;
   currentUser = null;
@@ -35,12 +47,12 @@ export class TestingComponent implements OnInit {
     this.getUserAutomatically();
   }
 
-  getRequestParams(searchFirstName, page, pageSize) {
+  getRequestParams(searchName, page, pageSize) {
     // tslint:disable-next-line:prefer-const
     let params = {};
 
-    if (searchFirstName) {
-      params[ `firstName` ] = searchFirstName;
+    if (searchName) {
+      params[ `firstName` ] = searchName;
     }
 
     if (page) {
@@ -68,24 +80,6 @@ export class TestingComponent implements OnInit {
         error => {
           console.log(error);
         });
-  }
-
-  private autoCompleteExpenseList(input) {
-    let categoryList = this.filterCategoryList(input)
-    // this.autoCompleteList = categoryList;
-  }
-
-  // this is where filtering the data happens according to you typed value
-  filterCategoryList(val) {
-    var categoryList = []
-    if (typeof val != "string") {
-      return [];
-    }
-    if (val === '' || val === null) {
-      return [];
-    }
-    // return val ? this.allPosts.filter(s => s.title.toLowerCase().indexOf(val.toLowerCase()) != -1)
-    //   : this.allPosts;
   }
 
   handlePageChange(event) {
