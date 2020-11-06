@@ -17,23 +17,6 @@
                     (click)="retrieveUsers()"> Search</button>
           </div>
         </div>
-<!--        // filter code-->
-        <div class="form-group">
-          <div class="card">
-            <div class="form-group">
-              <label for="search-text">Search Text</label>
-              <input type="email" class="form-control" id="search-text" aria-describedby="search-text"
-                     [(ngModel)]="searchText" placeholder="Enter text to search">
-            </div>
-<!--            <ul class="list-group list-group-flush">-->
-<!--              &lt;!&ndash; results of ngFor is passed to appFilter with argument searchText &ndash;&gt;-->
-<!--              <li class="list-group-item" *ngFor="let c of userList | appFilter: searchUsers">-->
-<!--                {{c.firstName}}-->
-<!--              </li>-->
-<!--            </ul>-->
-          </div>
-        </div>
-<!--        End filter code-->
       </div>
       <table class="table table-bordered table-hover ">
         <thead class="thead-light">

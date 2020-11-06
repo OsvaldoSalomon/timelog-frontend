@@ -14,25 +14,14 @@ export class TestingComponent implements OnInit {
   public projectList;
   public userAutomatically;
   public userDetails;
-  title = 'angular-text-search-highlight';
   searchText = '';
-  searchUsers= '';
-  characters = [
-    'Ant-Man',
-    'Aquaman',
-    'Asterix',
-    'The Atom',
-    'The Avengers',
-    'Batgirl',
-    'Batman',
-    'Batwoman'
-  ]
 
   totalElements: number = 0;
   currentUser = null;
   currentIndex = -1;
   firstName = '';
   lastName = '';
+  paramsUser = '';
 
   page = 1;
   count = 0;
@@ -52,6 +41,7 @@ export class TestingComponent implements OnInit {
     // tslint:disable-next-line:prefer-const
     let params = {};
 
+
     if (searchName) {
       params[ `firstName` ] = searchName;
     }
@@ -61,19 +51,19 @@ export class TestingComponent implements OnInit {
     }
 
     if (searchName) {
-      params[ `ID` ] = searchName;
+      params[ `id` ] = searchName;
     }
 
     if (searchName) {
-      params[``]
+      params[ `email` ] = searchName;
     }
 
     if (page) {
-      params[`page`] = page - 1;
+      params[ `page` ] = page - 1;
     }
 
     if (pageSize) {
-      params[`size`] = pageSize;
+      params[ `size` ] = pageSize;
     }
 
     return params;
@@ -81,7 +71,8 @@ export class TestingComponent implements OnInit {
 
   retrieveUsers() {
     const params = this.getRequestParams(this.firstName, this.page, this.pageSize);
-
+    console.log(this.paramsUser);
+    console.log(params);
     this.userService.getUsersPagination(params)
       .subscribe(
         response => {
