@@ -14,7 +14,6 @@ export class TestingComponent implements OnInit {
   public projectList;
   public userAutomatically;
   public userDetails;
-  searchText = '';
 
   totalElements: number = 0;
   currentUser = null;
@@ -41,21 +40,8 @@ export class TestingComponent implements OnInit {
     // tslint:disable-next-line:prefer-const
     let params = {};
 
-
     if (searchName) {
-      params[ `firstName` ] = searchName;
-    }
-
-    if (searchName) {
-      params[ `lastName` ] = searchName;
-    }
-
-    if (searchName) {
-      params[ `id` ] = searchName;
-    }
-
-    if (searchName) {
-      params[ `email` ] = searchName;
+      params[ `searchText` ] = searchName;
     }
 
     if (page) {
@@ -70,7 +56,7 @@ export class TestingComponent implements OnInit {
   }
 
   retrieveUsers() {
-    const params = this.getRequestParams(this.firstName, this.page, this.pageSize);
+    const params = this.getRequestParams(this.paramsUser, this.page, this.pageSize);
     console.log(this.paramsUser);
     console.log(params);
     this.userService.getUsersPagination(params)
