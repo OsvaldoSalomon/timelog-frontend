@@ -1,8 +1,8 @@
-<h3 class="display-4 text-muted">Test Users</h3>
+<h3 class="display-4 text-muted">Companies Testing</h3>
 <br>
 <div class="row">
-  <div class="col-lg">
-<!--    <button class="btn btn-primary" routerLink="/users-add">Add a User</button>-->
+  <div class="col-lg mr-5">
+    <button class="btn btn-primary" routerLink="/companies-add">Add a company</button>
     <div class="container mt-lg-5">
       <div class="row ">
         <div class="input-group mb-3">
@@ -10,37 +10,33 @@
             type="text"
             class="form-control"
             placeholder="Search by name"
-            [(ngModel)]="paramsUser"/>
+            [(ngModel)]="name"/>
           <div class="input-group-append">
             <button class="btn btn-outline-secondary"
                     type="button"
-                    (click)="retrieveUsers()"> Search</button>
+                    (click)="retrieveCompanies()"> Search</button>
           </div>
         </div>
       </div>
-      <table class="table table-bordered table-hover ">
+      <table class="table table-bordered table-hover">
         <thead class="thead-light">
         <tr>
           <th scope="col">ID</th>
-          <th scope="col">First name</th>
-          <th scope="col">Last name</th>
+          <th scope="col">Name</th>
         </tr>
         </thead>
         <tbody>
-        <tr *ngFor="let user of userList | paginate : {
+        <tr *ngFor="let company of companyList | paginate : {
                   itemsPerPage: pageSize,
                   currentPage: page,
                   totalItems: count
                 };
-          let i = index" [class.active]="i == currentIndex" (click)="setActiveUser(user, i)">
+          let i = index" [class.active]="i == currentIndex" (click)="setActiveCompany(company, i)">
           <td>
-            {{user.id}}
+            {{company.id}}
           </td>
           <td>
-            {{user.firstName}}
-          </td>
-          <td>
-            {{user.lastName}}
+            {{company.name}}
           </td>
         </tr>
         </tbody>
@@ -68,47 +64,50 @@
   </div>
 
   <div class="col-lg ml-5 mt-5 pt-5">
-    <div class="container" *ngIf="currentUser">
-      <div class="card" style="width: 500px"> <!--  User Details Automatically  -->
-        <h3 class="card-header">Details of the user</h3>
+
+    <div class="container" *ngIf="!currentCompany">
+      <div class="card" style="width: 500px"> <!--  Company Details Automatically  -->
+        <h3 class="card-header">Details of the company</h3>
         <div class="card-body">
           <div class="row">
-            <dt class="col-sm-5">ID:</dt>
-            <dd class="col-sm-7">{{currentUser.id}}</dd>
-            <dt class="col-sm-5">First name:</dt>
-            <dd class="col-sm-7">{{currentUser.firstName}}</dd>
-            <dt class="col-sm-5">Last name:</dt>
-            <dd class="col-sm-7">{{currentUser.lastName}}</dd>
-            <dt class="col-sm-5">E-mail:</dt>
-            <dd class="col-sm-7">{{currentUser.email}}</dd>
+            <dt class="col-sm-3">ID:</dt>
+            <dd class="col-sm-9">{{companyAutomatically.id}}</dd>
+            <dt class="col-lg-3">Name:</dt>
+            <dd class="col-lg-9">{{companyAutomatically.name}}</dd>
+            <dt class="col-lg-3">Projects:</dt>
+            <dd class="col-lg-9">{{companyAutomatically.projectList}}</dd>
+            <dt class="col-lg-3">Users:</dt>
+            <dd class="col-lg-9">{{companyAutomatically.userList}}</dd>
           </div>
         </div>
-      </div>
+      </div> <!--  End of Company Details Automatically  -->
       <br>
-      <button class="btn btn-outline-warning" routerLink="/user-edit/{{currentUser.id}}">Edit user</button> |
-      <button class="btn btn-outline-danger" (click)="deleteUser(currentUser.id)">Delete user</button>
+      <button class="btn btn-outline-warning" routerLink="/company-edit/{{companyAutomatically.id}}">Edit company</button> |
+      <button class="btn btn-outline-danger" (click)="deleteCompany(companyAutomatically.id)">Delete company</button>
     </div>
 
-    <div class="container" *ngIf="!currentUser">
-      <div class="card" style="width: 500px"> <!--  User Details Automatically  -->
-        <h3 class="card-header">Details of the user</h3>
+    <div class="container" *ngIf="currentCompany">
+      <div class="card" style="width: 500px"> <!--  Company Details Automatically  -->
+        <h3 class="card-header">Details of the company</h3>
         <div class="card-body">
           <div class="row">
-            <dt class="col-sm-5">ID:</dt>
-            <dd class="col-sm-7">{{userAutomatically.id}}</dd>
-            <dt class="col-sm-5">First name:</dt>
-            <dd class="col-sm-7">{{userAutomatically.firstName}}</dd>
-            <dt class="col-sm-5">Last name:</dt>
-            <dd class="col-sm-7">{{userAutomatically.lastName}}</dd>
-            <dt class="col-sm-5">E-mail:</dt>
-            <dd class="col-sm-7">{{userAutomatically.email}}</dd>
+            <dt class="col-sm-3">ID:</dt>
+            <dd class="col-sm-9">{{currentCompany.id}}</dd>
+            <dt class="col-lg-3">Name:</dt>
+            <dd class="col-lg-9">{{currentCompany.name}}</dd>
+            <dt class="col-lg-3">Projects:</dt>
+            <dd class="col-lg-9">{{currentCompany.projectList}}</dd>
+            <dt class="col-lg-3">Users:</dt>
+            <dd class="col-lg-9">{{currentCompany.userList}}</dd>
           </div>
         </div>
-      </div> <!--  End of User Details Automatically  -->
+      </div> <!--  End of Company Details Automatically  -->
       <br>
-      <button class="btn btn-outline-warning" routerLink="/user-edit/{{userAutomatically.id}}">Edit user</button> |
-      <button class="btn btn-outline-danger" (click)="deleteUser(userAutomatically.id)">Delete user</button>
+      <button class="btn btn-outline-warning" routerLink="/company-edit/{{currentCompany.id}}">Edit company</button> |
+      <button class="btn btn-outline-danger" (click)="deleteCompany(currentCompany.id)">Delete company</button>
     </div>
+
   </div>
 </div> <!-- End row -->
+
 

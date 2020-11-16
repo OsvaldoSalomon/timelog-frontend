@@ -64,26 +64,6 @@
   </div>
 
   <div class="col-lg ml-5 mt-5 pt-5">
-    <div class="container" *ngIf="currentProject">
-      <div class="card" style="width: 500px"> <!--  Project Details -->
-        <h3 class="card-header">Details of the project</h3>
-        <div class="card-body">
-          <div class="row">
-            <dt class="col-sm-3">ID:</dt>
-            <dd class="col-sm-9">{{currentProject.id}}</dd>
-            <dt class="col-sm-3">Name:</dt>
-            <dd class="col-sm-9">{{currentProject.name}}</dd>
-            <dt class="col-sm-3">Company:</dt>
-            <dd class="col-sm-9">{{currentProject.company}}</dd>
-            <dt class="col-sm-3">Users:</dt>
-            <dd class="col-sm-9">{{currentProject.userList}}</dd>
-          </div>
-        </div>
-      </div> <!--  End of Project Details -->
-      <br>
-      <button class="btn btn-outline-warning" routerLink="/project-edit/{{currentProject.id}}">Edit Project</button> |
-      <button class="btn btn-outline-danger" (click)="deleteProject(currentProject.id)">Delete Project</button>
-    </div>
 
     <div class="container" *ngIf="!currentProject">
       <div class="card" style="width: 500px"> <!--  Project Details Automatically  -->
@@ -105,6 +85,28 @@
       <button class="btn btn-outline-warning" routerLink="/project-edit/{{projectAutomatically.id}}">Edit Project</button> |
       <button class="btn btn-outline-danger" (click)="deleteProject(projectAutomatically.id)">Delete Project</button>
     </div>
+
+    <div class="container" *ngIf="currentProject">
+      <div class="card" style="width: 500px"> <!--  Project Details -->
+        <h3 class="card-header">Details of the project</h3>
+        <div class="card-body">
+          <div class="row">
+            <dt class="col-sm-3">ID:</dt>
+            <dd class="col-sm-9">{{currentProject.id}}</dd>
+            <dt class="col-sm-3">Name:</dt>
+            <dd class="col-sm-9">{{currentProject.name}}</dd>
+            <dt class="col-sm-3">Company:</dt>
+            <dd class="col-sm-9">{{currentProject.company}}</dd>
+            <dt class="col-sm-3">Users:</dt>
+            <dd class="col-sm-9">{{currentProject.userList}}</dd>
+          </div>
+        </div>
+      </div> <!--  End of Project Details -->
+      <br>
+      <button class="btn btn-outline-warning" routerLink="/project-edit/{{currentProject.id}}">Edit Project</button> |
+      <button class="btn btn-outline-danger" (click)="deleteProject(currentProject.id)">Delete Project</button>
+    </div>
+
   </div>
 </div> <!-- End row -->
 

@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from "../../services/user.service";
-import { User } from "../../models/user.model";
+import { CompanyService } from "../../services/company.service";
+import { Company } from "../../models/company.model";
 
 @Component({
   selector : 'app-testing',
@@ -9,31 +9,31 @@ import { User } from "../../models/user.model";
 })
 export class TestingComponent implements OnInit {
 
+
   public companyList;
+  public companyDetails;
   public userList;
   public projectList;
-  public userAutomatically;
-  public userDetails;
+  public companyAutomatically;
 
+  public projectsNames  = [];
   totalElements: number = 0;
-  currentUser = null;
+  currentCompany = null;
   currentIndex = -1;
-  firstName = '';
-  lastName = '';
-  paramsUser = '';
+  name = '';
 
   page = 1;
   count = 0;
   pageSize = 3;
   pageSizes = [3, 6, 9];
 
-  constructor(private userService: UserService) {
+  constructor(private companyService: CompanyService) {
   }
 
   ngOnInit() {
-    this.userAutomatically = new User("", "", "", "", "");
-    this.retrieveUsers()
-    this.getUserAutomatically();
+    this.companyAutomatically = new Company("", "", [], []);
+    this.retrieveCompanies()
+    this.getCompanyAutomatically();
   }
 
   getRequestParams(searchName, page, pageSize) {
@@ -41,30 +41,29 @@ export class TestingComponent implements OnInit {
     let params = {};
 
     if (searchName) {
-      params[ `searchText` ] = searchName;
+      params[`name`] = searchName;
     }
 
     if (page) {
-      params[ `page` ] = page - 1;
+      params[`page`] = page - 1;
     }
 
     if (pageSize) {
-      params[ `size` ] = pageSize;
+      params[`size`] = pageSize;
     }
 
     return params;
   }
 
-  retrieveUsers() {
-    const params = this.getRequestParams(this.paramsUser, this.page, this.pageSize);
-    console.log(this.paramsUser);
-    console.log(params);
-    this.userService.getUsersPagination(params)
+  retrieveCompanies() {
+    const params = this.getRequestParams(this.name, this.page, this.pageSize);
+
+    this.companyService.getAllCompaniesPagination(params)
       .subscribe(
         response => {
-          const { users, totalUsers } = response;
-          this.userList = users;
-          this.count = totalUsers;
+          const { companies, totalCompanies } = response;
+          this.companyList = companies;
+          this.count = totalCompanies;
           console.log(response);
         },
         error => {
@@ -74,49 +73,49 @@ export class TestingComponent implements OnInit {
 
   handlePageChange(event) {
     this.page = event;
-    this.retrieveUsers();
+    this.retrieveCompanies();
   }
 
   handlePageSizeChange(event) {
     this.pageSize = event.target.value;
     this.page = 1;
-    this.retrieveUsers();
+    this.retrieveCompanies();
   }
 
-  setActiveUser(user, index) {
-    this.currentUser = user;
+  setActiveCompany(company, index) {
+    this.currentCompany = company;
     this.currentIndex = index;
   }
 
-  getUserAutomatically() {
-    this.userService.getUserAutomatically().subscribe(
+  getCompanyAutomatically() {
+    this.companyService.getCompanyAutomatically().subscribe(
       data => {
-        this.userAutomatically = data;
+        this.companyAutomatically = data;
+        console.log(data);
+        this.projectsNames = data.projectList
+        console.log(this.projectsNames);
+      },
+      err => console.log(err),
+      () => console.log('Auto company loaded')
+    );
+    this.getProjectNames();
+  }
+
+  getProjectNames() {
+    console.log(this.projectsNames);
+
+  }
+
+  deleteCompany(id: string) {
+    this.companyService.deleteCompany(id).subscribe(
+      data => {
+        this.companyDetails = data;
+        this.retrieveCompanies();
+        this.currentCompany = null;
       },
       err => console.error(err),
-      () => console.log('Auto user loaded')
+      () => console.log('company loaded'),
     );
   }
 
-  getUserList() {
-    this.userService.getUsers().subscribe(
-      data => {
-        this.userList = data;
-      },
-      err => console.error(err),
-      () => console.log('users loaded')
-    );
-  }
-
-  deleteUser(id:string) {
-    this.userService.deleteUser(id).subscribe(
-      data => {
-        this.userDetails = data;
-        this.retrieveUsers();
-        this.currentUser = null;
-      },
-      err => console.error(err),
-      () => console.log('user loaded'),
-    );
-  }
 }

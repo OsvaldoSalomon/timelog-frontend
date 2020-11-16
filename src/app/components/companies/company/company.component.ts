@@ -1,5 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { UserService } from '../../../services/user.service';
 import { Company } from "../../../models/company.model";
 import { CompanyService } from "../../../services/company.service";
 
@@ -107,8 +106,4 @@ export class CompanyComponent implements OnInit {
       () => console.log('company loaded'),
     );
   }
-
-
-
-
 }

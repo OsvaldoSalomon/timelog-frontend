@@ -68,26 +68,6 @@
   </div>
 
   <div class="col-lg ml-5 mt-5 pt-5">
-    <div class="container" *ngIf="currentUser">
-      <div class="card" style="width: 500px"> <!--  User Details Automatically  -->
-        <h3 class="card-header">Details of the user</h3>
-        <div class="card-body">
-          <div class="row">
-            <dt class="col-sm-5">ID:</dt>
-            <dd class="col-sm-7">{{currentUser.id}}</dd>
-            <dt class="col-sm-5">First name:</dt>
-            <dd class="col-sm-7">{{currentUser.firstName}}</dd>
-            <dt class="col-sm-5">Last name:</dt>
-            <dd class="col-sm-7">{{currentUser.lastName}}</dd>
-            <dt class="col-sm-5">E-mail:</dt>
-            <dd class="col-sm-7">{{currentUser.email}}</dd>
-          </div>
-        </div>
-      </div>
-      <br>
-      <button class="btn btn-outline-warning" routerLink="/user-edit/{{currentUser.id}}">Edit user</button> |
-      <button class="btn btn-outline-danger" (click)="deleteUser(currentUser.id)">Delete user</button>
-    </div>
 
     <div class="container" *ngIf="!currentUser">
       <div class="card" style="width: 500px"> <!--  User Details Automatically  -->
@@ -109,6 +89,28 @@
       <button class="btn btn-outline-warning" routerLink="/user-edit/{{userAutomatically.id}}">Edit user</button> |
       <button class="btn btn-outline-danger" (click)="deleteUser(userAutomatically.id)">Delete user</button>
     </div>
+
+    <div class="container" *ngIf="currentUser">
+      <div class="card" style="width: 500px"> <!--  User Details Automatically  -->
+        <h3 class="card-header">Details of the user</h3>
+        <div class="card-body">
+          <div class="row">
+            <dt class="col-sm-5">ID:</dt>
+            <dd class="col-sm-7">{{currentUser.id}}</dd>
+            <dt class="col-sm-5">First name:</dt>
+            <dd class="col-sm-7">{{currentUser.firstName}}</dd>
+            <dt class="col-sm-5">Last name:</dt>
+            <dd class="col-sm-7">{{currentUser.lastName}}</dd>
+            <dt class="col-sm-5">E-mail:</dt>
+            <dd class="col-sm-7">{{currentUser.email}}</dd>
+          </div>
+        </div>
+      </div>
+      <br>
+      <button class="btn btn-outline-warning" routerLink="/user-edit/{{currentUser.id}}">Edit user</button> |
+      <button class="btn btn-outline-danger" (click)="deleteUser(currentUser.id)">Delete user</button>
+    </div>
+
   </div>
 </div> <!-- End row -->
 
