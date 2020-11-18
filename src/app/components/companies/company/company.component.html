@@ -75,9 +75,19 @@
             <dt class="col-lg-3">Name:</dt>
             <dd class="col-lg-9">{{companyAutomatically.name}}</dd>
             <dt class="col-lg-3">Projects:</dt>
-            <dd class="col-lg-9">{{companyAutomatically.projectList}}</dd>
+            <dd class="col-lg-9">
+              <ul *ngFor="let project of projectsNames">
+                <li>{{project}}</li>
+              </ul>
+            </dd>
             <dt class="col-lg-3">Users:</dt>
-            <dd class="col-lg-9">{{companyAutomatically.userList}}</dd>
+            <dd class="col-lg-9">
+              <ul *ngFor="let user of usersInfo" >
+                <li>
+                  {{user}}
+                </li>
+              </ul>
+            </dd>
           </div>
         </div>
       </div> <!--  End of Company Details Automatically  -->
@@ -96,9 +106,19 @@
             <dt class="col-lg-3">Name:</dt>
             <dd class="col-lg-9">{{currentCompany.name}}</dd>
             <dt class="col-lg-3">Projects:</dt>
-            <dd class="col-lg-9">{{currentCompany.projectList}}</dd>
+            <dd class="col-lg-9">
+              <ul *ngFor="let project of projectsNames">
+                <li>{{project}}</li>
+              </ul>
+            </dd>
             <dt class="col-lg-3">Users:</dt>
-            <dd class="col-lg-9">{{currentCompany.userList}}</dd>
+            <dd class="col-lg-9">
+              <ul *ngFor="let user of usersInfo" >
+                <li>
+                  {{user}}
+                </li>
+              </ul>
+            </dd>
           </div>
         </div>
       </div> <!--  End of Company Details Automatically  -->

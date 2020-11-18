@@ -14,7 +14,8 @@
           <div class="input-group-append">
             <button class="btn btn-outline-secondary"
                     type="button"
-                    (click)="retrieveCompanies()"> Search</button>
+                    (click)="retrieveCompanies()"> Search
+            </button>
           </div>
         </div>
       </div>
@@ -75,14 +76,26 @@
             <dt class="col-lg-3">Name:</dt>
             <dd class="col-lg-9">{{companyAutomatically.name}}</dd>
             <dt class="col-lg-3">Projects:</dt>
-            <dd class="col-lg-9">{{companyAutomatically.projectList}}</dd>
+            <dd class="col-lg-9">
+              <ul *ngFor="let project of projectsNames">
+                <li>{{project}}</li>
+              </ul>
+            </dd>
             <dt class="col-lg-3">Users:</dt>
-            <dd class="col-lg-9">{{companyAutomatically.userList}}</dd>
+            <dd class="col-lg-9">
+              <ul *ngFor="let user of usersInfo" >
+                <li>
+                  {{user}}
+                </li>
+              </ul>
+            </dd>
           </div>
         </div>
       </div> <!--  End of Company Details Automatically  -->
       <br>
-      <button class="btn btn-outline-warning" routerLink="/company-edit/{{companyAutomatically.id}}">Edit company</button> |
+      <button class="btn btn-outline-warning" routerLink="/company-edit/{{companyAutomatically.id}}">Edit company
+      </button>
+      |
       <button class="btn btn-outline-danger" (click)="deleteCompany(companyAutomatically.id)">Delete company</button>
     </div>
 
@@ -103,7 +116,8 @@
         </div>
       </div> <!--  End of Company Details Automatically  -->
       <br>
-      <button class="btn btn-outline-warning" routerLink="/company-edit/{{currentCompany.id}}">Edit company</button> |
+      <button class="btn btn-outline-warning" routerLink="/company-edit/{{currentCompany.id}}">Edit company</button>
+      |
       <button class="btn btn-outline-danger" (click)="deleteCompany(currentCompany.id)">Delete company</button>
     </div>
 

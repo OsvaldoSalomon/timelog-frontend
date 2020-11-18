@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Company } from "../../../models/company.model";
 import { CompanyService } from "../../../services/company.service";
+import { Company } from "../../../models/company.model";
+import { ProjectService } from "../../../services/project.service";
+import { UserService } from "../../../services/user.service";
 
 @Component({
   selector : 'app-company',
@@ -14,6 +16,13 @@ export class CompanyComponent implements OnInit {
   public userList;
   public projectList;
   public companyAutomatically;
+  public projectsIds = [];
+  public usersIds = [];
+  public projectsNames = [];
+  public usersInfo = [];
+
+  public projectDetails;
+  public userDetails;
   totalElements: number = 0;
   currentCompany = null;
   currentIndex = -1;
@@ -24,7 +33,10 @@ export class CompanyComponent implements OnInit {
   pageSize = 3;
   pageSizes = [3, 6, 9];
 
-  constructor(private companyService: CompanyService) {
+  constructor(
+    private companyService: CompanyService,
+    private projectService: ProjectService,
+    private userService: UserService) {
   }
 
   ngOnInit() {
@@ -88,10 +100,40 @@ export class CompanyComponent implements OnInit {
     this.companyService.getCompanyAutomatically().subscribe(
       data => {
         this.companyAutomatically = data;
-        console.log('Auto company' + data);
+        this.projectsIds = data.projectList;
+        this.usersIds = data.userList;
+        for (let num of this.projectsIds) {
+          this.getProject(num);
+        }
+        for (let us of this.usersIds) {
+          this.getUser(us);
+        }
       },
       err => console.log(err),
       () => console.log('Auto company loaded')
+    );
+  }
+
+  getProject(id:string) {
+    this.projectService.getProject(id).subscribe(
+      data => {
+        this.projectDetails = data;
+        this.projectsNames.push(data.name);
+      },
+      err => console.error(err),
+      () => console.log('project loaded')
+    );
+  }
+
+  getUser(id:string) {
+    this.userService.getUser(id).subscribe(
+      data => {
+        this.userDetails = data;
+        this.usersInfo.push(data.firstName + ' ' + data.lastName);
+        console.log(this.usersInfo);
+      },
+      err => console.error(err),
+      () => console.log('user loaded')
     );
   }
 
