@@ -3,6 +3,8 @@ import { CompanyService } from "../../services/company.service";
 import { Company } from "../../models/company.model";
 import { ProjectService } from "../../services/project.service";
 import { UserService } from "../../services/user.service";
+import { Project } from "../../models/project.model";
+import { User } from "../../models/user.model";
 
 @Component({
   selector : 'app-testing',
@@ -42,6 +44,8 @@ export class TestingComponent implements OnInit {
 
   ngOnInit() {
     this.companyAutomatically = new Company("", "", [], []);
+    this.projectDetails = new Project("","", "", []);
+    this.userDetails = new User("", "", "", "", "");
     this.retrieveCompanies()
     this.getCompanyAutomatically();
   }
@@ -95,20 +99,21 @@ export class TestingComponent implements OnInit {
   setActiveCompany(company, index) {
     this.currentCompany = company;
     this.currentIndex = index;
+    console.log(this.currentCompany);
+    console.log(this.currentCompany.userList);
+    for (let num of this.currentCompany.projectList) {
+      this.getProject(num);
+    }
+    for (let us of this.currentCompany.userList) {
+      this.getUser(us);
+    }
+    this.usersInfo = [];
   }
 
   getCompanyAutomatically() {
     this.companyService.getCompanyAutomatically().subscribe(
       data => {
         this.companyAutomatically = data;
-        this.projectsIds = data.projectList;
-        this.usersIds = data.userList;
-        for (let num of this.projectsIds) {
-          this.getProject(num);
-        }
-        for (let us of this.usersIds) {
-          this.getUser(us);
-        }
       },
       err => console.log(err),
       () => console.log('Auto company loaded')
@@ -142,6 +147,7 @@ export class TestingComponent implements OnInit {
     this.companyService.deleteCompany(id).subscribe(
       data => {
         this.companyDetails = data;
+        alert("You're about to delete a company");
         this.retrieveCompanies();
         this.currentCompany = null;
       },
@@ -149,4 +155,5 @@ export class TestingComponent implements OnInit {
       () => console.log('company loaded'),
     );
   }
+
 }
