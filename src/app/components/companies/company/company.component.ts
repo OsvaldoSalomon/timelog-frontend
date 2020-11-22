@@ -18,8 +18,6 @@ export class CompanyComponent implements OnInit {
   public userList;
   public projectList;
   public companyAutomatically;
-  public projectsIds = [];
-  public usersIds = [];
   public projectsNames = [];
   public usersInfo = [];
 
@@ -98,8 +96,6 @@ export class CompanyComponent implements OnInit {
   setActiveCompany(company, index) {
     this.currentCompany = company;
     this.currentIndex = index;
-    console.log(this.currentCompany);
-    console.log(this.currentCompany.userList);
     for (let num of this.currentCompany.projectList) {
       this.getProject(num);
     }
@@ -144,7 +140,6 @@ export class CompanyComponent implements OnInit {
       data => {
         this.userDetails = data;
         this.usersInfo.push(data.firstName + ' ' + data.lastName);
-        console.log(this.usersInfo);
       },
       err => console.error(err),
       () => console.log('user loaded')

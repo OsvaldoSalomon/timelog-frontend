@@ -4,7 +4,6 @@ import { Company } from "../../models/company.model";
 import { ProjectService } from "../../services/project.service";
 import { UserService } from "../../services/user.service";
 import { Project } from "../../models/project.model";
-import { User } from "../../models/user.model";
 
 @Component({
   selector : 'app-testing',
@@ -14,39 +13,34 @@ import { User } from "../../models/user.model";
 export class TestingComponent implements OnInit {
 
   public companyList;
-  public companyDetails;
-  public userList;
   public projectList;
-  public companyAutomatically;
-  public projectsIds = [];
-  public usersIds = [];
-  public projectsNames = [];
-  public usersInfo = [];
-
+  public projectAutomatically;
   public projectDetails;
+  public companyDetails;
   public userDetails;
-  totalElements: number = 0;
-  currentCompany = null;
-  currentIndex = -1;
-  name = '';
+  usersInfo = [];
 
+  totalElements: number = 0;
+  currentProject: any;
+  currentIndex = -1;
+
+  name = '';
   page = 1;
   count = 0;
   pageSize = 3;
   pageSizes = [3, 6, 9];
 
   constructor(
-    private companyService: CompanyService,
     private projectService: ProjectService,
+    private companyService: CompanyService,
     private userService: UserService) {
   }
 
   ngOnInit() {
-    this.companyAutomatically = new Company("", "", [], []);
-    this.projectDetails = new Project("","", "", []);
-    this.userDetails = new User("", "", "", "", "");
-    this.retrieveCompanies()
-    this.getCompanyAutomatically();
+    this.projectAutomatically = new Project("", "", "", []);
+    this.companyDetails = new Company('', '', [], []);
+    this.retrieveProjects();
+    this.getProjectAutomatically();
   }
 
   getRequestParams(searchName, page, pageSize) {
@@ -68,15 +62,15 @@ export class TestingComponent implements OnInit {
     return params;
   }
 
-  retrieveCompanies() {
+  retrieveProjects() {
     const params = this.getRequestParams(this.name, this.page, this.pageSize);
 
-    this.companyService.getAllCompaniesPagination(params)
+    this.projectService.getAllProjectsPagination(params)
       .subscribe(
         response => {
-          const { companies, totalCompanies } = response;
-          this.companyList = companies;
-          this.count = totalCompanies;
+          const { projects, totalProjects } = response;
+          this.projectList = projects;
+          this.count = totalProjects;
           console.log(response);
         },
         error => {
@@ -86,57 +80,52 @@ export class TestingComponent implements OnInit {
 
   handlePageChange(event) {
     this.page = event;
-    this.retrieveCompanies();
+    this.retrieveProjects();
   }
 
   handlePageSizeChange(event) {
     this.pageSize = event.target.value;
     this.page = 1;
-    this.retrieveCompanies();
+    this.retrieveProjects();
   }
 
-  setActiveCompany(company, index) {
-    this.currentCompany = company;
+  setActiveProject(project, index) {
+    this.currentProject = project;
     this.currentIndex = index;
-    console.log(this.currentCompany);
-    console.log(this.currentCompany.userList);
-    for (let num of this.currentCompany.projectList) {
-      this.getProject(num);
+
+    for (let user of this.currentProject.userList) {
+      this.getUser(user);
     }
-    for (let us of this.currentCompany.userList) {
-      this.getUser(us);
-    }
+
+   this.getCompany(this.currentProject.company);
+
     this.usersInfo = [];
-    this.projectsNames = [];
   }
 
-  getCompanyAutomatically() {
-    this.companyService.getCompanyAutomatically().subscribe(
+  getProjectAutomatically() {
+    this.projectService.getProjectAutomatically().subscribe(
       data => {
-        this.companyAutomatically = data;
-        for (let num of this.companyAutomatically.projectList) {
-          this.getProject(num);
+        this.projectAutomatically = data;
+        for (let user of this.projectAutomatically.userList) {
+          this.getUser(user);
         }
-        for (let us of this.companyAutomatically.userList) {
-          this.getUser(us);
-        }
+        this.getCompany(this.projectAutomatically.company);
+
         this.usersInfo = [];
-        this.projectsNames = [];
-      },
-      err => console.log(err),
-      () => console.log('Auto company loaded')
-    );
-  }
-
-  getProject(id:string) {
-    this.projectService.getProject(id).subscribe(
-      data => {
-        this.projectDetails = data;
-        this.projectsNames.push(data.name);
       },
       err => console.error(err),
-      () => console.log('project loaded')
+      () => console.log('Auto project loaded')
     );
+  }
+
+  getCompany(id: string) {
+    this.companyService.getCompany(id).subscribe(
+      data => {
+        this.companyDetails = data;
+      },
+      error => console.error(error),
+      () => console.log('company loaded')
+    )
   }
 
   getUser(id:string) {
@@ -144,23 +133,21 @@ export class TestingComponent implements OnInit {
       data => {
         this.userDetails = data;
         this.usersInfo.push(data.firstName + ' ' + data.lastName);
-        console.log(this.usersInfo);
       },
       err => console.error(err),
       () => console.log('user loaded')
     );
   }
 
-  deleteCompany(id: string) {
-    this.companyService.deleteCompany(id).subscribe(
+  deleteProject(id: string) {
+    this.projectService.deleteProject(id).subscribe(
       data => {
-        this.companyDetails = data;
-        alert("You're about to delete a company");
-        this.retrieveCompanies();
-        this.currentCompany = null;
+        this.projectDetails = data;
+        this.retrieveProjects();
+        this.currentProject = null;
       },
       err => console.error(err),
-      () => console.log('company loaded'),
+      () => console.log('project loaded'),
     );
   }
 
