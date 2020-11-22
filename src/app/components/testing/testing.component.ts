@@ -13,7 +13,6 @@ import { User } from "../../models/user.model";
 })
 export class TestingComponent implements OnInit {
 
-
   public companyList;
   public companyDetails;
   public userList;
@@ -108,12 +107,21 @@ export class TestingComponent implements OnInit {
       this.getUser(us);
     }
     this.usersInfo = [];
+    this.projectsNames = [];
   }
 
   getCompanyAutomatically() {
     this.companyService.getCompanyAutomatically().subscribe(
       data => {
         this.companyAutomatically = data;
+        for (let num of this.companyAutomatically.projectList) {
+          this.getProject(num);
+        }
+        for (let us of this.companyAutomatically.userList) {
+          this.getUser(us);
+        }
+        this.usersInfo = [];
+        this.projectsNames = [];
       },
       err => console.log(err),
       () => console.log('Auto company loaded')

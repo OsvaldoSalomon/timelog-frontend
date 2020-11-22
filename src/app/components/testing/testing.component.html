@@ -77,8 +77,8 @@
             <dd class="col-lg-9">{{companyAutomatically.name}}</dd>
             <dt class="col-lg-3">Projects:</dt>
             <dd class="col-lg-9">
-              <ul>
-                <li>{{projectDetails.name}}</li>
+              <ul *ngFor="let project of projectsNames">
+                <li>{{project}}</li>
               </ul>
             </dd>
             <dt class="col-lg-3">Users:</dt>
@@ -110,8 +110,8 @@
             <dd class="col-lg-9">{{currentCompany.name}}</dd>
             <dt class="col-lg-3">Projects:</dt>
             <dd class="col-lg-9">
-              <ul>
-                <li>{{projectDetails.name}}</li>
+              <ul *ngFor="let project of projectsNames">
+                <li>{{project}}</li>
               </ul>
             </dd>
             <dt class="col-lg-3">Users:</dt>
