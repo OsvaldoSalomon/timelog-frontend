@@ -97,7 +97,7 @@ export class TestingComponent implements OnInit {
       this.getUser(user);
     }
 
-   this.getCompany(this.currentProject.company);
+    this.getCompany(this.currentProject.company);
 
     this.usersInfo = [];
   }
@@ -128,7 +128,7 @@ export class TestingComponent implements OnInit {
     )
   }
 
-  getUser(id:string) {
+  getUser(id: string) {
     this.userService.getUser(id).subscribe(
       data => {
         this.userDetails = data;

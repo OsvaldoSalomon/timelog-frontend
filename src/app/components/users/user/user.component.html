@@ -4,7 +4,7 @@
   <div class="col-lg">
     <button class="btn btn-primary" routerLink="/users-add">Add a User</button>
     <div class="container mt-lg-5">
-      <div class="row ">
+      <div class="form-group">
         <div class="input-group mb-3">
           <input
             type="text"
@@ -13,8 +13,9 @@
             [(ngModel)]="firstName"/>
           <div class="input-group-append">
             <button class="btn btn-outline-secondary"
-                    type="button"
-                    (click)="retrieveUsers()"> Search</button>
+                    type="submit"
+                    (click)="retrieveUsers()"> Search
+            </button>
           </div>
         </div>
       </div>
@@ -86,7 +87,8 @@
         </div>
       </div> <!--  End of User Details Automatically  -->
       <br>
-      <button class="btn btn-outline-warning" routerLink="/user-edit/{{userAutomatically.id}}">Edit user</button> |
+      <button class="btn btn-outline-warning" routerLink="/user-edit/{{userAutomatically.id}}">Edit user</button>
+      |
       <button class="btn btn-outline-danger" (click)="deleteUser(userAutomatically.id)">Delete user</button>
     </div>
 
@@ -107,7 +109,8 @@
         </div>
       </div>
       <br>
-      <button class="btn btn-outline-warning" routerLink="/user-edit/{{currentUser.id}}">Edit user</button> |
+      <button class="btn btn-outline-warning" routerLink="/user-edit/{{currentUser.id}}">Edit user</button>
+      |
       <button class="btn btn-outline-danger" (click)="deleteUser(currentUser.id)">Delete user</button>
     </div>
 
