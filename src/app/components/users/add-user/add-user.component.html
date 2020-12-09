@@ -73,7 +73,7 @@
             placeholder="Password"
             [class.is-invalid]="password.invalid && (password.dirty || password.touched )">
           <label for="password">Password</label>
-          <div *ngIf="(password.invalid && email.touched) || password.dirty">
+          <div *ngIf="(password.invalid && password.touched) || password.dirty">
             <small *ngIf="password.errors?.required" class="text-danger">Password is required.</small>
             <small *ngIf="lastName.errors?.minlength" class="text-danger">Password must be at least 5 characters long.</small>
           </div>

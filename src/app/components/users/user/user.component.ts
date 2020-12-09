@@ -18,8 +18,7 @@ export class UserComponent implements OnInit {
   totalElements: number = 0;
   currentUser = null;
   currentIndex = -1;
-  firstName = '';
-  lastName = '';
+  searchText = '';
 
   page = 1;
   count = 0;
@@ -35,12 +34,12 @@ export class UserComponent implements OnInit {
     this.getUserAutomatically();
   }
 
-  getRequestParams(searchFirstName, page, pageSize) {
+  getRequestParams(searchText, page, pageSize) {
     // tslint:disable-next-line:prefer-const
     let params = {};
 
-    if (searchFirstName) {
-      params[ `firstName` ] = searchFirstName;
+    if (searchText) {
+      params[`searchText`] = searchText;
     }
 
     if (page) {
@@ -55,7 +54,7 @@ export class UserComponent implements OnInit {
   }
 
   retrieveUsers() {
-    const params = this.getRequestParams(this.firstName, this.page, this.pageSize);
+    const params = this.getRequestParams(this.searchText, this.page, this.pageSize);
 
     this.userService.getUsersPagination(params)
       .subscribe(
@@ -106,7 +105,7 @@ export class UserComponent implements OnInit {
     );
   }
 
-  deleteUser(id:string) {
+  deleteUser(id: string) {
     this.userService.deleteUser(id).subscribe(
       data => {
         this.userDetails = data;
