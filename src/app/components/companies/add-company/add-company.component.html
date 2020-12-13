@@ -15,11 +15,15 @@
             required
             minlength="4"
             formControlName="name"
+            [class.is-valid]="name.valid"
             [class.is-invalid]="name.invalid && (name.dirty || name.touched )">
           <label for="company">Company name</label>
           <div *ngIf="(name.invalid && name.touched) || name.dirty">
             <small *ngIf="name.errors?.required" class="text-danger">Name is required.</small>
             <small *ngIf="name.errors?.minlength" class="text-danger">Name must be at least 4 characters long.</small>
+          </div>
+          <div *ngIf="name.valid">
+            <small *ngIf="name.valid" class="text-success">Looks good!</small>
           </div>
         </div>
       </div>
@@ -30,6 +34,7 @@
               class="custom-select"
               required
               formControlName="userList"
+              [class.is-valid]="userList.valid"
               [class.is-invalid]="userList.invalid && (userList.dirty || userList.touched)"
               multiple>
               <option *ngFor="let m of usersList" [ngValue]="m.id">
@@ -38,6 +43,9 @@
             </select>
             <div *ngIf="(userList.invalid && userList.touched) || userList.dirty">
               <small *ngIf="userList.errors?.required" class="text-danger">User list is required.</small>
+            </div>
+            <div *ngIf="userList.valid">
+              <small *ngIf="userList.valid" class="text-success">Looks good!</small>
             </div>
           </label>
         </div>

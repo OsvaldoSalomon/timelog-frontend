@@ -17,11 +17,15 @@
             required
             minlength="2"
             placeholder="First name"
+            [class.is-valid]="firstName.valid"
             [class.is-invalid]="firstName.invalid && (firstName.dirty || firstName.touched )">
           <label for="firstName">First name</label>
           <div *ngIf="(firstName.invalid && firstName.touched) || firstName.dirty">
             <small *ngIf="firstName.errors?.required" class="text-danger">First name is required.</small>
             <small *ngIf="firstName.errors?.minlength" class="text-danger">First name must be at least 2 characters long.</small>
+          </div>
+          <div *ngIf="firstName.valid">
+            <small *ngIf="firstName.valid" class="text-success">Looks good!</small>
           </div>
         </div>
       </div>
@@ -35,11 +39,15 @@
             required
             minlength="2"
             placeholder="Last name"
+            [class.is-valid]="lastName.valid"
             [class.is-invalid]="lastName.invalid && (lastName.dirty || lastName.touched )">
           <label for="lastName">Last name</label>
           <div *ngIf="(lastName.invalid && lastName.touched) || lastName.dirty">
             <small *ngIf="lastName.errors?.required" class="text-danger">Last name is required.</small>
             <small *ngIf="lastName.errors?.minlength" class="text-danger">Last name must be at least 2 characters long.</small>
+          </div>
+          <div *ngIf="lastName.valid">
+            <small *ngIf="lastName.valid" class="text-success">Looks good!</small>
           </div>
         </div>
       </div>
@@ -54,11 +62,15 @@
             formControlName="email"
             required
             placeholder="Email"
+            [class.is-valid]="email.valid"
             [class.is-invalid]="email.invalid && (email.dirty || email.touched )">
           <label for="email">Email</label>
           <div *ngIf="(email.invalid && email.touched) || email.dirty">
             <small *ngIf="email.errors?.required" class="text-danger">Email is required.</small>
             <small *ngIf="email.errors?.email" class="text-danger">Email is not valid.</small>
+          </div>
+          <div *ngIf="email.valid">
+            <small *ngIf="email.valid" class="text-success">Looks good!</small>
           </div>
         </div>
       </div>
@@ -71,11 +83,15 @@
             formControlName="password"
             required
             placeholder="Password"
+            [class.is-valid]="password.valid"
             [class.is-invalid]="password.invalid && (password.dirty || password.touched )">
           <label for="password">Password</label>
           <div *ngIf="(password.invalid && password.touched) || password.dirty">
             <small *ngIf="password.errors?.required" class="text-danger">Password is required.</small>
-            <small *ngIf="lastName.errors?.minlength" class="text-danger">Password must be at least 5 characters long.</small>
+            <small *ngIf="password.errors?.minlength" class="text-danger">Password must be at least 5 characters long.</small>
+          </div>
+          <div *ngIf="password.valid">
+            <small *ngIf="password.valid" class="text-success">Looks good!</small>
           </div>
         </div>
       </div>
