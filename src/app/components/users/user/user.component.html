@@ -4,23 +4,24 @@
   <div class="col-lg">
     <button class="btn btn-primary" routerLink="/users-add">Add a User</button>
     <div class="container mt-lg-5">
-      <form class="form-inline">
-        <div class="form-group">
-          <div class="input-group mb-3">
-            <input
-              type="text"
-              class="form-control"
-              placeholder="Search by first name, or last name"
-              [(ngModel)]="searchText"/>
-            <div class="input-group-append">
-              <button class="btn btn-outline-secondary"
-                      type="submit"
-                      (click)="retrieveUsers()"> Search
-              </button>
-            </div>
+      <div *ngIf="isClicked">
+        <button class="btn btn-outline-primary mb-3" (click)="disappearButton()">Go back to list</button>
+      </div>
+      <div class="form-group">
+        <div class="input-group mb-3">
+          <input
+            type="text"
+            class="form-control"
+            placeholder="Search by first name, or last name"
+            [(ngModel)]="searchText"/>
+          <div class="input-group-append">
+            <button class="btn btn-outline-secondary"
+                    type="submit"
+                    (click)="showButton()"> Search
+            </button>
           </div>
         </div>
-      </form>
+      </div>
       <table class="table table-bordered table-hover ">
         <thead class="thead-light">
         <tr>

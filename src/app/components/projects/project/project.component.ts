@@ -23,8 +23,9 @@ export class ProjectComponent implements OnInit {
   totalElements: number = 0;
   currentProject: any;
   currentIndex = -1;
+  isClicked = false;
 
-  name = '';
+  searchText = '';
   page = 1;
   count = 0;
   pageSize = 3;
@@ -63,7 +64,7 @@ export class ProjectComponent implements OnInit {
   }
 
   retrieveProjects() {
-    const params = this.getRequestParams(this.name, this.page, this.pageSize);
+    const params = this.getRequestParams(this.searchText, this.page, this.pageSize);
 
     this.projectService.getAllProjectsPagination(params)
       .subscribe(
@@ -75,8 +76,21 @@ export class ProjectComponent implements OnInit {
         },
         error => {
           console.log(error);
-        });
+        },
+        () => this.searchText = ''
+      );
   }
+
+  showButton() {
+    this.retrieveProjects();
+    this.isClicked = true;
+  }
+
+  disappearButton() {
+    this.retrieveProjects()
+    this.isClicked = false
+  }
+
 
   handlePageChange(event) {
     this.page = event;
@@ -128,7 +142,7 @@ export class ProjectComponent implements OnInit {
     )
   }
 
-  getUser(id:string) {
+  getUser(id: string) {
     this.userService.getUser(id).subscribe(
       data => {
         this.userDetails = data;

@@ -14,6 +14,7 @@ export class UserComponent implements OnInit {
   public projectList;
   public userAutomatically;
   public userDetails;
+  isClicked = false;
 
   totalElements: number = 0;
   currentUser = null;
@@ -54,7 +55,7 @@ export class UserComponent implements OnInit {
   }
 
   retrieveUsers() {
-    const params = this.getRequestParams(this.searchText, this.page, this.pageSize);
+    let params = this.getRequestParams(this.searchText, this.page, this.pageSize);
 
     this.userService.getUsersPagination(params)
       .subscribe(
@@ -66,7 +67,19 @@ export class UserComponent implements OnInit {
         },
         error => {
           console.log(error);
-        });
+        },
+        () => this.searchText = ''
+      );
+  }
+
+  showButton() {
+    this.retrieveUsers();
+    this.isClicked = true;
+  }
+
+  disappearButton() {
+    this.retrieveUsers()
+    this.isClicked = false
   }
 
   handlePageChange(event) {

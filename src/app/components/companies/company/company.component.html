@@ -4,19 +4,20 @@
   <div class="col-lg mr-5">
     <button class="btn btn-primary" routerLink="/companies-add">Add a company</button>
     <div class="container mt-lg-5">
-      <div class="form-group">
-        <div class="input-group mb-3">
-          <input
-            type="text"
-            class="form-control"
-            placeholder="Search by name"
-            [(ngModel)]="name"/>
-          <div class="input-group-append">
-            <button class="btn btn-outline-secondary"
-                    type="submit"
-                    (click)="retrieveCompanies()"> Search
-            </button>
-          </div>
+      <div *ngIf="isClicked">
+        <button class="btn btn-outline-primary mb-3" (click)="disappearButton()">Go back to list</button>
+      </div>
+      <div class="input-group mb-3">
+        <input
+          type="text"
+          class="form-control"
+          placeholder="Search by name"
+          [(ngModel)]="searchText"/>
+        <div class="input-group-append">
+          <button class="btn btn-outline-secondary"
+                  type="submit"
+                  (click)="showButton()"> Search
+          </button>
         </div>
       </div>
       <table class="table table-bordered table-hover">

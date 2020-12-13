@@ -26,7 +26,8 @@ export class CompanyComponent implements OnInit {
   totalElements: number = 0;
   currentCompany = null;
   currentIndex = -1;
-  name = '';
+  searchText = '';
+  isClicked = false;
 
   page = 1;
   count = 0;
@@ -41,7 +42,7 @@ export class CompanyComponent implements OnInit {
 
   ngOnInit() {
     this.companyAutomatically = new Company("", "", [], []);
-    this.projectDetails = new Project("","", "", []);
+    this.projectDetails = new Project("", "", "", []);
     this.userDetails = new User("", "", "", "", "");
     this.retrieveCompanies()
     this.getCompanyAutomatically();
@@ -67,7 +68,7 @@ export class CompanyComponent implements OnInit {
   }
 
   retrieveCompanies() {
-    const params = this.getRequestParams(this.name, this.page, this.pageSize);
+    const params = this.getRequestParams(this.searchText, this.page, this.pageSize);
 
     this.companyService.getAllCompaniesPagination(params)
       .subscribe(
@@ -79,7 +80,19 @@ export class CompanyComponent implements OnInit {
         },
         error => {
           console.log(error);
-        });
+        },
+        () => this.searchText = ''
+      );
+  }
+
+  showButton() {
+    this.retrieveCompanies();
+    this.isClicked = true;
+  }
+
+  disappearButton() {
+    this.retrieveCompanies()
+    this.isClicked = false
   }
 
   handlePageChange(event) {
@@ -124,7 +137,7 @@ export class CompanyComponent implements OnInit {
     );
   }
 
-  getProject(id:string) {
+  getProject(id: string) {
     this.projectService.getProject(id).subscribe(
       data => {
         this.projectDetails = data;
@@ -135,7 +148,7 @@ export class CompanyComponent implements OnInit {
     );
   }
 
-  getUser(id:string) {
+  getUser(id: string) {
     this.userService.getUser(id).subscribe(
       data => {
         this.userDetails = data;
@@ -157,4 +170,5 @@ export class CompanyComponent implements OnInit {
       err => console.error(err),
       () => console.log('company loaded'),
     );
-  }}
+  }
+}
