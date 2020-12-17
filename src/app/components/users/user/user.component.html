@@ -12,7 +12,7 @@
           <input
             type="text"
             class="form-control"
-            placeholder="Search by first name, or last name"
+            placeholder="Search by first name, last name, or username"
             [(ngModel)]="searchText"/>
           <div class="input-group-append">
             <button class="btn btn-outline-secondary"
@@ -84,6 +84,8 @@
             <dd class="col-sm-7">{{userAutomatically.firstName}}</dd>
             <dt class="col-sm-5">Last name:</dt>
             <dd class="col-sm-7">{{userAutomatically.lastName}}</dd>
+            <dt class="col-sm-5">Username</dt>
+            <dd class="col-sm-7">{{userAutomatically.username}}</dd>
             <dt class="col-sm-5">E-mail:</dt>
             <dd class="col-sm-7">{{userAutomatically.email}}</dd>
           </div>
@@ -106,6 +108,8 @@
             <dd class="col-sm-7">{{currentUser.firstName}}</dd>
             <dt class="col-sm-5">Last name:</dt>
             <dd class="col-sm-7">{{currentUser.lastName}}</dd>
+            <dt class="col-sm-5">Username</dt>
+            <dd class="col-sm-7">{{currentUser.username}}</dd>
             <dt class="col-sm-5">E-mail:</dt>
             <dd class="col-sm-7">{{currentUser.email}}</dd>
           </div>
