@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { FormControl, FormGroup, Validators } from '@angular/forms';
 import { UserService } from '../../../services/user.service';
-import { throwError } from 'rxjs';
 import { ActivatedRoute, Router } from '@angular/router';
 import { User } from "../../../models/user.model";
 
@@ -26,6 +25,7 @@ export class UserEditComponent implements OnInit {
     this.updatedUser = new FormGroup({
       'firstName' : new FormControl('', [Validators.required, Validators.minLength(2)]),
       'lastName' : new FormControl('', [Validators.required, Validators.minLength(2)]),
+      'username' : new FormControl('', [Validators.required, Validators.minLength(2)]),
       'email' : new FormControl('', [Validators.required, Validators.email]),
       'password' : new FormControl('', [Validators.required, Validators.minLength(5)])
     });
@@ -43,20 +43,23 @@ export class UserEditComponent implements OnInit {
     return this.updatedUser.get('email');
   }
 
+  get username() {
+    return this.updatedUser.get('username');
+  }
+
   get password() {
     return this.updatedUser.get('password');
   }
 
   editUser(id:string) {
-    if (this.updatedUser.valid) {
+    if (!this.updatedUser.valid) {
       this.invalidForm = true;
       console.log("Please fill out the form before submitting!");
     } else {
-
       this.userService.updateUser(id, this.updatedUser.value).subscribe(
         data => {
           this.updatedUser.reset();
-          console.log("User has been has been edited");
+          console.log("User has been edited");
           return true;
         },
         error => {

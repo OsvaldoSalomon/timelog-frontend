@@ -19,13 +19,13 @@ import { ProjectEditComponent } from './components/projects/project-edit/project
 import { UserEditComponent } from './components/users/user-edit/user-edit.component';
 import { LoginComponent } from './components/login/login.component';
 import { ErrorComponent } from './components/error/error.component';
-import { LogoutComponent } from './components/logout/logout.component';
 import { Ng2SearchPipeModule } from "ng2-search-filter";
 import { TasksComponent } from './components/tasks/tasks.component';
 import { NgxPaginationModule } from "ngx-pagination";
 import { TestingComponent } from './components/testing/testing.component';
 import { TableComponent } from './components/table/table.component';
 import { FilterPipe } from "./pipes/filter.pipe";
+import { RegisterComponent } from './components/register/register.component';
 
 @NgModule({
   declarations: [
@@ -43,11 +43,11 @@ import { FilterPipe } from "./pipes/filter.pipe";
     UserEditComponent,
     LoginComponent,
     ErrorComponent,
-    LogoutComponent,
     TasksComponent,
     TestingComponent,
     TableComponent,
-    FilterPipe
+    FilterPipe,
+    RegisterComponent
   ],
   imports: [
     BrowserModule,

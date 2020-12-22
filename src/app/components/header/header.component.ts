@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LoginService } from "../../services/login.service";
-import { ActivatedRoute } from "@angular/router";
+import { TokenStorageService } from "../../services/token-storage.service";
 
 @Component({
   selector : 'app-header',
@@ -9,14 +8,32 @@ import { ActivatedRoute } from "@angular/router";
 })
 export class HeaderComponent implements OnInit {
 
-  name = '';
+  private roles: string[];
+  isLoggedIn = false;
+  showAdminBoard = false;
+  showModeratorBoard = false;
+  username: string;
 
-  constructor(public loginService: LoginService) {
+  constructor(private tokenStorageService: TokenStorageService) { }
+
+  ngOnInit(): void {
+    this.isLoggedIn = !!this.tokenStorageService.getToken();
+
+
+    if (this.isLoggedIn) {
+      const user = this.tokenStorageService.getUser();
+      this.roles = user.roles;
+
+      this.showAdminBoard = this.roles.includes('ROLE_ADMIN');
+      this.showModeratorBoard = this.roles.includes('ROLE_MODERATOR');
+
+      this.username = user.username;
+    }
   }
 
-  ngOnInit() {
-    this.name = sessionStorage.getItem('authenticateUser');
+  logout(): void {
+    this.tokenStorageService.signOut();
+    window.location.reload();
   }
-
 
 }

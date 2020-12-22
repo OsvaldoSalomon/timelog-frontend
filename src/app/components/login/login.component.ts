@@ -1,71 +1,47 @@
 import { Component } from '@angular/core';
-import { LoginService } from '../../services/login.service';
+import { TokenStorageService } from "../../services/token-storage.service";
+import { AuthService } from "../../services/auth.service";
 import { Router } from "@angular/router";
-import { UserService } from "../../services/user.service";
 
 @Component({
   selector : 'app-login',
   templateUrl : './login.component.html',
-  styleUrls : ['./login.component.css'],
-  providers : [LoginService]
+  styleUrls : ['./login.component.css']
 })
 export class LoginComponent {
 
-  username = 'Osvaldo';
-  password = '';
+  form: any = {};
+  isLoggedIn = false;
+  isLoginFailed = false;
+  roles: string[] = [];
   errorMessage = 'Invalid Credentials';
-  invalidLogin = false;
 
-  page = 1;
-  count = 0;
-  pageSize = 3;
-  searchText = '';
+  constructor(private authService: AuthService, private tokenStorage: TokenStorageService, private router: Router) { }
 
-  constructor(private loginService: LoginService, private router: Router, private userService: UserService) {
+  ngOnInit(): void {
+    if (this.tokenStorage.getToken()) {
+      this.isLoggedIn = true;
+      this.roles = this.tokenStorage.getUser().roles;
+    }
   }
 
   handleLogin() {
-    if (this.loginService.authenticate(this.username, this.password)) {
-      this.router.navigate(['home', this.username])
-      this.invalidLogin = false
-    } else {
-      this.invalidLogin = true
-    }
+    this.authService.login(this.form).subscribe(
+      data => {
+        this.tokenStorage.saveToken(data.accessToken);
+        this.tokenStorage.saveUser(data);
+
+        this.isLoginFailed = false;
+        this.isLoggedIn = true;
+        this.roles = this.tokenStorage.getUser().roles;
+        this.router.navigate(['home', this.form.username])
+      },
+      err => {
+        this.errorMessage = err.error.message;
+        this.isLoginFailed = true;
+      }
+    );
   }
 
-  getRequestParams(searchText, page, pageSize) {
-    // tslint:disable-next-line:prefer-const
-    let params = {};
-
-    if (searchText) {
-      params[`searchText`] = searchText;
-    }
-
-    if (page) {
-      params[`page`] = page - 1;
-    }
-
-    if (pageSize) {
-      params[`size`] = pageSize;
-    }
-
-    return params;
-  }
-
-  retrieveUsers() {
-    const params = this.getRequestParams(this.searchText, this.page, this.pageSize);
-
-    this.userService.getUsersPagination(params)
-      .subscribe(
-        response => {
-          const { users, totalUsers } = response;
-          this.username = users;
-          this.count = totalUsers;
-          console.log(response);
-        },
-        error => {
-          console.log(error);
-        });
-  }
 
 }

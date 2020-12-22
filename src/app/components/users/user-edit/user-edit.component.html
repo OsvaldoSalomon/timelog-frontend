@@ -86,6 +86,28 @@
         </div>
       </div>
     </div>
+    <div class="form-row">
+      <div class="col-lg-4">
+        <div class="form-label-group">
+          <input
+            class="form-control"
+            type="text"
+            id="username"
+            formControlName="username"
+            required
+            minlength="2"
+            [(ngModel)]="userDetails.username"
+            placeholder="Username"
+            [class.is-invalid]="username.invalid && (username.dirty || username.touched )">
+          <label for="username">Username</label>
+          <div *ngIf="(username.invalid && username.touched) || username.dirty">
+            <small *ngIf="username.errors?.required" class="text-danger">Username is required.</small>
+            <small *ngIf="username.errors?.minlength" class="text-danger">Username must be at least 2 characters
+              long.</small>
+          </div>
+        </div>
+      </div>
+    </div>
     <button type="submit" class="btn btn-success">Save</button> |
     <button type="submit" class="btn btn-danger" (click)="deleteUser(userDetails.id)">Delete User</button>
   </form>

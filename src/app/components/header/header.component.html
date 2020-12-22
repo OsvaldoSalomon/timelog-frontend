@@ -9,11 +9,22 @@
       <path fill-rule="evenodd"
             d="M7.5 3a.5.5 0 0 1 .5.5v5.21l3.248 1.856a.5.5 0 0 1-.496.868l-3.5-2A.5.5 0 0 1 7 9V3.5a.5.5 0 0 1 .5-.5z"/>
     </svg>
-    Timelog Application</a>
-  <div *ngIf="loginService.isUserLoggedIn()" class="btn-group dropleft justify-content-end">
+    Timelog App</a>
+
+  <div class="nav nav-pills" *ngIf="!tokenStorageService.isUserLoggedIn()" role="group">
+    <li class="nav-item">
+      <a type="button" routerLink="register" class="nav-link active mr-3">Sign Up</a>
+    </li>
+    <li class="nav-item">
+      <a type="button" routerLink="login" class="nav-link active mr-5">Login</a>
+    </li>
+  </div>
+
+
+  <div *ngIf="tokenStorageService.isUserLoggedIn()" class="btn-group dropleft justify-content-end">
     <button type="button" class="btn btn-outline-secondary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true"
             aria-expanded="false">
-      {{name}}
+      Name Goes Here
     </button>
     <div class="dropdown-menu">
       <!-- Dropdown menu links -->
@@ -34,7 +45,7 @@
           <path fill-rule="evenodd" d="M7.375 8L4.602 4.302l.8-.6L8.25 7.5h4.748v1H8.25L5.4 12.298l-.8-.6L7.376 8z"/>
         </svg>
         Settings</a>
-      <a routerLink="/logout" class="dropdown-item">
+      <a (click)="logout()" class="dropdown-item">
         <span data-feather="log-out"></span>
         Logout</a>
     </div>
@@ -43,7 +54,7 @@
 
 <div class="container-fluid">
   <div class="row">
-    <nav *ngIf="loginService.isUserLoggedIn()" id="sidebarMenu"
+    <nav *ngIf="tokenStorageService.isUserLoggedIn()" id="sidebarMenu"
          class="col-md-3 col-lg-2 d-md-block bg-light sidebar collapse">
       <div class="sidebar-sticky pt-3">
         <ul class="nav flex-column">
