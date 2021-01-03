@@ -26,6 +26,7 @@ import { TestingComponent } from './components/testing/testing.component';
 import { TableComponent } from './components/table/table.component';
 import { FilterPipe } from "./pipes/filter.pipe";
 import { RegisterComponent } from './components/register/register.component';
+import { ProfileComponent } from './components/profile/profile.component';
 
 @NgModule({
   declarations: [
@@ -47,7 +48,8 @@ import { RegisterComponent } from './components/register/register.component';
     TestingComponent,
     TableComponent,
     FilterPipe,
-    RegisterComponent
+    RegisterComponent,
+    ProfileComponent
   ],
   imports: [
     BrowserModule,
